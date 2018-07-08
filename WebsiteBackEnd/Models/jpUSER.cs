@@ -24,7 +24,7 @@ namespace WebsiteBackEnd.Models
                 bool isConnArgNull = (conn != null) ? false : true;
                 MySqlConnection connection = (conn != null) ? conn : PrimaryConnection();
                 tryOpenConnection(connection);
-                string sql = "";
+                string sql = "select * from jpUSER";
                 using (MySqlCommand command = new MySqlCommand())
                 {
                     command.Connection = connection;
