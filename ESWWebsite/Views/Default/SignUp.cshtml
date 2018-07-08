@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Sign_Up";
+    Layout = "~/Views/Shared/MyCustomLayout.cshtml";
+}
+
+<!-- ./ header -->
+<main class="container container-palette" style="background: #f8f8f8; padding-top:30px;"> @*page-sign pt-95*@ 
+    <div class="container">
+        <div class="sign-form">
+            <div class="header">
+                <h1 class="title">Sign Up with ESW</h1>
+            </div>
+            <form action="#" class="job-sign-from">
+                <div class="form-group"><input type="text" placeholder="Username" class="form-control" /></div>
+                <div class="form-group"><input type="email" placeholder="Email" class="form-control" /></div>
+                <div class="form-group"><input type="password" placeholder="Password" class="form-control" /></div>
+                <div class="form-group"><input type="password" placeholder="Confirm Password" class="form-control" /></div>
+                <div class="form-group"><input type="text" placeholder="Gender" class="form-control" /></div>
+                <div class="form-group"><input type="number" placeholder="Age" class="form-control" /></div>
+                <div class="form-group"><input type="number" placeholder="Contact Number" class="form-control" /></div>
+                <div class="form-group"><input type="text" placeholder="LinkedIn" class="form-control" /></div>
+
+                <div class="form-group"><input type="button" value="Sign_Up" class="btn btn-custom btn-custom-secondary" onclick="location.href='@Url.Action("Tab_View","Home")'"></div>
+            </form>
+            <div class="footer"> <span>Already have an account?</span><br /> <a href="#" class="sign-from-link">Sign In</a> </div>
+        </div>
+    </div>
+</main>
+
+@section scripts
+{
+    <script type="text/javascript">
+        //if ($("footer").is(":visible"))
+        //$("footer").hide();
+        //else
+        //$("#myFooter").show();
+        //}
+    </script>
+}

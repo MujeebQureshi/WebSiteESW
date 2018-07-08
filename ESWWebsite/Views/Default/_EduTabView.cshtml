@@ -1,0 +1,132 @@
+﻿
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Education Info </h3>
+    </div>
+    <div class="panel-body">
+        <table class=" table table-hover table-responsive-sm" id="MyTable">
+            <thead>
+                <tr style="color:white; background-color:darkturquoise">
+                    <th>Degree Level</th>
+                    <th>Degree Title</th>
+                    <th>Major Subjects</th>
+                    <th>Institute</th>
+                    <th>Completion Year</th>
+                    <th>Result</th>
+                    <th>EDIT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AAC</td>
+                    <td>AUSTRALIAN COMPANY </td>
+                    <td>$1.38</td>
+                    <td>+2.01</td>
+                    <td>-0.36%</td>
+                    <td>99%</td>
+                    <td><button class="btn btn-custom btn-custom-secondary" style="color:white" onclick="SwAlrt_Edu()">Edit</button></td>
+                </tr>
+                <tr>
+
+                    <td>AAD</td>
+                    <td>AUSENCO</td>
+                    <td>$2.38</td>
+                    <td>-0.01</td>
+                    <td>-1.36%</td>
+                    <td>99%</td>
+                    <td><button class="btn btn-custom btn-custom-secondary" style="color:white" onclick="SwAlrt_Edu()">Edit</button></td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+
+        <input type="button" value="+ ADD INFO" class="btn btn-custom btn-custom-secondary" style="color:white;background-color:forestgreen" onclick="SwAlrt_Edu()">
+
+    </div>
+</div>
+
+
+
+<div id="Edu_Info" class="container">
+    <form id="contact" action="" method="post">
+
+        <div class="form-group"><input type="text" placeholder="Degree Title" class="form-control" /></div>
+        <div class="form-group">
+            <select class='form-control' id='id_degreeType'>
+                <option value="" title="Tooltip">Select Your Degree Type</option>
+                <option>jjhbj</option>
+                <option>hvjh</option>
+                <option>hgjbkn</option>
+                <option>kkbbjk</option>
+                <option>kjbjhbj</option>
+            </select>
+        </div>
+
+        <div class='form-group'>
+            <select class='form-control' id='id_degLevel'>
+                <option value="" title="Tooltip">Select Your Degree Level</option>
+                <option>Matriculation/O-Level</option>
+                <option>Intermediate/A-Level</option>
+                <option>Undergraduate</option>
+                <option>Graduate</option>
+                <option>Post Graduate</option>
+                <option>PhD</option>
+            </select>
+        </div>
+
+        <div class="form-group"><input type="text" placeholder="Major Subject" class="form-control" /></div>
+
+        <div class='form-group '>
+            <select class='form-control' id='id_country'>
+                <option value="" title="Tooltip"> Select Country</option>
+                <option>Pakistan</option>
+                <option>United States</option>
+                <option>United Arab Emirates</option>
+                <option>China</option>
+                <option>India</option>
+                <option>United Kingdom</option>
+            </select>
+        </div>
+
+        <div class='form-group'>
+            <select class='form-control' id='id_city'>
+                <option value="" title="Tooltip">Select City</option>
+                <option>Karachi</option>
+                <option>Lahore</option>
+                <option>Multan</option>
+                <option>Faisalabad</option>
+                <option>Islamabad</option>
+            </select>
+        </div>
+
+        <div class="form-group"><input type="text" placeholder="Institute" class="form-control" /></div>
+
+        <div class='form-group '>
+            <select class='form-control' id='id_city'>
+                <option value="" title="Tooltip">Year of Completion</option>
+                <option>2018</option>
+                <option>2017</option>
+                <option>2016</option>
+                <option>2015</option>
+                <option>2014</option>
+                <option>2013 or Before</option>
+            </select>
+        </div>
+
+        <div class='form-group '>
+            <select class='form-control' id='resultIn'>
+                <option value="" title="Tooltip">Result</option>
+                <option>2019</option>
+                <option>2018</option>
+                <option>2017</option>
+                <option>2016</option>
+                <option>2015</option>
+                <option>2014</option>
+                <option>2013 or Before</option>
+            </select>
+        </div>
+    </form>
+</div>

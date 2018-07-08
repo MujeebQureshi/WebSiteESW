@@ -1,0 +1,144 @@
+﻿<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Experience Info </h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-hover  table-responsive-sm" id="MyTable">
+            <thead>
+                <tr style="color:white; background-color:darkturquoise">
+                    <th>Select Country</th>
+                    <th>Select City</th>
+                    <th>Starting Month</th>
+                    <th>Starting Year</th>
+                    <th>Ending Month</th>
+                    <th>Ending Year</th>
+                    <th>EDIT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>AAC</td>
+                    <td>AUSTRALIAN COMPANY </td>
+                    <td>$1.38</td>
+                    <td>+2.01</td>
+                    <td>-0.36%</td>
+                    <td>99%</td>
+                    <td><button class="btn btn-custom btn-custom-secondary" style="color:white" onclick="SwAlrt()">Edit</button></td>
+                </tr>
+                <tr>
+
+                    <td>AAD</td>
+                    <td>AUSENCO</td>
+                    <td>$2.38</td>
+                    <td>-0.01</td>
+                    <td>-1.36%</td>
+                    <td>99%</td>
+                    <td><button class="btn btn-custom btn-custom-secondary" style="color:white" onclick="SwAlrt()">Edit</button></td>
+                </tr>
+
+
+            </tbody>
+        </table>
+
+
+        <input type="button" value="+ ADD INFO" class="btn btn-custom btn-custom-secondary" style="color:white; background-color:forestgreen" onclick="SwAlrt()">
+
+    </div>
+</div>
+
+<div id="Exp_Info" class="container">
+    <form id="contact" action="" method="post">
+
+        <div class="form-group"><input type="text" placeholder="Job Title" class="form-control" /></div>
+
+        <div class="form-group"><input type="text" placeholder="Company" class="form-control" /></div>
+
+        <div class='form-group '>
+            <select class='form-control' id='id_country'>
+                <option value="" title="Tooltip"> Select Country</option>
+                <option>Pakistan</option>
+                <option>United States</option>
+                <option>United Arab Emirates</option>
+                <option>China</option>
+                <option>India</option>
+                <option>United Kingdom</option>
+            </select>
+        </div>
+
+        <div class='form-group'>
+            <select class='form-control' id='id_city'>
+                <option value="" title="Tooltip">Select City</option>
+                <option>Karachi</option>
+                <option>Lahore</option>
+                <option>Multan</option>
+                <option>Faisalabad</option>
+                <option>Islamabad</option>
+            </select>
+        </div>
+
+        <div class='form-group'>
+            <select class='form-control' id='startingMonth'>
+                <option value="" title="Tooltip">Starting Month</option>
+                <option>January</option>
+                <option>Februrary</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+            </select>
+        </div>
+
+        <div class='form-group'>
+            <select class='form-control' id='startingYear'>
+                <option value="" title="Tooltip">Starting Year</option>
+                <option>2017</option>
+                <option>2016</option>
+                <option>2015</option>
+                <option>2014</option>
+                <option>2013</option>
+                <option>or before</option>
+            </select>
+        </div>
+
+
+        <div class='form-group '>
+            <select class='form-control' id='lastMonth'>
+                <option value="" title="Tooltip">Ending Month</option>
+                <option>January</option>
+                <option>Februrary</option>
+                <option>March</option>
+                <option>April</option>
+                <option>May</option>
+                <option>June</option>
+                <option>July</option>
+                <option>August</option>
+                <option>September</option>
+                <option>October</option>
+                <option>November</option>
+                <option>December</option>
+                <option>or before</option>
+            </select>
+        </div>
+
+
+        <div class='form-group '>
+            <select class='form-control' id='endingYear'>
+                <option value="" title="Tooltip">Ending Year</option>
+                <option>till date</option>
+                <option>2018</option>
+                <option>2017</option>
+                <option>2016</option>
+                <option>2015</option>
+                <option>2014</option>
+                <option>2013</option>
+            </select>
+        </div>
+
+    </form>
+</div>

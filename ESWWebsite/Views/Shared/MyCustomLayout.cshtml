@@ -1,0 +1,150 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Executive Search Worldwide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="shortcut icon" href="~/Content/assets/img/aa.png" type="image/png" />
+    <link rel="stylesheet" href='~/Content/assets/cache/css_01_home.min.css' />
+    <link rel="stylesheet" href='~/Content/assets/cache/fontawesome/css/all.css' />
+    <link rel="stylesheet" href='~/Content/assets/cache/css_22_log_in.min.css' />
+
+</head>
+<body>
+    <header>
+        <div class="nav-bar container container-palette">
+            <div class="wide-container">
+                <div class="flex-row">
+                    <div class="grid logo-container">
+                        <div class="logo">
+                            <a href="#">
+                                <b class="text-color-primary" style=" font-size:30px;">ESW</b>
+                                @*<img src="~/Content/assets/img/aa.png" />*@
+                                @*<b style=" font-size:20px;">Executive Search Worldwide</b>*@
+                            </a>
+                        </div>
+                    </div>
+                    <!-- ./ logo -->
+                    <div class="grid nav-menu">
+                        <nav class="navbar navbar-expand-sm navbar-light">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">  <span class="navbar-toggler-icon"></span> </button>
+                            <div class="collapse navbar-collapse default-menu-collapse" id="main-menu">
+                                <button class="navbar-toggler mobile-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">  <i class="icon_close_alt2"></i>  </button>
+                                <ul class="nav navbar-nav collapse navbar-collapse default-menu" id="navbarNavDropdown">
+
+                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Client  </a>
+
+
+                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Outsourcing  </a>
+
+                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Training & Development  </a>
+
+                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+
+                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
+
+                                </ul>
+
+                            </div>
+                        </nav>
+                    </div>
+                    <!-- ./ main menu -->
+                    <div class="grid quick-navigation">  <a onclick="location.href='@Url.Action("LogIn","Default")'" class="btn btn-clear"><i class="icon_profile"></i>Sign In</a> @*<a onclick="location.href='@Url.Action("Admin_Login","Home")'" class="btn btn-custom btn-custom-secondary">Post Jobs</a>*@ </div>
+                    <!-- ./ actions panel -->
+                </div>
+            </div>
+        </div>
+        <!-- ./ navigation bar -->
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <footer class="footer container container-palette" style="padding-top:30px;">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row row-flex">
+                    <div class="col-md-3">
+                        <div class="f_widget widget-about">
+                            <h2 class="title">About ESW</h2>
+                            <!-- ./ widget title -->
+                            <div class="body">Aliquam sed est in lorem luctus hendrit. Nulla in posuere neque. Nam lectus risus, pellentesque at nulla vitae, mauris raesent pulvinar.</div>
+                            <!-- ./ widget body -->
+                        </div>
+                        <!-- ./ widget about -->
+                    </div>
+                    <div class="col-md-3">
+                        <div class="f_widget widget-navigation">
+                            <h2 class="title">For Job Seekers</h2>
+                            <!-- ./ widget title -->
+                            <div class="body">
+                                <ul class="list-f-nav">
+                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Find Jobs</a></li>
+                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Submit Resume</a></li>
+                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Saved Jobs</a></li>
+                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Help</a></li>
+                                </ul>
+                            </div>
+                            <!-- ./ widget body -->
+                        </div>
+                    </div>
+                    <!-- ./ widget navigation -->
+                    <div class="col-md-3">
+                        <div class="f_widget widget-contact">
+                            <h2 class="title">Contact Us</h2>
+                            <!-- ./ widget title -->
+                            <div class="body">  768 5th Ave, New York, NY 10019, USA <br />  +1 212-759-3000<br />  helpme@example.com </div>
+                            <!-- ./ widget body -->
+                        </div>
+                        <!-- ./ widget contact -->
+                    </div>
+                    <div class="col-md-3">
+                        <div class="f_widget widget-subscribe">
+                            <h2 class="title">Newsletter</h2>
+                            <!-- ./ widget title -->
+                            <div class="body">
+                                <form action="#">
+                                    <div class="form-group-subscribe">  <button type="submit" class="btn btn-subscribe btn-custom btn-custom-secondary"><i class="icon_mail_alt"></i></button>  <input name="mail" type="email" class="form-control" placeholder="Enter Your Email" />  </div>
+                                </form>
+                            </div>
+                            <!-- ./ widget body -->
+                        </div>
+                        <!-- ./ widget subscribe -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="flex-row">
+                    <div class="right"><span class="copyright">Copyright © @DateTime.Now.Year - ESW - Executive Search Worldwide</span></div>
+                    <!-- ./ copyright -->
+                    <div class="left">
+                        @*<ul class="list-social">
+                                <li><a href="#"><i class="social_instagram"></i></a></li>
+                                <li><a href="#"><i class="social_twitter"></i></a></li>
+                                <li><a href="#"><i class="social_pinterest"></i></a></li>
+                                <li><a href="#"><i class="social_facebook"></i></a></li>
+                                <li><a href="#"><i class="social_youtube"></i></a></li>
+                                <li><a href="#"><i class="social_rss"></i></a></li>
+                            </ul>*@
+                        <!-- ./ social links -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ./ footer-bottom -->
+    </footer>
+    <!-- ./ footer -->
+    <div class="se-pre-con"></div>
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;libraries=weather,geometry,visualization,places,drawing&amp;key=AIzaSyDdJRYhQrBG1X_ykF6JlhwK1XeNaGRHrCI"></script> <!-- End JS MAP --> <!-- Start custom styles --> <!-- End custom styles -->
+    <script src="~/Content/assets/cache/js_01_home.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,64 @@
+.card:hover{
+
+  background-color: #F3F3F3;
+  
+}
+.c_city.a{
+	color: #7e8890;
+}
+.c_country {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 400;	
+	vertical-align: super;
+}
+.c_city {
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 400;	
+	vertical-align: super;
+}
+.Job_desc {
+   overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  font-size:13px;
+  -webkit-box-orient: vertical;
+}
+
+.card-img-reponsive{
+	text-align: center;
+	width:50px;
+	height:50px; 
+	margin: auto;    
+    display: block;
+	
+	
+}
+.c_name {
+	font-size: 20px;
+	font-weight: 500;
+	color: #3c3c3c;
+}
+
+.c_industry {
+	font-weight: 400;
+	font-size: 12px;
+	letter-spacing: 0.05em;
+	color: #7e8890;
+}
+.Job-title{
+	font-size:22px;
+
+	
+	
+}
+.comma{
+	font-size: 18px;
+	font-weight:600;
+	color: #6495ED;
+
+}
+
+
+
