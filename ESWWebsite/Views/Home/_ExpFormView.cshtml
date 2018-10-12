@@ -1,0 +1,18 @@
+﻿@model WebsiteBackEnd.Models.jpexperience
+@{ 
+    string dtStart = (Model.STARTINGYEAR != null) ? Model.STARTINGYEAR.Value.ToString(Shared.Constants.DATE_RFC_YEAR_MONTH_FORMAT) : "";
+    string dtEnd = (Model.ENDINGYEAR != null) ? Model.ENDINGYEAR.Value.ToString(Shared.Constants.DATE_RFC_YEAR_MONTH_FORMAT) : "";
+}
+<form id="ExpRec" action="#">
+    @*<input type="submit" style="display:none" />*@
+    <div class="form-group"><input id="ORGANIZATIONNAME" name="ORGANIZATIONNAME" value="@Model.ORGANIZATIONNAME" type="text" placeholder="Organization's Name'" class="form-control" required /></div>
+
+    <div class="form-group"><input id="STARTINGYEAR" name="STARTINGYEAR" value="@dtStart" type="month" placeholder="Start Date" class="form-control" required/></div>
+
+    <div class='form-group'><input id="ENDINGYEAR" name="ENDINGYEAR" value="@dtEnd" type="month" placeholder="End Date" class="form-control" /></div>
+
+    <div class='form-group'><input id="DESIGNATION" name="DESIGNATION" value="@Model.DESIGNATION" type="text" placeholder="Designation" class="form-control" required/></div>
+    <input type="hidden" id="EXPID" name="EXPID" value="@Model.EXPID" />
+    <input type="hidden" id="isNewRecord" name="isNewRecord" value="@Model.isNewRecord" />
+</form>
+

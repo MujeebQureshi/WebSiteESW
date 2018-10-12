@@ -1,0 +1,361 @@
+﻿@{
+    Layout = "~/Views/Shared/MyCustomLayout.cshtml";
+    string search = (ViewBag.Search != null) ? (string)ViewBag.Search : "";
+}
+
+<link rel="stylesheet" href="~/Content/assets/cache/cardstyle.css">
+
+<div class="container">
+    <div class="form-group">
+        <label class="control-label text-color-secondary">Search for your desired job</label> 
+        <div class="input-group">
+            <input name="keywords" id="keywords" type="text" value="@search" class="form-control" placeholder="Keywords">
+            <button class="btn btn-info" style="margin-left:10px;" onclick="getPostedJobs();">Search</button>
+        </div>
+    </div>
+</div>
+
+<div id="LoaderDiv" style="text-align:center;padding-top:100px; display:none;">
+    <img src="http://gifimage.net/wp-content/uploads/2017/09/animated-loading-gif-transparent-background-6.gif">
+    <div><h1>Loading...</h1></div>
+</div>
+<div id="filteredJobs">
+    
+</div>
+<!-- Details Modal -->
+<div id="DetailsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Details content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom:0px;">
+                <h3>
+                    Job Details
+                </h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body" id="DetailsModalBody">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        getPostedJobs();
+    })
+
+    //$("#keywords").keyup(function () {
+    //    getPostedJobs();
+    //})
+    $("#keywords").keypress(function (e) {
+        if (e.which == 13) {
+            getPostedJobs();
+        }
+    });
+    function getPostedJobs() {
+        $("#filteredJobs").hide();
+        $("#LoaderDiv").show(100);
+        $("#filteredJobs").html();
+        var Input = $("#keywords").val();
+        console.log(Input);
+        $.get("/Home/JobCards/"+encodeURI(Input), function (data) {
+            $("#LoaderDiv").hide();
+            $("#filteredJobs").html(data);
+            $("#filteredJobs").show(100);
+        });
+    }
+
+    function DetailsFunc(id) {
+        //alert(id);
+        $("#DetailsModalHeader").text(id);
+        $("#DetailsModalBody").load("/Home/JobDetail/" + encodeURI(id), function () {
+            $("#DetailsModal").modal('show');
+        });
+
+    }
+
+    function ApplyJob(id) {
+        swal('Please wait');
+        swal.showLoading();
+        $.get("/Home/validateApplyJob?id=" + encodeURI(id), function (data) {
+            if(data == "@Shared.Constants.MSG_SUCCESS.Text"){
+                swal({
+                    title: 'Input Expected Salary',
+                    input: 'number',
+                    inputAttributes: {
+                        min: '0'
+                    },
+                    inputPlaceholder: 'Enter your expected salary',
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return "Please enter your expected salary. "
+                        }
+                        else {
+                            if (isNaN(parseInt(value))) {
+                                return "Please enter numbers only"
+                            }
+                            if (value < 0) {
+                                return "Please enter valid salary"
+                            }
+                        }
+
+                    }
+                }).then((result) => {
+                    //console.log(result.value);
+                    if (result.value) {
+                        swal('Please wait');
+                        swal.showLoading();
+                        $.get("/Home/ApplyJob?id=" + encodeURI(id) + "&expsal=" + encodeURI(result.value), function (data) {
+                            if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                                swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
+                            }
+                            else {
+                                swal('Unable to apply for the job. Please try again in some time. ');
+                            }
+
+                        });
+                    }
+                });
+            }
+            else if (data == "@(Shared.Constants.MSG_POS_CLOSED.Text)") {
+                //swal('This job opening is now CLOSED!');
+                swal('@(Shared.Constants.MSG_POS_CLOSED.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_SESSION_USER_EMPTY.Text)") {
+                //swal('Please sign in to apply for this job opening!');
+                swal('@(Shared.Constants.MSG_SESSION_USER_EMPTY.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_SESSION_USER_UNV.Text)") {
+                //swal('Please verify yourself by clicking the link sent to your email!');
+                swal('@(Shared.Constants.MSG_SESSION_USER_UNV.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Text)") {
+                //swal('Please complete your profile!  Go to My Profile or click the messege ribbon above!');
+                swal('@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_ALREADY_APPLIED.Text)") {
+                //swal('You have already applied for this job opening!');
+                swal('@(Shared.Constants.MSG_ALREADY_APPLIED.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_ERROR.Text)") {
+                //swal('Unknown Error');
+                swal('@(Shared.Constants.MSG_ERROR.Value)');
+            }
+            else{
+                swal('Unknown Error!');
+            }
+        })
+
+    }
+
+    var expectedSal;
+    var progressSwal;
+    function ApplyJobCV(id, isCVAdded) {
+        swal('Please wait');
+        swal.showLoading();
+        $.get("/Home/validateApplyJob?id=" + encodeURI(id), function (data) {
+            if (data == "@Shared.Constants.MSG_SUCCESS.Text") {
+                swal({
+                    title: 'Input Expected Salary',
+                    input: 'number',
+                    inputAttributes: {
+                        min: '0'
+                    },
+                    inputPlaceholder: 'Enter your expected salary',
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return "Please enter your expected salary. "
+                        }
+                        else {
+                            if (isNaN(parseInt(value))) {
+                                return "Please enter numbers only"
+                            }
+                            if (value < 0) {
+                                return "Please enter valid salary"
+                            }
+                        }
+
+                    }
+                }).then((result) => {
+                    //console.log(result.value);
+                    expectedSal = result.value;
+                    if (result.value) {
+                        if (isCVAdded == "@(Shared.Constants.STR_NO)") {
+                            swal({
+                                title: 'Attach CV',
+                                input: 'file',
+                                inputPlaceholder: 'Attach your detailed CV',
+                                inputAttributes: {
+                                    accept: "application/pdf"
+                                },
+                                inputValidator: (value) => {
+                                    if (!value) {
+                                        return "Please attach your detailed CV "
+                                    }
+                                }
+                            }).then((result) => {
+                                if (result.value) {
+                                    //console.log(result);
+                                    //console.log(result.value.name);
+                                    progressSwal = swal({
+                                        title: 'Please wait',
+                                        html: '<div><span id="myprogress">0</span>% upload complete</div>'
+                                    });
+                                    swal.showLoading();
+                                    var formData = new FormData();
+                                    formData.append("file", result.value);
+                                    formData.append("id", id);
+                                    formData.append("expsal", expectedSal);
+
+                                    //console.log(formData);
+                                    ajax = new XMLHttpRequest();
+                                    ajax.onreadystatechange = function () {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            //console.log(this);
+                                            var data = this.responseText;
+                                            if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                                                //swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
+                                                swal('@(Shared.Constants.MSG_SUCCESS.Value)');
+                                            }
+                                            else {
+                                                swal('Unable to apply for the job. Please try again in some time. ');
+                                            }
+                                        }
+                                    };
+                                    ajax.upload.addEventListener("progress", progressHandler, false);
+                                    ajax.addEventListener("load", completeHandler, false);
+                                    ajax.open("POST", "/Home/ApplyJobCV");
+                                    ajax.send(formData);
+
+                                }
+                            })
+                        }
+                        else {
+                            swal({
+                                title: "You have previously uploaded a CV in our system. Do you want to re upload the CV?",
+                                type: 'info',
+                                showCancelButton: true
+                            }).then((result) => {
+                                if (result.value) {
+                                    swal({
+                                        title: 'Attach CV',
+                                        input: 'file',
+                                        inputPlaceholder: 'Attach your detailed CV',
+                                        inputAttributes: {
+                                            accept: "application/pdf"
+                                        },
+                                        inputValidator: (value) => {
+                                            if (!value) {
+                                                return "Please attach your detailed CV "
+                                            }
+                                        }
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            //console.log(result);
+                                            //console.log(result.value.name);
+                                            progressSwal = swal({
+                                                title: 'Please wait',
+                                                html: '<div><span id="myprogress">0</span>% upload complete</div>'
+                                            });
+                                            swal.showLoading();
+                                            var formData = new FormData();
+                                            formData.append("file", result.value);
+                                            formData.append("id", id);
+                                            formData.append("expsal", expectedSal);
+
+                                            //console.log(formData);
+
+                                            ajax = new XMLHttpRequest();
+                                            ajax.onreadystatechange = function () {
+                                                if (this.readyState == 4 && this.status == 200) {
+                                                    //console.log(this);
+                                                    var data = this.responseText;
+                                                    if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                                                        //swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
+                                                        swal('@(Shared.Constants.MSG_SUCCESS.Value)');
+                                                    }
+                                                    else {
+                                                        swal('Unable to apply for the job. Please try again in some time. ');
+                                                    }
+                                                }
+                                            };
+                                            ajax.upload.addEventListener("progress", progressHandler, false);
+                                            ajax.addEventListener("load", completeHandler, false);
+                                            ajax.open("POST", "/Home/ApplyJobCV");
+                                            ajax.send(formData);
+
+                                        }
+                                    })
+                                }
+                                else {
+                                    swal('Please wait');
+                                    swal.showLoading();
+                                    $.get("/Home/ApplyJob?id=" + encodeURI(id) + "&expsal=" + encodeURI(expectedSal), function (data) {
+                                        if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                                            //swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
+                                            swal('@(Shared.Constants.MSG_SUCCESS.Value)');
+                                        }
+                                        else {
+                                            swal('Unable to apply for the job. Please try again in some time. ');
+                                        }
+
+                                    });
+                                }
+                            })
+                        }
+                    }
+                });
+            }
+            else if (data == "@(Shared.Constants.MSG_POS_CLOSED.Text)") {
+                //swal('This job opening is now CLOSED!');
+                swal('@(Shared.Constants.MSG_POS_CLOSED.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_SESSION_USER_EMPTY.Text)") {
+                //swal('Please sign in to apply for this job opening!');
+                swal('@(Shared.Constants.MSG_SESSION_USER_EMPTY.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_SESSION_USER_UNV.Text)") {
+                //swal('Please verify yourself by clicking the link sent to your email!');
+                swal('@(Shared.Constants.MSG_SESSION_USER_UNV.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Text)") {
+                //swal('Please complete your profile!  Go to My Profile or click the messege ribbon above!');
+                swal('@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_ALREADY_APPLIED.Text)") {
+                //swal('You have already applied for this job opening!');
+                swal('@(Shared.Constants.MSG_ALREADY_APPLIED.Value)');
+            }
+            else if (data == "@(Shared.Constants.MSG_ERROR.Text)") {
+                //swal('Unknown Error');
+                swal('@(Shared.Constants.MSG_ERROR.Value)');
+            }
+            else {
+                swal('Unknown Error!');
+            }
+        })
+
+    }
+
+    function progressHandler(event) {
+        var percent = (event.loaded / event.total) * 100;
+        //console.log(percent);
+        //$('#myprogress').progressbar({
+        //    value: percent
+        //});
+        $("#myprogress").text(parseInt(percent));
+
+    }
+
+    function completeHandler() {
+        //progressSwal
+        //myApp.hidePleaseWait(); //hide dialog
+        //$('.bar').width(100);
+    }
+</script>
+}

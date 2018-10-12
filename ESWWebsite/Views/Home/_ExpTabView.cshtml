@@ -1,0 +1,60 @@
+﻿@model List<WebsiteBackEnd.Models.jpexperience>
+@{
+    bool norecords = false;
+}
+<div class="panel">
+    @*<div class="panel-heading">
+        <h3 class="panel-title">Experience Info </h3>
+    </div>*@
+    <div class="panel-body">
+        <table class="table table-hover table-responsive-sm">
+            <thead>
+                <tr style="color:white; background-color:#212529">
+                    <th>Organization Name</th>
+                    <th>Start Year</th>
+                    <th>Ending Year</th>
+                    <th>Designation</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!(Model.Count > 0))
+                {
+                    norecords = true;
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        string dtStart = (item.STARTINGYEAR != null) ? item.STARTINGYEAR.Value.ToString(Shared.Constants.DATE_MONTH_YEAR_FORMAT) : "";
+                        string dtEnd = (item.ENDINGYEAR != null) ? item.ENDINGYEAR.Value.ToString(Shared.Constants.DATE_MONTH_YEAR_FORMAT) : "";
+                        <tr>
+                            <td>@item.ORGANIZATIONNAME</td>
+                            <td>@dtStart</td>
+                            <td>@dtEnd</td>
+                            <td>@item.DESIGNATION</td>
+                            <td>
+                                <button class="btn btn-warning" style="color:white" onclick="SweetAlertExp('@item.EXPID')">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" style="color:white" onclick="RemoveExp('@item.EXPID')">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        @if (norecords)
+        {
+            <div style="text-align : center;padding-bottom : 20px;">
+                <span style="font-weight : 600;">
+                    No Results
+                </span>
+            </div>
+        }
+        <input type="button" value="+ Add Experience" class="btn btn-custom btn-custom-secondary" style="background:#007bff;" onclick="SweetAlertExp()">
+
+    </div>
+</div>

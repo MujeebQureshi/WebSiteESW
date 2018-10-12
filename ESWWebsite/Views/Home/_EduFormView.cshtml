@@ -1,0 +1,68 @@
+﻿@model WebsiteBackEnd.Models.jpqualification
+@{ 
+    List<Shared.DDList> lstDegreeType = Shared.Constants.getNewDegreeType();
+    if (!string.IsNullOrEmpty(Model.DegreeType))
+    {
+        lstDegreeType.Find(g => g.Value.Equals(Model.DegreeType)).isSelected = true;
+    }
+
+    string dtPassing = (Model.PASSINGYEAR != null) ? Model.PASSINGYEAR.Value.ToString(Shared.Constants.DATE_RFC_YEAR_MONTH_FORMAT) : "";
+
+}
+<form id="EduRec" action="#">
+    @*<input type="submit" style="display:none" />*@
+    <div class="form-group">
+        <input id="DEGREENAME" name="DEGREENAME" type="text" placeholder="Degree Title" class="form-control" value="@Model.DEGREENAME" required/>
+    </div>
+    <div class='form-group'>
+        <select class='form-control' id='DegreeType' name="DegreeType" required>
+            @foreach (var opt in lstDegreeType)
+            {
+                string selected = "";
+                if (opt.isSelected)
+                {
+                    selected = "selected";
+                }
+                <option value="@opt.Value" @selected>@opt.Text</option>
+            }
+        </select>
+    </div>
+
+    @*<div class="form-group"><input type="text" placeholder="Major Subject" class="form-control" /></div>
+
+    <div class='form-group '>
+        <select class='form-control' id='id_country'>
+            <option value="" title="Tooltip"> Select Country</option>
+            <option>Pakistan</option>
+            <option>United States</option>
+            <option>United Arab Emirates</option>
+            <option>China</option>
+            <option>India</option>
+            <option>United Kingdom</option>
+        </select>
+    </div>
+
+    <div class='form-group'>
+        <select class='form-control' id='id_city'>
+            <option value="" title="Tooltip">Select City</option>
+            <option>Karachi</option>
+            <option>Lahore</option>
+            <option>Multan</option>
+            <option>Faisalabad</option>
+            <option>Islamabad</option>
+        </select>
+    </div>*@
+
+    <div class="form-group">
+        <input id="INSTITUTIONNAME" name="INSTITUTIONNAME" type="text" placeholder="Institute" class="form-control" value="@Model.INSTITUTIONNAME" required/>
+    </div>
+    <div class="form-group">
+        <input id="PASSINGYEAR" name="PASSINGYEAR" type="month" placeholder="Passing Month and Year" class="form-control" value="@dtPassing" required />
+    </div>
+    <div class="form-group">
+        <input id="GRADES" name="GRADES" type="text" placeholder="Result / Grade" class="form-control" value="@Model.GRADES" required/>
+    </div>
+    <input type="hidden" id="QUALIFICATIONID" name="QUALIFICATIONID" value="@Model.QUALIFICATIONID" />
+    <input type="hidden" id="isNewRecord" name="isNewRecord" value="@Model.isNewRecord" />
+</form>
+

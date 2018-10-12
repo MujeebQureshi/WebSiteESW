@@ -1,0 +1,53 @@
+﻿
+@{
+    /**/
+
+    Layout = "~/Views/Shared/MyCustomLayout.cshtml";
+    string OrgName = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_NAME];
+    string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
+}
+
+    <link rel="stylesheet"  href='~/Content/assets/cache/css_staticpages.min.css' />
+    <div class="saercion section-page-title container container-palette">
+        <div class="container">
+            <h2 class="title">Outsourcing</h2>
+        </div>
+    </div>
+    <main class="container container-palette pt-75 m30">
+        <div class="container">
+            <div class="wraper-row">
+                <div class="column-content">
+                    <div class="box-post-open m15">
+
+                        <div class="header">
+                            <h1 class="title"></h1>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="body">
+
+                    <h5></h5>
+
+                    <p>@OrgInitials offers human resource outsourcing services in an efficient and low-cost manner providing the following services to our clients.</p>
+
+                    <ul>
+                        <li>Analysis of Payroll records, Payroll taxes </li>
+                        <li>Medical claim processing</li>
+                        <li>Employee Insurance & Provident fund processing</li>
+                        <li>Quality Audit procedures & planning</li>
+                        <li>Salary Deposit in bank account</li>
+                        <li>Monthly Tax compliance and Filing</li>
+                        <li>Payroll Updates, Deductions and Advances</li>
+                    </ul>
+
+
+                </div>
+            </div>
+            <!-- ./ widget post description -->
+
+
+
+
+        </div>
+    </main>

@@ -1,0 +1,111 @@
+﻿@model List<WebsiteBackEnd.Models.jpopening>
+@{ 
+    WebsiteBackEnd.Models.jpuser SessionUser = null;
+    string isCvAdded = Shared.Constants.STR_NO;
+    if (Session[Shared.Constants.SESSION_USER] != null)
+    {
+        SessionUser = Session[Shared.Constants.SESSION_USER] as WebsiteBackEnd.Models.jpuser;
+        isCvAdded = (string.IsNullOrEmpty(SessionUser.objjpprofile.LONGCV)) ? Shared.Constants.STR_NO : Shared.Constants.STR_YES;
+    }
+
+}
+<div class="container">
+    <!--<div class="">   -->
+    <div class="card-group">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+
+                <div class="card">
+                    <div class="aa" style="background-color:#4db74e; padding-bottom:15px; padding-top: 10px;">
+                        <img class="card-img-reponsive ;" align="middle" style="border-radius:50%;  " src="~/Content/assets/img/pic/loglo-company.png" alt="Company logo">
+
+                    </div>
+
+
+
+                    <div class="card-body">
+
+                        <a class="Job-title" href="#" style="font-size:18px;"> @item.JOBTITLE </a> <br>
+
+
+                        <span class="c_name" style="font-size:16px;">@item.COMPANYNAME</span><br>
+                        <span class="c_industry">@item.DEPARTMENT</span><br>
+
+                        <div class="c_city">
+                            <a href="#">@item.CITYNAME</a>,
+                        </div>
+
+                        @*<span class="comma">,</span>*@
+                        <div class="c_country ">
+                            <a href="#"> @item.COUNTRYNAME</a>
+                        </div>
+                        <hr />
+                        <p class="Job_desc">@item.SHORTDESC</p>
+                        <hr />
+                        <p class="card-text"><small class="text-muted">Last updated: @item.JOBPOSTDATE</small></p>
+
+
+
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-info" onclick="DetailsFunc(@(item.OPENINGID));">  View Details </button>
+                        </div>
+
+                        <div class="btn-group">
+                            @if (item.ALLOWLONGCV.Equals(Shared.Constants.STR_NO)) {
+                                <button type="button" class="btn btn-primary" onclick="ApplyJob('@item.OPENINGID')">Apply Now</button>
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-primary" onclick="ApplyJobCV('@item.OPENINGID','@isCvAdded')">Apply Now</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (!(Model.Count > 0)) {
+            <p>
+                No Records Found, Try another keyword(s).
+            </p>
+        }
+    </div>
+
+
+    <!--- </div> -->
+</div>
+<!-- Details Modal -->
+<div id="DetailsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Details content-->
+        <div class="modal-content">
+            <div class="modal-header" style="padding-bottom:0px;">
+                <h3>
+                    Job Details
+                </h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body" id="DetailsModalBody">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    function DetailsFunc(id) {
+        //alert(id);
+        $("#DetailsModalHeader").text(id);
+        $("#DetailsModalBody").load("/Home/JobDetail/" + encodeURI(id), function () {
+            $("#DetailsModal").modal('show');
+        });
+
+    }
+</script>
+
+
+

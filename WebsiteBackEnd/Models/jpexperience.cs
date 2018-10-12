@@ -3,18 +3,35 @@ using System.Data;
 using System.Collections.Generic;
 using Shared;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 
 namespace WebsiteBackEnd.Models
 {
 	public class jpexperience
 	{
-		public int experienceID { get; set; }
-		public int cvID { get; set; }
-		public string organizationName { get; set; }
-		public DateTime? startingYear { get; set; }
-		public DateTime? endingYear { get; set; }
-		public string designation { get; set; }
-	}
+        [JsonIgnore]
+        public int EXPID { get; set; }
+        [JsonIgnore]
+        public int PROFILEID { get; set; }
+        [JsonProperty(PropertyName = "company")]
+        public string ORGANIZATIONNAME { get; set; }
+        [JsonIgnore]
+        public DateTime? STARTINGYEAR { get; set; }
+        [JsonIgnore]
+        public DateTime? ENDINGYEAR { get; set; }
+        [JsonProperty(PropertyName = "position")]
+        public string DESIGNATION { get; set; }
+        
+        //other vars
+        [JsonIgnore]
+        public bool isNewRecord { get; set; }
+        public string startDate {
+            get{  return (STARTINGYEAR!=null)? STARTINGYEAR.Value.ToString(Constants.DATE_MONTH_YEAR_FORMAT):""; } set { }
+        }
+        public string endDate {
+            get { return (ENDINGYEAR != null) ? ENDINGYEAR.Value.ToString(Constants.DATE_MONTH_YEAR_FORMAT) : ""; } set { }
+        }
+    }
 	public class jpexperienceManager : BaseManager
 {
     public static List<jpexperience> Getjpexperience(string whereclause, MySqlConnection conn = null)
@@ -26,7 +43,9 @@ namespace WebsiteBackEnd.Models
             bool isConnArgNull = (conn != null) ? false : true;
             MySqlConnection connection = (conn != null) ? conn : PrimaryConnection();
             tryOpenConnection(connection);
-            string sql = "";
+            string sql = "select * from jpexperience ";
+            if (!string.IsNullOrEmpty(whereclause))
+                sql += " where " + whereclause;
             using (MySqlCommand command = new MySqlCommand())
             {
                 command.Connection = connection;
@@ -62,21 +81,21 @@ namespace WebsiteBackEnd.Models
     private static jpexperience ReaderDatajpexperience(MySqlDataReader reader)
     {
         jpexperience objjpexperience = new jpexperience();
-        objjpexperience.experienceID = Utility.IsValidInt(reader["experienceID"]);
-        objjpexperience.cvID = Utility.IsValidInt(reader["cvID"]);
-        objjpexperience.organizationName = Utility.IsValidString(reader["organizationName"]);
-        objjpexperience.startingYear = Utility.IsValidDateTime(reader["startingYear"]);
-        objjpexperience.endingYear = Utility.IsValidDateTime(reader["endingYear"]);
-        objjpexperience.designation = Utility.IsValidString(reader["designation"]);
+        objjpexperience.EXPID = Utility.IsValidInt(reader["EXPID"]);
+        objjpexperience.PROFILEID = Utility.IsValidInt(reader["PROFILEID"]);
+        objjpexperience.ORGANIZATIONNAME = Utility.IsValidString(reader["ORGANIZATIONNAME"]);
+        objjpexperience.STARTINGYEAR = Utility.IsValidDateTime(reader["STARTINGYEAR"]);
+        objjpexperience.ENDINGYEAR = Utility.IsValidDateTime(reader["ENDINGYEAR"]);
+        objjpexperience.DESIGNATION = Utility.IsValidString(reader["DESIGNATION"]);
         return objjpexperience;
     }
 
-    public static string Savejpexperience(jpexperience objjpexperience, MySqlConnection conn = null)
+    public static string Savejpexperience(jpexperience objjpexperience, MySqlConnection conn = null, MySqlTransaction trans = null)
     {
         string returnMessage = "";
-        string sexperienceID = "";
-        sexperienceID = objjpexperience.experienceID.ToString();
-        var templstjpexperience = Getjpexperience("experienceID = '" + sexperienceID + "'", conn);
+        string sEXPID = "";
+        sEXPID = objjpexperience.EXPID.ToString();
+        var templstjpexperience = Getjpexperience("EXPID = '" + sEXPID + "'", conn);
         try
         {
             bool isConnArgNull = (conn != null) ? false : true;
@@ -90,46 +109,50 @@ namespace WebsiteBackEnd.Models
                 {
                     isEdit = false;
                     sql = @"INSERT INTO jpexperience(
-cvID,
-organizationName,
-startingYear,
-endingYear,
-designation
+PROFILEID,
+ORGANIZATIONNAME,
+STARTINGYEAR,
+ENDINGYEAR,
+DESIGNATION
 )
 VALUES(
-@cvID,
-@organizationName,
-@startingYear,
-@endingYear,
-@designation
+@PROFILEID,
+@ORGANIZATIONNAME,
+@STARTINGYEAR,
+@ENDINGYEAR,
+@DESIGNATION
 )";
                 }
                 else
                 {
                     sql = @"Update jpexperience set
-experienceID=@experienceID,
-cvID=@cvID,
-organizationName=@organizationName,
-startingYear=@startingYear,
-endingYear=@endingYear,
-designation=@designation
+EXPID=@EXPID,
+PROFILEID=@PROFILEID,
+ORGANIZATIONNAME=@ORGANIZATIONNAME,
+STARTINGYEAR=@STARTINGYEAR,
+ENDINGYEAR=@ENDINGYEAR,
+DESIGNATION=@DESIGNATION
 
-Where experienceID=@experienceID";
+Where EXPID=@EXPID";
                 }
 
+                if (trans != null)
+                {
+                    command.Transaction = trans;
+                }
                 command.Connection = connection;
                 command.CommandType = CommandType.Text;
                 command.CommandText = sql;
                 if (isEdit)
                 {
-                    command.Parameters.AddWithValue("@experienceID", objjpexperience.experienceID);
+                    command.Parameters.AddWithValue("@EXPID", objjpexperience.EXPID);
                 }
 
-                command.Parameters.AddWithValue("@cvID", objjpexperience.cvID);
-                command.Parameters.AddWithValue("@organizationName", objjpexperience.organizationName);
-                command.Parameters.AddWithValue("@startingYear", objjpexperience.startingYear);
-                command.Parameters.AddWithValue("@endingYear", objjpexperience.endingYear);
-                command.Parameters.AddWithValue("@designation", objjpexperience.designation);
+                command.Parameters.AddWithValue("@PROFILEID", objjpexperience.PROFILEID);
+                command.Parameters.AddWithValue("@ORGANIZATIONNAME", objjpexperience.ORGANIZATIONNAME);
+                command.Parameters.AddWithValue("@STARTINGYEAR", objjpexperience.STARTINGYEAR);
+                command.Parameters.AddWithValue("@ENDINGYEAR", objjpexperience.ENDINGYEAR);
+                command.Parameters.AddWithValue("@DESIGNATION", objjpexperience.DESIGNATION);
                 int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {
@@ -153,7 +176,7 @@ Where experienceID=@experienceID";
         return returnMessage;
     }
 
-    public static string Deletejpexperience(string experienceID, MySqlConnection conn = null)
+    public static string Deletejpexperience(int EXPID, MySqlConnection conn = null)
     {
         string returnMessage = "";
         try
@@ -164,11 +187,11 @@ Where experienceID=@experienceID";
             using (MySqlCommand command = new MySqlCommand())
             {
                 string sql;
-                sql = @"DELETE from jpexperience Where experienceID = @experienceID";
+                sql = @"DELETE from jpexperience Where EXPID = @EXPID";
                 command.Connection = connection;
                 command.CommandType = CommandType.Text;
                 command.CommandText = sql;
-                command.Parameters.AddWithValue("@experienceID", experienceID);
+                command.Parameters.AddWithValue("@EXPID", EXPID);
                 int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {

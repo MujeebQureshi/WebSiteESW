@@ -18,6 +18,7 @@ namespace ESWWebsite
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Shared.Constants.SetCountryCityList();
         }
     }
 }

@@ -1,0 +1,70 @@
+﻿@{ 
+    string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
+}
+<main class="">
+    <div class="container">
+        <div class="sign-form">
+            <div class="header">
+                <h1 class="title">Sign In with @OrgInitials</h1>
+            </div>
+            <form id="frmLogin" action="#" class="job-sign-from">
+                <input type="submit" style="display:none" />
+                <div class="form-group" style="padding-top:20px;"><input id="EMAIL" name="EMAIL" type="email" placeholder="Email" class="form-control" required /></div>
+                <div class="form-group" style="padding-top:20px;"><input id="PASSWORD" name="PASSWORD" type="password" placeholder="Password" class="form-control" required /></div>
+                @*<div class="form-group">
+                    <div class="flex-group">
+                        <div class="left"><label class="checkbox-inline"><input type="checkbox" class="" />Keep me logged in</label></div>
+                        <div class="right">  <a href="#" class="sign-from-link">Forgot password?</a> </div>
+                    </div>
+                </div>*@
+                <div id="ErrMsgDiv" class="form-group" style="padding-top:20px;text-align:left;display:none;">
+                    <span id="ErrMsg" style="color: red;font-weight: 600;"></span>
+                </div>
+                <div class="form-group" style="padding-top:20px;">
+                    <button style="height:45px;" class="btn btn-custom btn-custom-secondary" type="button" onclick="LogIn();">Sign In</button>
+                </div>
+            </form>
+
+            <div class="footer"> <span>Don't have a account?</span><br /> <a onclick="location.href='@Url.Action("Signup","Home")'" class="sign-from-link">Sign Up</a> </div>
+
+        </div>
+    </div>
+</main>
+
+@section scripts{
+<script type="text/javascript">
+    $("input").focus(function (e) {
+        $("#ErrMsg").text('');
+        $("#ErrMsgDiv").hide();
+    })
+
+    function LogIn() {
+        if ($('#frmLogin')[0].checkValidity()) {
+            swal('Please wait');
+            swal.showLoading();
+            var frmSerialize = $("#frmLogin").serialize();
+            $.post("/Home/Signin", frmSerialize, function (data) {
+                swal.close();
+                if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                    location.href = "/Home/Index";
+                }
+                else if (data == "@(Shared.Constants.MSG_ERR_INVALIDCRED.Text)") {
+                    //var msg = "Incorrect Username or Password!"
+                    var msg = "@(Shared.Constants.MSG_ERR_INVALIDCRED.Value)"
+                    $("#ErrMsg").text(msg);
+                    $("#ErrMsgDiv").show();
+                }
+                else if (data == "@(Shared.Constants.MSG_ERR_NOUSEREXIST.Text)") {
+                    //var msg = "No user exists against the provided Email!"
+                    var msg = "@(Shared.Constants.MSG_ERR_NOUSEREXIST.Value)"
+                    $("#ErrMsg").text(msg);
+                    $("#ErrMsgDiv").show();
+                }
+            })
+        }
+        else {
+            $('#frmLogin').find(':submit').click();
+        }
+    }
+</script>
+}

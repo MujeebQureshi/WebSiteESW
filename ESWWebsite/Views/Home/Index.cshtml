@@ -1,24 +1,181 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿
+@{
+    ViewBag.Title = "Home";
+    WebsiteBackEnd.Models.jpuser SessionUser = null;
+    if (Session[Shared.Constants.SESSION_USER] != null)
+    {
+        SessionUser = Session[Shared.Constants.SESSION_USER] as WebsiteBackEnd.Models.jpuser;
+    }
+
+    List<WebsiteBackEnd.Models.jpopening> lstJobs = new List<WebsiteBackEnd.Models.jpopening>();
+    if (ViewBag.RecentOpenings != null) {
+        lstJobs = ViewBag.RecentOpenings as List<WebsiteBackEnd.Models.jpopening>;
+    }
+    List<Shared.DDList> lstJobType = Shared.Constants.getNewJobType();
+
+    string OrgName = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_NAME];
+    string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
+}
+
+<div class="section section-flat-search container container-palette bg-mask">
+    <div class="container">
+
+        <div class="body">
+
+            <div class="title">Get New Job. <b>Right Now.</b></div>
+            <!-- ./ top search title -->
+            <div class="job-form">
+                <form id="frmgotoListJobs" action="#" method="get" class="flex-row">
+                    <div class="form-group"> <label style="color:cornsilk;" for="tops_keywords" class="control-label text-color-secondary">Search for your desired job</label> 
+                    <input name="search" id="search" type="text" class="form-control" placeholder="Keywords" /> </div>
+
+                    <a href="#" id="gotoListJobs" class="btn btn-flat-search">Search</a>
+                </form>
+            </div>
+            <div class="flat-search-notification"><b>Welcome to our job portal @OrgName (@OrgInitials)</b></div>
+        </div>
+        <!-- ./ top search body -->
+    </div>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+<!-- ./ top search -->
+<div class="section our-works container container-palette">
+    <div class="container">
+        <h2 class="section-title">Introduction</h2>
+        @*<div class="container-fluid"*@
+        <div class="section-advice"> <center>Welcome to one of the Pakistan’s finest and most innovative Human Capital Consultants. @OrgName (@OrgInitials) is a global network of HR services, working for the provision of innovative, customized and integrated Human Capital solutions to our clients. Our focus is to maximize our clients’ organizational efficiency and effectiveness through alignment of their HR Management and initiatives with the organizational long term strategic vision and goals.</center></div>
+        <br />
+        <br />
+        <br />
+        <!-- ./ section title -->
+        <div class="flex-grid content-grid">
+            <div class="card grid-3">
+                <div class="pic"><i class="icon_star"></i></div>
+                <h3 class="title">Why @OrgInitials</h3>
+                <div class="caption">Our global reach, diversity of talent pool and vast experience provide us with a cutting edge to serve our clients more effectively and efficiently.</div>
+            </div>
+            <div class="card grid-3">
+                <div class="pic"><i class="icon_ribbon_alt"></i></div>
+                <h3 class="title">Our Focus</h3>
+                <div class="caption">@OrgName (@OrgInitials) Focus is to act as a dedicated partner to its clients in meeting and managing their HR challenges.</div>
+            </div>
+
+        </div>
+        <!-- ./ content -->
     </div>
 </div>
+<!-- ./ our works -->
+<div class="section section-advice container container-palette bg-mask-light">
+    <div class="container advice-container">
+        <div class="body">
+            <h2 class="title">Our Services</h2>
+            <!-- ./ section title -->
+            <p class="description">We work with companies to effectively manage their human capital and meet their talent development needs. We work with individuals along their career life cycle; we support these individuals in career transitions, we assess them and establish development plans. </p>
+            @*<div class="advice-footer"> <a href="#" class="btn btn-default">Get Advice</a> </div>*@
+        </div>
+    </div>
+</div>
+<!-- ./ advice -->
+@if (lstJobs.Count>0){
+<div class="section section-listings container container-palette section-job-area">
+    <div class="container">
+        <h2 class="section-title">Latest Jobs</h2>
+        <!-- ./ section title -->
+        <div class="wraper-row">
+            <div class="column-content">
+                <div class="results-list">
+                    @foreach(var item in lstJobs){
+                    <div class="item">
+                        <div class="flex-row">
+                            <div class="grid-content">
+                                <h3 class="title text-color-secondary"><a href="/Home/ListJobs">@item.JOBTITLE</a></h3>
+                                <div class="options">
+                                    <span class="opt">@item.COMPANYNAME</span>
+                                    <span class="opt-light"><i class="icon_pin_alt"></i>@item.CITYNAME , @item.COUNTRYNAME</span>
+                                </div>
+                            </div>
+                            <div class="grid-side"><span class="item-label text-red"><i class="icon_ribbon_alt"></i>@lstJobType.Find(x => x.Value.Equals(item.JOBTYPE)).Text </span></div>
+                        </div>
+                    </div>
+                    }
+                    <!-- ./ job purpose -->
+                    
+                </div>
+                <!-- ./ jobs list -->
+            </div>
+        </div>
+    </div>
+</div>
+}
+<!-- ./ jobs sections -->
+<div class="section banner bg-color-primary container container-palette">
+    <div class="container banner-container">
+        <div class="banner-body">
+            <h2 class="title">Add your resume and let your next job find you.</h2>
+            <!-- ./ banner body -->
+        </div>
+        <div class="banner-navigation">
+            @if(SessionUser == null)
+            {
+            <a href="/Home/Signin" class="btn btn-default">Add Your Resume</a>
+            }
+            else{
+            <a href="/Home/MyProfile" class="btn btn-default">Add Your Resume</a>
+            }
+        </div>
+        <!-- ./ banner link -->
+    </div>
+</div>
+<!-- ./ section banner -->
+<div class="section section-reviews container container-palette bg-mask">
+    <div class="container">
+        <div id="owl-carousel" class="owl-carousel owl-theme owl-reviews-corousel">
+            <div class="item">
+                <div class="header">
+                    <a href="#" class="review-thumbnail">
+                        <img src="~/Content/assets/img/pic/home_1/javed.jpg" alt="" class="rounded-circle" />
+                    </a>
+                </div>
+                <div class="body">
+                    Syed Jawed Arif, Chief Executive & a Senior Management Member with a track  record of major contributions to  wards  business evaluation and profit growth. He has 35+years of work experience at Senior Management level to achieve the organizational  short and long term objectives and goals leading to company’s growth via strategic planning and implementation.  The scope of his expertise is extensive and it includes  a complete spectrum of Marketing & Sales, Public Relations, Human Resources, internal controls and reporting functions.  A “hands-on” CE effective in building teamwork and cultivating strong internal/external  relationships.  He is a flexible personality and responsive to the quickly changing demands of the business, industry and marketplace.
+                </div>
+                <div class="footer">
+                    <a href="#">
+                        Javed Arif
+                    </a>, Cheif Executive Officer (CEO)
+                </div>
+                <!-- ./ review -->
+            </div>
+            <div class="item">
+                <div class="header">
+                    <a href="#" class="review-thumbnail">
+                        <img src="~/Content/assets/img/pic/home_1/asas.png" alt="" class="rounded-circle" />
+                    </a>
+                </div>
+                <div class="body">
+                    Asas Arif, holds over 7 years of professional experience in the oil and gas/petrochemical industries. By
+                    profession, he is a Chemical Technologist as well as a safety specialist and has worked with Engro
+                    Corporation and Qatar Petroleum. With hands-on experience of working in both local and international
+                    plant & safety operations and truly understanding safety standard, Asas holds a keen interest in
+                    ineffective communication and lack of protocols in the work place. In his spare time, he utilizes real
+                    world examples to raise awareness about safety in the work place and how effective communication is
+                    key to a safe work place. A concept he feels, is much ignored in Pakistan.
+
+                </div>
+                <div class="footer">
+                    <a href="#">
+                        Asas Arif
+                    </a>, Manager
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $("#search").keyup(function () {
+            $("#frmgotoListJobs").attr("action", "/Home/ListJobs?search=" + $("#search").val());
+            $("#gotoListJobs").attr("href", "/Home/ListJobs?search=" + $("#search").val());
+        })
+    </script>    
+}

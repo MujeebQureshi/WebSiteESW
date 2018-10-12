@@ -1,0 +1,65 @@
+﻿@model List<WebsiteBackEnd.Models.jpqualification>
+@{ 
+    bool norecords = false;
+}
+
+<div class="panel">
+    @*<div class="panel-heading">
+        <h3 class="panel-title">Education Info </h3>
+    </div>*@
+    <div class="panel-body">
+        <table class="table table-hover table-responsive-sm">
+            <thead>
+                <tr style="color:white; background-color:#ffc107">
+                    <th>Degree Title</th>
+                    <th>Institute</th>
+                    <th>Completion Year</th>
+                    <th>Grades / Result</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!(Model.Count > 0))
+                {
+                    norecords = true;
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        //DateTime dt = DateTime.ParseExact(item.PASSINGYEAR, Shared.Constants.DATE_RFC_YEAR_MONTH_FORMAT, System.Globalization.CultureInfo.InvariantCulture);
+                        string dtPassing = (item.PASSINGYEAR != null) ? item.PASSINGYEAR.Value.ToString(Shared.Constants.DATE_MONTH_YEAR_FORMAT) : "";
+                        <tr>
+                            <td>@item.DEGREENAME</td>
+                            <td>@item.INSTITUTIONNAME</td>
+                            <td>@dtPassing</td> 
+                            <td>@item.GRADES</td>
+                            <td>
+                                <button class="btn btn-warning" style="color:white" onclick="SweetAlertEdu('@item.QUALIFICATIONID')">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" style="color:white" onclick="RemoveEdu('@item.QUALIFICATIONID')">
+                                    <i class="fa fa-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        @if (norecords)
+        {
+            <div style="text-align : center;padding-bottom : 20px;">
+                <span style="font-weight : 600;">
+                    No Results
+                </span>
+            </div>
+        }
+        <input type="button" value="+ Add Education" class="btn btn-custom btn-custom-secondary" style="background:#007bff;" onclick="SweetAlertEdu()">
+
+    </div>
+</div>
+
+
+
+

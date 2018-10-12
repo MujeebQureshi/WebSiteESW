@@ -1,19 +1,41 @@
 ﻿
 @{
     Layout = null;
+    WebsiteBackEnd.Models.jpuser SessionUser = null;
+    if (Session[Shared.Constants.SESSION_USER] != null)
+    {
+        SessionUser =  Session[Shared.Constants.SESSION_USER] as WebsiteBackEnd.Models.jpuser;
+    }
+    string navActive = (ViewBag.navActive != null) ? (string)ViewBag.navActive : "";
+    string OrgName = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_NAME];
+    string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
+    string OrgContactAddress = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_CONTACT_ADD];
+    string OrgContactPhone = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_CONTACT_PH];
+    string OrgContactEmail = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_CONTACT_EML];
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Executive Search Worldwide</title>
+    <title>@OrgName</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="shortcut icon" href="~/Content/assets/img/aa.png" type="image/png" />
+    <link rel="shortcut icon" href="~/Content/assets/img/tile.png" type="image/png" />
     <link rel="stylesheet" href='~/Content/assets/cache/css_01_home.min.css' />
     <link rel="stylesheet" href='~/Content/assets/cache/fontawesome/css/all.css' />
     <link rel="stylesheet" href='~/Content/assets/cache/css_22_log_in.min.css' />
+    <style>
+        input[type="date"]:before {
+            content: attr(placeholder) !important;
+            color: #6c757d;
+            margin-right: 0.5em;
+        }
 
+        input[type="date"]:focus:before,
+        input[type="date"]:valid:before {
+            content: "";
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,10 +44,8 @@
                 <div class="flex-row">
                     <div class="grid logo-container">
                         <div class="logo">
-                            <a href="#">
-                                <b class="text-color-primary" style=" font-size:30px;">ESW</b>
-                                @*<img src="~/Content/assets/img/aa.png" />*@
-                                @*<b style=" font-size:20px;">Executive Search Worldwide</b>*@
+                            <a href="/Home/Index">
+                                <b class="text-color-primary" style="font-size:30px;">@OrgInitials</b>
                             </a>
                         </div>
                     </div>
@@ -36,25 +56,111 @@
                             <div class="collapse navbar-collapse default-menu-collapse" id="main-menu">
                                 <button class="navbar-toggler mobile-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">  <i class="icon_close_alt2"></i>  </button>
                                 <ul class="nav navbar-nav collapse navbar-collapse default-menu" id="navbarNavDropdown">
+                                    @if (navActive.Equals(Shared.Constants.SP_CLIENT)){
+                                    <a class="nav-link active" href="/Home/OurClients" aria-haspopup="true" aria-expanded="false">  Client  </a>
+                                    }
+                                    else{
+                                    <a class="nav-link" href="/Home/OurClients" aria-haspopup="true" aria-expanded="false">  Client  </a>
+                                    }
 
-                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Client  </a>
+                                    @if (navActive.Equals(Shared.Constants.SP_ABOUT_US))
+                                    {
+                                        <a class="nav-link active" href="/Home/AboutUs" aria-haspopup="true" aria-expanded="false">  About Us  </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="nav-link" href="/Home/AboutUs" aria-haspopup="true" aria-expanded="false">  About Us  </a>
+                                    }
 
+                                    @if (navActive.Equals(Shared.Constants.SP_OUTSOURCE))
+                                    {
+                                    <a class="nav-link active" href="/Home/Outsourcing" aria-haspopup="true" aria-expanded="false">  Outsourcing  </a>
+                                    }
+                                    else{
+                                    <a class="nav-link" href="/Home/Outsourcing" aria-haspopup="true" aria-expanded="false">  Outsourcing  </a>
+                                    }
 
-                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Outsourcing  </a>
+                                    @if (navActive.Equals(Shared.Constants.SP_TRAIN_DEV))
+                                    {
+                                    <a class="nav-link active" href="/Home/Training" aria-haspopup="true" aria-expanded="false">  Training & Development  </a>
+                                    }
+                                    else{
+                                    <a class="nav-link" href="/Home/Training" aria-haspopup="true" aria-expanded="false">  Training & Development  </a>
+                                    }
 
-                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Training & Development  </a>
+                                    @if (navActive.Equals(Shared.Constants.SP_CAREER_COUNCIL))
+                                    {
+                                    <a class="nav-link active" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+                                    }
+                                    else{
+                                    <a class="nav-link" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+                                    }
 
-                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
-
-                                    <a class="nav-link" href="#" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
-
+                                    @if (navActive.Equals(Shared.Constants.SP_SOFTWARE_SRVS))
+                                    {
+                                    <a class="nav-link active" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
+                                    }
+                                    else{
+                                    <a class="nav-link" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
+                                    }
+                                    @if (navActive.Equals(Shared.Constants.SP_LIST_JOBS))
+                                    {
+                                        <a class="nav-link active" href="/Home/ListJobs" aria-haspopup="true" aria-expanded="false">  List Jobs  </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="nav-link" href="/Home/ListJobs" aria-haspopup="true" aria-expanded="false">  List Jobs  </a>
+                                    }
                                 </ul>
 
                             </div>
                         </nav>
                     </div>
                     <!-- ./ main menu -->
-                    <div class="grid quick-navigation">  <a onclick="location.href='@Url.Action("LogIn","Default")'" class="btn btn-clear"><i class="icon_profile"></i>Sign In</a> @*<a onclick="location.href='@Url.Action("Admin_Login","Home")'" class="btn btn-custom btn-custom-secondary">Post Jobs</a>*@ </div>
+                    <div class="grid quick-navigation">
+                        @if (SessionUser == null)
+                        {
+                        <a href="/Home/Signin" class="btn btn-clear" style="padding:0px 0px 0px 0px">
+                            <i class="icon_profile"></i>Sign In
+                        </a>
+                        <span>/</span>
+                        <a href="/Home/Signup" class="btn btn-clear" style="padding:0px 0px 0px 0px">
+                            @*<i class="icon_profile"></i>*@Sign Up
+                        </a>
+                        }
+                        else
+                        {
+                            <a  class="btn btn-clear dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon_profile"></i>@SessionUser.USERNAME
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="">
+                                            <div class="col-lg-12">
+                                                <p class="text-left small">@SessionUser.EMAIL</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="/Home/MyProfile" class="btn btn-info btn-block">My Profile</a>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="/Home/Logout" class="btn btn-danger btn-block">Logout</a>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+               
+                        }
+                    </div>
                     <!-- ./ actions panel -->
                 </div>
             </div>
@@ -62,47 +168,75 @@
         <!-- ./ navigation bar -->
     </header>
     <div>
+        @if(SessionUser!= null){
+            if (SessionUser.ACTIVE.Equals(Shared.Constants.STR_NO)) {
+            <div class="alert alert-warning">
+                <strong>Warning!</strong> You are not yet verified! Please click the verification link sent to your email.
+                @if (SessionUser.isVerifyLinkSent == false)
+                {
+                    <button id="btnResend" style="float:right; margin-top:-5px;" class="btn btn-sm"><span id="btnSpnResend" onclick="ReSendVerfLink();">Resend verification link</span></button>
+                }
+            </div>
+            }
+            else
+            {
+                if (!SessionUser.isProfileComplete) {
+                <div class="alert alert-warning">
+                    <strong>Warning!</strong> Your profile seems to be incomplete. Click the button to complete your profile and start applying on your desired jobs!.
+                    <a href="/Home/MyProfile" style="float:right; margin-top:-5px;" class="btn btn-sm"><span>Complete my profile!</span></a>
+                </div>
+                }
+            }
+        }
         @RenderBody()
     </div>
     <footer class="footer container container-palette" style="padding-top:30px;">
         <div class="footer-top">
             <div class="container">
-                <div class="row row-flex">
-                    <div class="col-md-3">
+                <div class="row-flex">
+                    <div class="col-md-4">
                         <div class="f_widget widget-about">
-                            <h2 class="title">About ESW</h2>
+                            <h2 class="title">About @OrgInitials</h2>
                             <!-- ./ widget title -->
-                            <div class="body">Aliquam sed est in lorem luctus hendrit. Nulla in posuere neque. Nam lectus risus, pellentesque at nulla vitae, mauris raesent pulvinar.</div>
+                            <div class="body">@OrgName (@OrgInitials), is a HR services firm, was established in 2002. Javed Arif, the Chief Executive of the firm, has been a Marketing & Sales practitioner since 1974.His local and International exposure enabled @OrgInitials to become one of the trusted name in Human Capital Management Sector. <a href="/Home/AboutUs">Read More</a></div>
                             <!-- ./ widget body -->
                         </div>
                         <!-- ./ widget about -->
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="f_widget widget-navigation">
                             <h2 class="title">For Job Seekers</h2>
                             <!-- ./ widget title -->
                             <div class="body">
                                 <ul class="list-f-nav">
-                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Find Jobs</a></li>
-                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Submit Resume</a></li>
-                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Saved Jobs</a></li>
-                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Help</a></li>
+                                    <li><a href="/Home/ListJobs"><i class="arrow_carrot-right_alt2"></i>Find Jobs</a></li>
+                                    @if (SessionUser == null)
+                                    {
+                                        <li><a href="/Home/Signin"><i class="arrow_carrot-right_alt2"></i>Submit Resume</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/Home/MyProfile"><i class="arrow_carrot-right_alt2"></i>Submit Resume</a></li>
+                                    }
+                                    
+                                    @*<li><a href="#"><i class="arrow_carrot-right_alt2"></i>Saved Jobs</a></li>
+                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Help</a></li>*@
                                 </ul>
                             </div>
                             <!-- ./ widget body -->
                         </div>
                     </div>
                     <!-- ./ widget navigation -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="f_widget widget-contact">
                             <h2 class="title">Contact Us</h2>
                             <!-- ./ widget title -->
-                            <div class="body">  768 5th Ave, New York, NY 10019, USA <br />  +1 212-759-3000<br />  helpme@example.com </div>
+                            <div class="body">  @OrgContactAddress <br />  @OrgContactPhone<br />  @OrgContactEmail </div>
                             <!-- ./ widget body -->
                         </div>
                         <!-- ./ widget contact -->
                     </div>
-                    <div class="col-md-3">
+                    @*<div class="col-md-3">
                         <div class="f_widget widget-subscribe">
                             <h2 class="title">Newsletter</h2>
                             <!-- ./ widget title -->
@@ -114,25 +248,17 @@
                             <!-- ./ widget body -->
                         </div>
                         <!-- ./ widget subscribe -->
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
             <div class="container">
                 <div class="flex-row">
-                    <div class="right"><span class="copyright">Copyright © @DateTime.Now.Year - ESW - Executive Search Worldwide</span></div>
+                    <div class="right"><span class="copyright">Copyright © @DateTime.Now.Year - @OrgInitials - @OrgName</span></div>
                     <!-- ./ copyright -->
                     <div class="left">
-                        @*<ul class="list-social">
-                                <li><a href="#"><i class="social_instagram"></i></a></li>
-                                <li><a href="#"><i class="social_twitter"></i></a></li>
-                                <li><a href="#"><i class="social_pinterest"></i></a></li>
-                                <li><a href="#"><i class="social_facebook"></i></a></li>
-                                <li><a href="#"><i class="social_youtube"></i></a></li>
-                                <li><a href="#"><i class="social_rss"></i></a></li>
-                            </ul>*@
-                        <!-- ./ social links -->
+    
                     </div>
                 </div>
             </div>
@@ -141,10 +267,34 @@
     </footer>
     <!-- ./ footer -->
     <div class="se-pre-con"></div>
+    
     @Scripts.Render("~/bundles/jquery")
     @*@Scripts.Render("~/bundles/bootstrap")*@
-    <script src="http://maps.googleapis.com/maps/api/js?v=3&amp;libraries=weather,geometry,visualization,places,drawing&amp;key=AIzaSyDdJRYhQrBG1X_ykF6JlhwK1XeNaGRHrCI"></script> <!-- End JS MAP --> <!-- Start custom styles --> <!-- End custom styles -->
     <script src="~/Content/assets/cache/js_01_home.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+    <script>
+        
+
+        function ReSendVerfLink() {
+            $("#btnResend").hide();
+            swal('Please wait');
+            swal.showLoading();
+            $.get("/Home/ReSendVerfLink", function (data) {
+                if (data == "@(Shared.Constants.MSG_SUCCESS)") {
+                    swal('Verification link sent to email successfully! ');
+                }
+                else if (data == "@(Shared.Constants.MSG_ERROR)") {
+                    swal('Error occured while sending email. Please try again later. ');
+                    $("#btnResend").show();
+                }
+                else{
+                    location.reload();
+                }
+            })
+        }
+
+    </script>
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

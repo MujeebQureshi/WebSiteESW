@@ -1,0 +1,140 @@
+﻿@model WebsiteBackEnd.Models.jpopening
+@{ 
+    WebsiteBackEnd.Models.jpuser SessionUser = null;
+    string isCvAdded = Shared.Constants.STR_NO;
+    if (Session[Shared.Constants.SESSION_USER] != null)
+    {
+        SessionUser = Session[Shared.Constants.SESSION_USER] as WebsiteBackEnd.Models.jpuser;
+        isCvAdded = (string.IsNullOrEmpty(SessionUser.objjpprofile.LONGCV)) ? Shared.Constants.STR_NO : Shared.Constants.STR_YES;
+    }
+
+    List<Shared.DDList> lstJobGender = Shared.Constants.getNewJobGender();
+    List<Shared.DDList> lstJobStatus = Shared.Constants.getNewJobStatus();
+    List<Shared.DDList> lstJobType = Shared.Constants.getNewJobType();
+
+    string GenderDesc = lstJobGender.Find(x => x.Value.Equals(Model.GENDER)).Text;
+    string JobStatusDesc = lstJobStatus.Find(x => x.Value.Equals(Model.JOBSTATUS)).Text;
+    string JobTypeDesc = lstJobType.Find(x => x.Value.Equals(Model.JOBTYPE)).Text;
+
+    string MinExpDesc = (int.Parse(Model.MINIMUMEXPERIENCE) == 0) ? "Fresh" : Model.MINIMUMEXPERIENCE + " years";
+    string SalaryDesc = (Model.SALARYRANGE == 0) ? "Not Discolsed" : "PKR " + Model.SALARYRANGE;
+
+    string jobStatusClassName = "";
+    if (Model.JOBSTATUS.Equals("O"))
+    {
+        jobStatusClassName = "mySuccessBadge";
+
+    }
+    else if (Model.JOBSTATUS.Equals("H"))
+    {
+        jobStatusClassName = "myWarningBadge";
+
+    }
+    else if (Model.JOBSTATUS.Equals("C"))
+    {
+        jobStatusClassName = "myDangerBadge";
+
+    }
+
+}
+<link rel="stylesheet" href='~/Content/assets/cache/css_jobopen.css' />
+<style>
+    .mySuccessBadge {
+        background: green;
+        color: white;
+        border-radius: 5px;
+        padding: 2px;
+        padding-left: 0px;
+    }
+
+    .myDangerBadge {
+        background: red;
+        color: white;
+        border-radius: 5px;
+        padding: 2px;
+        padding-left: 0px;
+    }
+
+    .myWarningBadge {
+        background: yellow;
+        color: white;
+        border-radius: 5px;
+        padding: 2px;
+        padding-left: 0px;
+    }
+</style>
+<div>
+    <div class="modal-body" style="margin-top: -15px;">
+        <div class="jcompany-card pt-15" style="margin-bottom:5px!important; padding-top:0px;">
+
+            <div class="thumbnail border">
+                <a href="#">
+                    <img src="~/Content/assets/img/pic/loglo-company.png" alt="">
+                </a>
+            </div>
+
+            <div class="body">
+                <h3 class="title">  @Html.DisplayFor(model => model.JOBTITLE)    </h3>
+                <div class="options">
+                    <span class="opt-light">
+                        <i class="fa fa-map-marker"></i>   @Html.DisplayFor(model => model.CITYNAME)
+                    </span>
+                    <span class="opt-light">,</span>
+                    <span class="opt-light">   @Html.DisplayFor(model => model.COUNTRYNAME)</span>
+                </div>
+                <div class="subtext"><i class="fa fa-road" style="margin-right:10px;"> </i><span> @Html.DisplayFor(model => model.COMPANYNAME)</span> </div>
+                <div class="subtext"><i class="fa fa-genderless" style="margin-right:10px;"> </i><span style="margin-right:10px;"> @GenderDesc </span> <i class="fa fa-battery-full" style="margin-right:10px;"> </i><span class="@jobStatusClassName"> @JobStatusDesc </span>  </div>
+                <div class="subtext" title="Job Post Date"><i class="fa fa-calendar" style="margin-right:10px;"> </i><span> @Html.DisplayFor(model => model.JOBPOSTDATE) </span> </div>
+
+            </div>
+        </div>
+
+        <div class="rsm-box">
+            <h4 class="rsm-title" style=" font-size 15px; font-weight 700; color #18ad50; margin 0; margin-bottom 22px; ">Job Description</h4>
+            <div class="decription"> @Html.DisplayFor(model => model.SHORTDESC)</div>
+
+            <div class="rsm-sub-box">
+                <h4 class="title"> Job Type: </h4>
+                <div class="decription">@JobTypeDesc</div>
+            </div>
+
+        </div>
+        <hr style="margin-top: -0.5rem;">
+
+        <div class="rsm-box rsm-listbox">
+            <h3 class="rsm-title" style="font-size: 15px;    font-weight: 700;    color: #18ad50;    margin: 0;    margin-bottom: 22px;">Requirement: </h3>
+            <div class="rsm-sub-box">
+                <h4 class="title" style="">Minimum Education: </h4>
+                <div class="decription"> @Html.DisplayFor(model => model.MINIMUMEDUCATION)</div>
+            </div>
+            <div class="rsm-sub-box">
+                <h4 class="title"> Minimum Experience: </h4>
+                <div class="decription">  @MinExpDesc</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ./ widget -->
+    <div style="float:right;">
+        @if (Model.ALLOWLONGCV.Equals(Shared.Constants.STR_NO))
+        {
+            <button type="button" class="btn btn-success btn-lg" onclick="ApplyJob('@Model.OPENINGID')" style="margin-right:5px;"> Apply </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-primary" onclick="ApplyJobCV('@Model.OPENINGID','@isCvAdded')">Apply Now</button>
+        }
+        <button type="button" class="btn btn-info btn-lg" data-dismiss="modal">Close</button>
+    </div>
+    
+
+</div>
+
+
+<script type="text/javascript">
+    function CloseModal() {
+        //alert("hello");
+        $("#DetailsModal").modal('hide');
+    }
+</script>
+

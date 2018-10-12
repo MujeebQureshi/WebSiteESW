@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = "~/Views/Shared/MyCustomLayout.cshtml";
+    string OrgName = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_NAME];
+    string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
+}
+
+<!DOCTYPE html>
+
+
+    <link rel="stylesheet"  href='~/Content/assets/cache/css_staticpages.min.css' />
+    <div class="saercion section-page-title container container-palette">
+        <div class="container">
+            <h2 class="title">Career Counselling</h2>
+        </div>
+    </div>
+    <main class="container container-palette pt-75 m30">
+        <div class="container">
+            <div class="wraper-row">
+                <div class="column-content">
+                    <div class="box-post-open m15">
+                        <div class="header">
+                            <h1 class="title"></h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="body">
+                    <p>@OrgInitials offers opportunities for Career Counseling to those individuals who want to know and understand themselves the world of work in order to make career, educational and life decisions. Career development is more than just deciding on a major out look and what job they want to get when they complete their academic qualification. The concept of Career Counseling covers the individual’s lifetime cycle and all kinds of professional support and activities that he/she needs for making well-founded decisions about his/her career and activities that contribute to his/her personal development and the society in which he/she lives and thrives. It also helps the individual realize his/her competencies and trains him/her to plan the appropriate steps to develop essential skills that will lead to personal, educational, economic and social advancement for the individual, family, society and the nation as well.</p>
+                    <div style="color:green">
+                        <h5>Our Objectives </h5>
+                    </div>
+                    <ul>
+                        <li> To source and provide up-to-date information about occupations, fields of work, postgraduate courses and research opportunities, organizations and their vacation work and post-graduation vacancies.</li>
+                        <li>To help students and graduates understand and develop the necessary skills to equip them for whatever career path they choose.</li>
+                        <li>To provide opportunities for students and graduates to understand their competencies, aspirations and options through a variety of means, including personal discussion with professional advisers. </li>
+                        <li>To promote the exchange of ideas between various organizations/corporate sectors on matters affecting the employment of highly educated professionals.</li>
+                        <li>To collaborate with the University, academic departments, colleges and relevant organizations in activities designed to further the aims of the Service.</li>
+                        <li>To provide our services impartially, confidentially, efficiently and free from discrimination, adhering to national codes of good practice and professional standards.</li>
+                        <li>To promote the Careers Service to all entitled users, allowing them to make a personal choice on when and how best to engage with the Careers Service.</li>
+                        <li>To recruit, train and develop staff at all levels, to enable these aims and objectives to be met. </li>
+
+                    </ul>
+                    <p>We have in our Career Center well qualified and experienced staff, have expertise in career development theory, counseling techniques, administration and interpretation of assessments, and career information resources. </p>
+
+                </div>
+            </div>
+            <!-- ./ widget post description -->
+
+
+        </div>
+    </main>

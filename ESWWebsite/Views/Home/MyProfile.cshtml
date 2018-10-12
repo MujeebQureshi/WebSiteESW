@@ -1,0 +1,357 @@
+﻿@model WebsiteBackEnd.Models.jpprofile
+@{
+    ViewBag.Title = "MyProfile";
+    List<Shared.DDList> lstGender = Shared.Constants.getNewGender();
+    if(!string.IsNullOrEmpty(Model.GENDER))
+    {
+        lstGender.Find(g => g.Value.Equals(Model.GENDER)).isSelected = true;
+    }
+    List<Shared.DDList> lstSalary = Shared.Constants.getNewSalary();
+    if (!string.IsNullOrEmpty(Model.CURRENTSALARY))
+    {
+        lstSalary.Find(g => g.Value.Equals(Model.CURRENTSALARY)).isSelected = true;
+    }
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+    @@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+
+    main {
+        min-width: 320px;
+        max-width: 800px;
+        padding: 50px;
+        margin: 0 auto;
+        background: #fff;
+    }
+
+    section {
+        display: none;
+        padding: 20px 0 0;
+        border-top: 1px solid #ddd;
+    }
+
+    input {
+        display: none;
+    }
+
+    label {
+        display: inline-block;
+        margin: 0 0 -1px;
+        padding: 15px 25px;
+        font-weight: 600;
+        text-align: center;
+        color: #bbb;
+        border: 1px solid transparent;
+    }
+
+        label:before {
+            font-family: fontawesome;
+            font-weight: normal;
+            margin-right: 10px;
+        }
+
+        label[for*='1']:before {
+            /*content: '\f1cb';*/
+            content: '\f09d';
+        }
+
+        label[for*='2']:before {
+            /*content: '\f17d';*/
+            content: '\f040';
+        }
+
+        label[for*='3']:before {
+            /*content: '\f16b';*/
+            content: '\f0eb';
+        }
+
+        label[for*='4']:before {
+            content: '\f1a9';
+        }
+
+        label:hover {
+            color: #888;
+            cursor: pointer;
+        }
+
+    input:checked + label {
+        color: #555;
+        border: 1px solid #ddd;
+        border-top: 2px solid orange;
+        border-bottom: 1px solid #fff;
+    }
+
+    #tab1:checked ~ #content1,
+    #tab2:checked ~ #content2,
+    #tab3:checked ~ #content3,
+    #tab4:checked ~ #content4 {
+        display: block;
+    }
+</style>
+
+
+
+
+
+
+<div style="padding:30px;">
+
+    <input id="tab1" type="radio" name="tabs" checked>
+    <label for="tab1">Personal</label>
+
+    <input id="tab2" type="radio" name="tabs">
+    <label for="tab2">Education</label>
+
+    <input id="tab3" type="radio" name="tabs">
+    <label for="tab3">Experience</label>
+
+
+
+    <section id="content1">
+        @*<p>Personal</p>*@
+        <div class="" style="padding:10px;">
+            <form id="frmProfile" action="#">
+                <input type="submit" style="display:none" />
+                <div class="form-group"><input type="text" id="NAME" name="NAME" placeholder="Full Name" class="form-control" value="@Model.NAME" required/></div>
+                <div class="form-group">
+                    <select id="GENDER" name="GENDER" type="text" placeholder="Gender" class="form-control" required>
+                    @foreach (var opt in lstGender)
+                    {
+                        string selected = "";
+                        if (opt.isSelected)
+                        {
+                            selected = "selected";
+                        }
+                        <option value="@opt.Value" @selected>@opt.Text</option>
+                    }
+                    </select>
+                </div>
+                <div class="form-group"><input type="number" id="CONTACT" name="CONTACT" placeholder="Contact Number" class="form-control" value="@Model.CONTACT"  required/></div>
+                <div class="form-group">
+                    <select id="CURRENTSALARY" name="CURRENTSALARY" type="text" placeholder="Current Salary" class="form-control" required>
+                        @foreach (var opt in lstSalary)
+                        {
+                            string selected = "";
+                            if (opt.isSelected)
+                            {
+                                selected = "selected";
+                            }
+                            <option value="@opt.Value" @selected>@opt.Text</option>
+                        }
+                    </select>
+                </div>
+            </form>
+
+        </div>
+    </section>
+
+    <section id="content2">
+        <div class="" style="padding:10px;">
+            <div id="tblEdu">
+                @Html.Partial("_EduTabView", Model.lstjpqualification)
+            </div>
+        </div>
+    </section>
+
+    <section id="content3">
+        <div class="" style="padding:10px;">
+            <div id="tblExp">
+                @Html.Partial("_ExpTabView", Model.lstjpexperience)
+            </div>
+        </div>
+
+        <div style="padding-top:20px;">
+            <button type="button" onclick="SubmitProfile();" class="btn form-control" style="background-color: #02bf2d; color:white;">Save Profile</button>
+        </div>
+        
+    </section>
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        function SweetAlertEdu(id) {
+            swal('Please wait');
+            swal.showLoading();
+            var url = (id) ? "/Home/_EduFormView/" + id : "/Home/_EduFormView";
+            //alert(url);
+            $.get(url, function (data) {
+                swal({
+                    title: '<i class="fas fa-graduation-cap"></i><span>&nbsp;&nbsp;Education</span>',
+                    html: data,
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Done'
+                }).then((result) => {
+                    clearInterval(Interval);
+                    console.log(result);
+                    var frmSerialize = $("#EduRec").serialize();
+                    console.log(frmSerialize);
+                    if (result.value) {
+                        swal('Please wait');
+                        swal.showLoading();
+                        $.post("/Home/_EduFormView", frmSerialize, function (data) {
+                            if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                                $("#tblEdu").load("/Home/_EduTabView", function (data) {
+                                    swal.close();
+                                })    
+                            }
+                            else {
+                                swal(data);
+                            }
+                        })
+                    }
+                })
+                var Interval = setInterval(function () {
+                    if ($('#EduRec')[0].checkValidity()) {
+                        swal.enableConfirmButton();
+                    }
+                    else {
+                        $('#EduRec').find(':submit').click();
+                        swal.disableConfirmButton();
+                    }
+                }, 10);
+            })
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        function SweetAlertExp(id) {
+            swal('Please wait');
+            swal.showLoading();
+            var url = (id) ? "/Home/_ExpFormView/" + id : "/Home/_ExpFormView";
+            //alert(url);
+            $.get(url, function (data) {
+                swal({
+                    title: '<i class="fab fa-black-tie"></i><span>&nbsp;&nbsp;Experience</span>',
+                    html: data,
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Done'
+                }).then((result) => {
+                    clearInterval(Interval);
+                    console.log(result);
+                    var frmSerialize = $("#ExpRec").serialize();
+                    console.log(frmSerialize);
+                    if (result.value) {
+                        swal('Please wait');
+                        swal.showLoading();
+                        $.post("/Home/_ExpFormView", frmSerialize, function (data) {
+                            if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                                $("#tblExp").load("/Home/_ExpTabView", function (data) {
+                                    swal.close();
+                                })
+                            }
+                            else {
+                                swal(data);
+                            }
+                        })
+                    }
+                })
+                var Interval = setInterval(function () {
+                    if ($('#ExpRec')[0].checkValidity()) {
+                        swal.enableConfirmButton();
+                    }
+                    else {
+                        $('#ExpRec').find(':submit').click();
+                        swal.disableConfirmButton();
+                    }
+                }, 10);
+            })
+        }
+
+    </script>
+    <script>
+        function RemoveEdu(id) {
+            swal({
+                title: 'Are you sure?',
+                text: "Do you want to remove this entry?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+                    swal('Please wait');
+                    swal.showLoading();
+                    $.get("/Home/_EduRecRemove/"+id, function (data) {
+                        if (data == '@(Shared.Constants.MSG_SUCCESS.Text)') {
+                            $("#tblEdu").load("/Home/_EduTabView", function (data) {
+                                swal.close();
+                            })
+                        }
+                        else {
+                            swal(data);
+                        }
+                    })
+                }
+            })
+        }
+
+        function RemoveExp(id) {
+            swal({
+                title: 'Are you sure?',
+                text: "Do you want to remove this entry?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            }).then((result) => {
+                if (result.value) {
+                    swal('Please wait');
+                    swal.showLoading();
+                    $.get("/Home/_ExpRecRemove/" + id, function (data) {
+                        if (data == '@(Shared.Constants.MSG_SUCCESS.Text)') {
+                            $("#tblExp").load("/Home/_ExpTabView", function (data) {
+                                swal.close();
+                            })
+                        }
+                        else {
+                            swal(data);
+                        }
+                    })
+                }
+            })
+            
+        }
+    </script>
+    <script>
+        function SubmitProfile() {
+            if ($('#frmProfile')[0].checkValidity()) {
+                swal('Please wait');
+                swal.showLoading();
+                var frmSerialize = $("#frmProfile").serialize();
+                $.post("/Home/MyProfile", frmSerialize, function (data) {
+                    if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                        //swal.close();
+                        //location.href = "/Home/Index";
+                        swal('@(Shared.Constants.MSG_SUCCESS.Value)').then((result) => {
+                            if (result.value) {
+                                location.href = "/Home/Index";
+                            }
+                        })
+                    }
+                    else {
+                        swal(data);
+                    }
+                })
+            }
+            else {
+                $('#frmProfile').find(':submit').click();
+            }
+        }
+    </script>
+}
+

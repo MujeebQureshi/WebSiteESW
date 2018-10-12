@@ -6,24 +6,41 @@ using MySql.Data.MySqlClient;
 
 namespace WebsiteBackEnd.Models
 {
-	public class jpOPENING
+	public class jpopening
 	{
-		public int openingID { get; set; }
-		public string openingType { get; set; }
-		public int cvID { get; set; }
-	}
-	public class jpOPENINGManager : BaseManager
+		public int OPENINGID { get; set; }
+		public string JOBTITLE { get; set; }
+		public string COMPANYNAME { get; set; }
+		public string CITYNAME { get; set; }
+		public string COUNTRYNAME { get; set; }
+		public string DEPARTMENT { get; set; }
+		public string SHORTDESC { get; set; }
+		public string JOBTYPE { get; set; }
+		public int SALARYRANGE { get; set; }
+		public string MINIMUMEDUCATION { get; set; }
+		public string MINIMUMEXPERIENCE { get; set; }
+		public string GENDER { get; set; }
+		public string JOBSTATUS { get; set; }
+        public string ALLOWLONGCV { get; set; }
+        public DateTime? JOBPOSTDATE { get; set; }
+
+        //other vars
+        public string ExpectedSalary { get; set; }
+    }
+	public class jpopeningManager : BaseManager
 {
-    public static List<jpOPENING> GetjpOPENING(string whereclause, MySqlConnection conn = null)
+    public static List<jpopening> Getjpopening(string whereclause, MySqlConnection conn = null)
     {
-        jpOPENING objjpOPENING = null;
-        List<jpOPENING> lstjpOPENING = new List<jpOPENING>();
+        jpopening objjpopening = null;
+        List<jpopening> lstjpopening = new List<jpopening>();
         try
         {
             bool isConnArgNull = (conn != null) ? false : true;
             MySqlConnection connection = (conn != null) ? conn : PrimaryConnection();
             tryOpenConnection(connection);
-            string sql = "";
+            string sql = "select * from jpopening ";
+            if (!string.IsNullOrEmpty(whereclause))
+                sql += " where " + whereclause;
             using (MySqlCommand command = new MySqlCommand())
             {
                 command.Connection = connection;
@@ -34,8 +51,8 @@ namespace WebsiteBackEnd.Models
                     {
                         while (reader.Read())
                         {
-                            objjpOPENING = ReaderDatajpOPENING(reader);
-                            lstjpOPENING.Add(objjpOPENING);
+                            objjpopening = ReaderDatajpopening(reader);
+                            lstjpopening.Add(objjpopening);
                         }
                     }
                     else
@@ -53,24 +70,36 @@ namespace WebsiteBackEnd.Models
         {
         }
 
-        return lstjpOPENING;
+        return lstjpopening;
     }
 
-    private static jpOPENING ReaderDatajpOPENING(MySqlDataReader reader)
+    private static jpopening ReaderDatajpopening(MySqlDataReader reader)
     {
-        jpOPENING objjpOPENING = new jpOPENING();
-        objjpOPENING.openingID = Utility.IsValidInt(reader["openingID"]);
-        objjpOPENING.openingType = Utility.IsValidString(reader["openingType"]);
-        objjpOPENING.cvID = Utility.IsValidInt(reader["cvID"]);
-        return objjpOPENING;
+        jpopening objjpopening = new jpopening();
+        objjpopening.OPENINGID = Utility.IsValidInt(reader["OPENINGID"]);
+        objjpopening.JOBTITLE = Utility.IsValidString(reader["JOBTITLE"]);
+        objjpopening.COMPANYNAME = Utility.IsValidString(reader["COMPANYNAME"]);
+        objjpopening.CITYNAME = Utility.IsValidString(reader["CITYNAME"]);
+        objjpopening.COUNTRYNAME = Utility.IsValidString(reader["COUNTRYNAME"]);
+        objjpopening.DEPARTMENT = Utility.IsValidString(reader["DEPARTMENT"]);
+        objjpopening.SHORTDESC = Utility.IsValidString(reader["SHORTDESC"]);
+        objjpopening.JOBTYPE = Utility.IsValidString(reader["JOBTYPE"]);
+        objjpopening.SALARYRANGE = Utility.IsValidInt(reader["SALARYRANGE"]);
+        objjpopening.MINIMUMEDUCATION = Utility.IsValidString(reader["MINIMUMEDUCATION"]);
+        objjpopening.MINIMUMEXPERIENCE = Utility.IsValidString(reader["MINIMUMEXPERIENCE"]);
+        objjpopening.GENDER = Utility.IsValidString(reader["GENDER"]);
+        objjpopening.JOBSTATUS = Utility.IsValidString(reader["JOBSTATUS"]);
+        objjpopening.ALLOWLONGCV = Utility.IsValidString(reader["ALLOWLONGCV"]);
+        objjpopening.JOBPOSTDATE = Utility.IsValidDateTime(reader["JOBPOSTDATE"]);
+        return objjpopening;
     }
 
-    public static string SavejpOPENING(jpOPENING objjpOPENING, MySqlConnection conn = null)
+    public static string Savejpopening(jpopening objjpopening, MySqlConnection conn = null)
     {
         string returnMessage = "";
-        string sopeningID = "";
-        sopeningID = objjpOPENING.openingID.ToString();
-        var templstjpOPENING = GetjpOPENING("openingID = '" + sopeningID + "'", conn);
+        string sOPENINGID = "";
+        sOPENINGID = objjpopening.OPENINGID.ToString();
+        var templstjpopening = Getjpopening("OPENINGID = '" + sOPENINGID + "'", conn);
         try
         {
             bool isConnArgNull = (conn != null) ? false : true;
@@ -80,26 +109,62 @@ namespace WebsiteBackEnd.Models
             {
                 string sql;
                 bool isEdit = true;
-                if (templstjpOPENING.Count <= 0)
+                if (templstjpopening.Count <= 0)
                 {
                     isEdit = false;
-                    sql = @"INSERT INTO jpOPENING(
-openingType,
-cvID
+                    sql = @"INSERT INTO jpopening(
+JOBTITLE,
+COMPANYNAME,
+CITYNAME,
+COUNTRYNAME,
+DEPARTMENT,
+SHORTDESC,
+JOBTYPE,
+SALARYRANGE,
+MINIMUMEDUCATION,
+MINIMUMEXPERIENCE,
+GENDER,
+JOBSTATUS,
+ALLOWLONGCV,
+JOBPOSTDATE
 )
 VALUES(
-@openingType,
-@cvID
+@JOBTITLE,
+@COMPANYNAME,
+@CITYNAME,
+@COUNTRYNAME,
+@DEPARTMENT,
+@SHORTDESC,
+@JOBTYPE,
+@SALARYRANGE,
+@MINIMUMEDUCATION,
+@MINIMUMEXPERIENCE,
+@GENDER,
+@JOBSTATUS,
+@ALLOWLONGCV,
+@JOBPOSTDATE
 )";
                 }
                 else
                 {
-                    sql = @"Update jpOPENING set
-openingID=@openingID,
-openingType=@openingType,
-cvID=@cvID
+                    sql = @"Update jpopening set
+OPENINGID=@OPENINGID,
+JOBTITLE=@JOBTITLE,
+COMPANYNAME=@COMPANYNAME,
+CITYNAME=@CITYNAME,
+COUNTRYNAME=@COUNTRYNAME,
+DEPARTMENT=@DEPARTMENT,
+SHORTDESC=@SHORTDESC,
+JOBTYPE=@JOBTYPE,
+SALARYRANGE=@SALARYRANGE,
+MINIMUMEDUCATION=@MINIMUMEDUCATION,
+MINIMUMEXPERIENCE=@MINIMUMEXPERIENCE,
+GENDER=@GENDER,
+JOBSTATUS=@JOBSTATUS,
+ALLOWLONGCV=@ALLOWLONGCV,
+JOBPOSTDATE=@JOBPOSTDATE
 
-Where openingID=@openingID";
+Where OPENINGID=@OPENINGID";
                 }
 
                 command.Connection = connection;
@@ -107,11 +172,23 @@ Where openingID=@openingID";
                 command.CommandText = sql;
                 if (isEdit)
                 {
-                    command.Parameters.AddWithValue("@openingID", objjpOPENING.openingID);
+                    command.Parameters.AddWithValue("@OPENINGID", objjpopening.OPENINGID);
                 }
 
-                command.Parameters.AddWithValue("@openingType", objjpOPENING.openingType);
-                command.Parameters.AddWithValue("@cvID", objjpOPENING.cvID);
+                command.Parameters.AddWithValue("@JOBTITLE", objjpopening.JOBTITLE);
+                command.Parameters.AddWithValue("@COMPANYNAME", objjpopening.COMPANYNAME);
+                command.Parameters.AddWithValue("@CITYNAME", objjpopening.CITYNAME);
+                command.Parameters.AddWithValue("@COUNTRYNAME", objjpopening.COUNTRYNAME);
+                command.Parameters.AddWithValue("@DEPARTMENT", objjpopening.DEPARTMENT);
+                command.Parameters.AddWithValue("@SHORTDESC", objjpopening.SHORTDESC);
+                command.Parameters.AddWithValue("@JOBTYPE", objjpopening.JOBTYPE);
+                command.Parameters.AddWithValue("@SALARYRANGE", objjpopening.SALARYRANGE);
+                command.Parameters.AddWithValue("@MINIMUMEDUCATION", objjpopening.MINIMUMEDUCATION);
+                command.Parameters.AddWithValue("@MINIMUMEXPERIENCE", objjpopening.MINIMUMEXPERIENCE);
+                command.Parameters.AddWithValue("@GENDER", objjpopening.GENDER);
+                command.Parameters.AddWithValue("@JOBSTATUS", objjpopening.JOBSTATUS);
+                command.Parameters.AddWithValue("@ALLOWLONGCV", objjpopening.ALLOWLONGCV);
+                command.Parameters.AddWithValue("@JOBPOSTDATE", objjpopening.JOBPOSTDATE);
                 int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {
@@ -135,7 +212,7 @@ Where openingID=@openingID";
         return returnMessage;
     }
 
-    public static string DeletejpOPENING(string openingID, MySqlConnection conn = null)
+    public static string Deletejpopening(string OPENINGID, MySqlConnection conn = null)
     {
         string returnMessage = "";
         try
@@ -146,11 +223,11 @@ Where openingID=@openingID";
             using (MySqlCommand command = new MySqlCommand())
             {
                 string sql;
-                sql = @"DELETE from jpOPENING Where openingID = @openingID";
+                sql = @"DELETE from jpopening Where OPENINGID = @OPENINGID";
                 command.Connection = connection;
                 command.CommandType = CommandType.Text;
                 command.CommandText = sql;
-                command.Parameters.AddWithValue("@openingID", openingID);
+                command.Parameters.AddWithValue("@OPENINGID", OPENINGID);
                 int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {

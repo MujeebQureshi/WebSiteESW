@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESWWebsite", "ESWWebsite\ESWWebsite.csproj", "{34DF59EC-D673-4555-AAE5-996BF6F5405C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D38C0C86-B998-41A1-9007-12F7B0E709E1} = {D38C0C86-B998-41A1-9007-12F7B0E709E1}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebsiteBackEnd", "WebsiteBackEnd\WebsiteBackEnd.csproj", "{D38C0C86-B998-41A1-9007-12F7B0E709E1}"
 EndProject

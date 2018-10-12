@@ -3,30 +3,48 @@ using System.Data;
 using System.Collections.Generic;
 using Shared;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 
 namespace WebsiteBackEnd.Models
 {
-	public class jpQUALIFICATION
+	public class jpqualification
 	{
-		public int qualificationID { get; set; }
-		public int cvID { get; set; }
-		public string degreeName { get; set; }
-		public string passingYear { get; set; }
-		public string grades { get; set; }
-		public string institutionName { get; set; }
-	}
-	public class jpQUALIFICATIONManager : BaseManager
+        [JsonIgnore]
+        public int QUALIFICATIONID { get; set; }
+        [JsonIgnore]
+        public int PROFILEID { get; set; }
+        [JsonProperty(PropertyName = "area")]
+        public string DEGREENAME { get; set; }
+        [JsonIgnore]
+        public DateTime? PASSINGYEAR { get; set; }
+        [JsonProperty(PropertyName = "gpa")]
+        public string GRADES { get; set; }
+        [JsonProperty(PropertyName = "institution")]
+        public string INSTITUTIONNAME { get; set; }
+
+        //other vars:
+        [JsonIgnore]
+        public string DegreeType { get; set; }
+        [JsonIgnore]
+        public bool isNewRecord { get; set; }
+        public string endDate {
+            get { return (PASSINGYEAR != null) ? PASSINGYEAR.Value.ToString(Constants.DATE_MONTH_YEAR_FORMAT) : ""; } set { }
+        }
+    }
+	public class jpqualificationManager : BaseManager
 {
-    public static List<jpQUALIFICATION> GetjpQUALIFICATION(string whereclause, MySqlConnection conn = null)
+    public static List<jpqualification> Getjpqualification(string whereclause, MySqlConnection conn = null)
     {
-        jpQUALIFICATION objjpQUALIFICATION = null;
-        List<jpQUALIFICATION> lstjpQUALIFICATION = new List<jpQUALIFICATION>();
+        jpqualification objjpqualification = null;
+        List<jpqualification> lstjpqualification = new List<jpqualification>();
         try
         {
             bool isConnArgNull = (conn != null) ? false : true;
             MySqlConnection connection = (conn != null) ? conn : PrimaryConnection();
             tryOpenConnection(connection);
-            string sql = "";
+            string sql = "select * from jpqualification ";
+            if (!string.IsNullOrEmpty(whereclause))
+                sql += " where " + whereclause;
             using (MySqlCommand command = new MySqlCommand())
             {
                 command.Connection = connection;
@@ -37,8 +55,8 @@ namespace WebsiteBackEnd.Models
                     {
                         while (reader.Read())
                         {
-                            objjpQUALIFICATION = ReaderDatajpQUALIFICATION(reader);
-                            lstjpQUALIFICATION.Add(objjpQUALIFICATION);
+                            objjpqualification = ReaderDatajpqualification(reader);
+                            lstjpqualification.Add(objjpqualification);
                         }
                     }
                     else
@@ -56,27 +74,27 @@ namespace WebsiteBackEnd.Models
         {
         }
 
-        return lstjpQUALIFICATION;
+        return lstjpqualification;
     }
 
-    private static jpQUALIFICATION ReaderDatajpQUALIFICATION(MySqlDataReader reader)
+    private static jpqualification ReaderDatajpqualification(MySqlDataReader reader)
     {
-        jpQUALIFICATION objjpQUALIFICATION = new jpQUALIFICATION();
-        objjpQUALIFICATION.qualificationID = Utility.IsValidInt(reader["qualificationID"]);
-        objjpQUALIFICATION.cvID = Utility.IsValidInt(reader["cvID"]);
-        objjpQUALIFICATION.degreeName = Utility.IsValidString(reader["degreeName"]);
-        objjpQUALIFICATION.passingYear = Utility.IsValidString(reader["passingYear"]);
-        objjpQUALIFICATION.grades = Utility.IsValidString(reader["grades"]);
-        objjpQUALIFICATION.institutionName = Utility.IsValidString(reader["institutionName"]);
-        return objjpQUALIFICATION;
+        jpqualification objjpqualification = new jpqualification();
+        objjpqualification.QUALIFICATIONID = Utility.IsValidInt(reader["QUALIFICATIONID"]);
+        objjpqualification.PROFILEID = Utility.IsValidInt(reader["PROFILEID"]);
+        objjpqualification.DEGREENAME = Utility.IsValidString(reader["DEGREENAME"]);
+        objjpqualification.PASSINGYEAR = Utility.IsValidDateTime(reader["PASSINGYEAR"]);
+        objjpqualification.GRADES = Utility.IsValidString(reader["GRADES"]);
+        objjpqualification.INSTITUTIONNAME = Utility.IsValidString(reader["INSTITUTIONNAME"]);
+        return objjpqualification;
     }
 
-    public static string SavejpQUALIFICATION(jpQUALIFICATION objjpQUALIFICATION, MySqlConnection conn = null)
+    public static string Savejpqualification(jpqualification objjpqualification, MySqlConnection conn = null, MySqlTransaction trans = null)
     {
         string returnMessage = "";
-        string squalificationID = "";
-        squalificationID = objjpQUALIFICATION.qualificationID.ToString();
-        var templstjpQUALIFICATION = GetjpQUALIFICATION("qualificationID = '" + squalificationID + "'", conn);
+        string sQUALIFICATIONID = "";
+        sQUALIFICATIONID = objjpqualification.QUALIFICATIONID.ToString();
+        var templstjpqualification = Getjpqualification("QUALIFICATIONID = '" + sQUALIFICATIONID + "'", conn);
         try
         {
             bool isConnArgNull = (conn != null) ? false : true;
@@ -86,50 +104,53 @@ namespace WebsiteBackEnd.Models
             {
                 string sql;
                 bool isEdit = true;
-                if (templstjpQUALIFICATION.Count <= 0)
+                if (templstjpqualification.Count <= 0)
                 {
                     isEdit = false;
-                    sql = @"INSERT INTO jpQUALIFICATION(
-cvID,
-degreeName,
-passingYear,
-grades,
-institutionName
+                    sql = @"INSERT INTO jpqualification(
+PROFILEID,
+DEGREENAME,
+PASSINGYEAR,
+GRADES,
+INSTITUTIONNAME
 )
 VALUES(
-@cvID,
-@degreeName,
-@passingYear,
-@grades,
-@institutionName
+@PROFILEID,
+@DEGREENAME,
+@PASSINGYEAR,
+@GRADES,
+@INSTITUTIONNAME
 )";
                 }
                 else
                 {
-                    sql = @"Update jpQUALIFICATION set
-qualificationID=@qualificationID,
-cvID=@cvID,
-degreeName=@degreeName,
-passingYear=@passingYear,
-grades=@grades,
-institutionName=@institutionName
+                    sql = @"Update jpqualification set
+QUALIFICATIONID=@QUALIFICATIONID,
+PROFILEID=@PROFILEID,
+DEGREENAME=@DEGREENAME,
+PASSINGYEAR=@PASSINGYEAR,
+GRADES=@GRADES,
+INSTITUTIONNAME=@INSTITUTIONNAME
 
-Where qualificationID=@qualificationID";
+Where QUALIFICATIONID=@QUALIFICATIONID";
                 }
-
+                if (trans != null)
+                {
+                    command.Transaction = trans;
+                }
                 command.Connection = connection;
                 command.CommandType = CommandType.Text;
                 command.CommandText = sql;
                 if (isEdit)
                 {
-                    command.Parameters.AddWithValue("@qualificationID", objjpQUALIFICATION.qualificationID);
+                    command.Parameters.AddWithValue("@QUALIFICATIONID", objjpqualification.QUALIFICATIONID);
                 }
 
-                command.Parameters.AddWithValue("@cvID", objjpQUALIFICATION.cvID);
-                command.Parameters.AddWithValue("@degreeName", objjpQUALIFICATION.degreeName);
-                command.Parameters.AddWithValue("@passingYear", objjpQUALIFICATION.passingYear);
-                command.Parameters.AddWithValue("@grades", objjpQUALIFICATION.grades);
-                command.Parameters.AddWithValue("@institutionName", objjpQUALIFICATION.institutionName);
+                command.Parameters.AddWithValue("@PROFILEID", objjpqualification.PROFILEID);
+                command.Parameters.AddWithValue("@DEGREENAME", objjpqualification.DEGREENAME);
+                command.Parameters.AddWithValue("@PASSINGYEAR", objjpqualification.PASSINGYEAR);
+                command.Parameters.AddWithValue("@GRADES", objjpqualification.GRADES);
+                command.Parameters.AddWithValue("@INSTITUTIONNAME", objjpqualification.INSTITUTIONNAME);
                 int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {
@@ -153,7 +174,7 @@ Where qualificationID=@qualificationID";
         return returnMessage;
     }
 
-    public static string DeletejpQUALIFICATION(string qualificationID, MySqlConnection conn = null)
+    public static string Deletejpqualification(int QUALIFICATIONID, MySqlConnection conn = null)
     {
         string returnMessage = "";
         try
@@ -164,11 +185,11 @@ Where qualificationID=@qualificationID";
             using (MySqlCommand command = new MySqlCommand())
             {
                 string sql;
-                sql = @"DELETE from jpQUALIFICATION Where qualificationID = @qualificationID";
+                sql = @"DELETE from jpqualification Where QUALIFICATIONID = @QUALIFICATIONID";
                 command.Connection = connection;
                 command.CommandType = CommandType.Text;
                 command.CommandText = sql;
-                command.Parameters.AddWithValue("@qualificationID", qualificationID);
+                command.Parameters.AddWithValue("@QUALIFICATIONID", QUALIFICATIONID);
                 int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {

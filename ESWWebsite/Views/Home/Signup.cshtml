@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Sign_Up";
+    Layout = "~/Views/Shared/MyCustomLayout.cshtml";
+
+    List<Shared.DDList> lstGender = Shared.Constants.getNewGender();
+}
+
+<!-- ./ header -->
+<main class="container container-palette" style="background: #f8f8f8; padding-top:30px;">
+    @*page-sign pt-95*@
+    <div class="container">
+        <div class="sign-form">
+            <div class="header">
+                <h1 class="title">Sign Up with ESW</h1>
+            </div>
+            <form id="frmSignUp" action="#" class="job-sign-from">
+                <div class="form-group"><input id="Username" name="Username" type="text" placeholder="Username" class="form-control" required /></div>
+                <div class="form-group"><input id="Email" name="Email" type="email" placeholder="Email" class="form-control" required /></div>
+                <div class="form-group"><input id="Password" name="Password" type="password" placeholder="Password" class="form-control" required /></div>
+                <div class="form-group"><input id="ConfirmPassword" type="password" placeholder="Confirm Password" class="form-control" required/></div>
+                <div class="form-group">
+                    <select id="Gender" name="Gender" type="text" placeholder="Gender" class="form-control" required>
+                        @foreach (var opt in lstGender) {
+                            <option value="@opt.Value">@opt.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group"><input id="DOB" name="DOB" type="date" placeholder="Date of Birth" class="form-control" required /></div>
+                <div class="form-group"><input id="Contact" name="Contact" type="number" placeholder="Contact Number" class="form-control" required /></div>
+                @*<div class="form-group"><input type="text" placeholder="LinkedIn" class="form-control" /></div>*@
+                <input type="submit" style="display:none"/>
+                <div class="form-group"><input type="button" value="Sign Up" class="btn btn-custom btn-custom-secondary" onclick="SignUp();"></div>
+            </form>
+            <div class="footer"> <span>Already have an account?</span><br /> <a href="/Home/Signin" class="sign-from-link">Sign In</a> </div>
+        </div>
+    </div>
+</main>
+
+@section scripts
+{
+    <script type="text/javascript">
+
+        var password = document.getElementById("Password"), confirm_password = document.getElementById("ConfirmPassword");
+
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+
+        function SignUp() {
+            if ($('#frmSignUp')[0].checkValidity()) {
+                swal('Please wait');
+                swal.showLoading();
+                var frmSerialize = $("#frmSignUp").serialize();
+                $.post("/Home/Signup", frmSerialize, function (data) {
+                    if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                        //swal.close();
+                        //location.href = "/Home/Index";
+                        swal('@(Shared.Constants.MSG_SUCCESS.Value)').then((result) => {
+                            if (result.value) {
+                                location.href = "/Home/Index";
+                            }
+                        })
+                    }
+                    else {
+                        swal(data);
+                    }
+                })
+            }
+            else {
+                $('#frmSignUp').find(':submit').click();
+            }
+        }
+    </script>
+}

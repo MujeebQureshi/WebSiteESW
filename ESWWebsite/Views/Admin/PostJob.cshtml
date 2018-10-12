@@ -1,0 +1,230 @@
+﻿@model WebsiteBackEnd.Models.jpopening
+
+@{ 
+    List<Shared.DDList> lstJobGender = Shared.Constants.getNewJobGender();
+    List<Shared.DDList> lstJobStatus = Shared.Constants.getNewJobStatus();
+    List<Shared.DDList> lstJobType = Shared.Constants.getNewJobType();
+    List<Shared.DDList> lstAllowCVUpload = Shared.Constants.getNewYesNoList();
+
+
+    if (Model!=null)
+    {
+        if (!string.IsNullOrEmpty(Model.GENDER))
+        {
+            lstJobGender.Find(g => g.Value.Equals(Model.GENDER)).isSelected = true;
+        }
+        if (!string.IsNullOrEmpty(Model.JOBSTATUS))
+        {
+            lstJobStatus.Find(g => g.Value.Equals(Model.JOBSTATUS)).isSelected = true;
+        }
+        if (!string.IsNullOrEmpty(Model.JOBTYPE))
+        {
+            lstJobType.Find(g => g.Value.Equals(Model.JOBTYPE)).isSelected = true;
+        }
+        if (!string.IsNullOrEmpty(Model.ALLOWLONGCV))
+        {
+            lstAllowCVUpload.Find(g => g.Value.Equals(Model.ALLOWLONGCV)).isSelected = true;
+        }
+    }
+}
+<div id="OtherLoaderDiv" style="text-align:center;padding-top:100px;">
+    <img src="http://gifimage.net/wp-content/uploads/2017/09/animated-loading-gif-transparent-background-6.gif">
+    <div><h1>Loading...</h1></div>
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        @*<h3 class="page-title">Typography</h3>*@
+        <div class="panel panel-headline">
+            <form action="#" id="frmJobPost">
+                <input type="submit" style="display:none" />
+                <input type="hidden" required value="@(Model.OPENINGID)" id="OPENINGID" name="OPENINGID" />
+                <div class="panel-body">
+
+                    <h2>Post New Job</h2>
+                    <hr />
+                    @*<h3>Faculty Staff</h3>*@
+                    <h4>Job Status </h4>
+                    <div class="form-group">
+                        <select class="form-control" required value="@(Model.JOBSTATUS)" id="JOBSTATUS" name="JOBSTATUS">
+                            @foreach (var opt in lstJobStatus)
+                            {
+                                string selected = "";
+                                if (opt.isSelected)
+                                {
+                                    selected = "selected";
+                                }
+                                <option value="@opt.Value" @selected>@opt.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <h4>Job Type </h4>
+                    <div class="form-group">
+                        <select class="form-control" required value="@(Model.JOBTYPE)" id="JOBTYPE" name="JOBTYPE">
+                            @foreach (var opt in lstJobType)
+                            {
+                                string selected = "";
+                                if (opt.isSelected)
+                                {
+                                    selected = "selected";
+                                }
+                                <option value="@opt.Value" @selected>@opt.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <h4>Job Title</h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control" required value="@(Model.JOBTITLE)" id="JOBTITLE" name="JOBTITLE" />
+                    </div>
+                    <h4>Company Name</h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control" required value="@(Model.COMPANYNAME)" id="COMPANYNAME" name="COMPANYNAME" />
+                    </div>
+
+                    <h4>Position Based In</h4>
+                    <div class='form-group '>
+                        <select class="form-control" required  id="COUNTRYNAME" name="COUNTRYNAME">
+                            <option value="" title="Tooltip">--Select Country--</option>
+                        </select>
+                    </div>
+
+                    <div class='form-group'>
+                        <select class="form-control" required value="@(Model.CITYNAME)" id="CITYNAME" name="CITYNAME">
+                            <option value="" title="Tooltip">--Select City--</option>
+                        </select>
+                    </div>
+
+                    <h4>Department</h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control" required value="@(Model.DEPARTMENT)" id="DEPARTMENT" name="DEPARTMENT" />
+                    </div>
+
+
+
+                    <h4>Gender</h4>
+                    <div>
+                        <select class="form-control" required value="@(Model.GENDER)" id="GENDER" name="GENDER">
+                            @foreach (var opt in lstJobGender)
+                            {
+                                string selected = "";
+                                if (opt.isSelected)
+                                {
+                                    selected = "selected";
+                                }
+                                <option value="@opt.Value" @selected>@opt.Text</option>
+                            }
+                        </select>
+                    </div>
+
+                    <h4>Minimum Education</h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control" required value="@(Model.MINIMUMEDUCATION)" id="MINIMUMEDUCATION" name="MINIMUMEDUCATION" />
+                    </div>
+
+                    <h4>Minimum Experience (in years)</h4>
+                    <div class="form-group">
+                        <input type="number" class="form-control" required value="@(Model.MINIMUMEXPERIENCE)" id="MINIMUMEXPERIENCE" name="MINIMUMEXPERIENCE" />
+                    </div>
+
+                    <h4>Allow CV Upload</h4>
+                    <div>
+                        <select class="form-control" required value="@(Model.ALLOWLONGCV)" id="ALLOWLONGCV" name="ALLOWLONGCV">
+                            @foreach (var opt in lstAllowCVUpload)
+                            {
+                                string selected = "";
+                                if (opt.isSelected)
+                                {
+                                    selected = "selected";
+                                }
+                                <option value="@opt.Value" @selected>@opt.Text</option>
+                            }
+                        </select>
+                    </div>
+
+                    <h4>Salary / Package Details</h4>
+                    <div class="form-group">
+                        <input type="number" class="form-control" required value="@(Model.SALARYRANGE)" id="SALARYRANGE" name="SALARYRANGE" />
+                    </div>
+                    <h4>Job Description</h4>
+                    <div class="form-group">
+                        <textarea type="text" class="form-control" required value="" id="SHORTDESC" name="SHORTDESC">@(Model.SHORTDESC)</textarea>
+                    </div>
+                    <hr />
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success form-control" onclick="SaveJob();">Save</button>
+                    </div>
+
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let cityCountryList = [];
+    let countryList = [];
+    let selectedCountry = '@(Model.COUNTRYNAME)';
+    let selectedCity = '@(Model.CITYNAME)';
+
+    $(document).ready(function () {
+        $(".main-content").hide();
+        $("#OtherLoaderDiv").show();
+        $.get("/Admin/GetCityCountryList", function (data) {
+            //console.log(data);
+            //console.log(JSON.parse(data));
+            cityCountryList = JSON.parse(data);
+            countryList = cityCountryList.map(item => item.Country).filter((value, index, self) => self.indexOf(value) === index);
+            //console.log(countryList);
+            $.each(countryList, function (item) {
+                $("#COUNTRYNAME").append($("<option />").val(countryList[item]).text(countryList[item]));
+
+                $("#OtherLoaderDiv").hide();
+                $(".main-content").show();
+            });
+
+            if (selectedCountry) {
+                //alert(selectedCountry);
+                $("#COUNTRYNAME").val(selectedCountry).trigger('change');;
+            }
+
+        })
+    })
+
+    $("#COUNTRYNAME").change(function () {
+        //alert($("#COUNTRYNAME").val());
+        $('#CITYNAME').find('option').remove().end().append('<option value="" title="Tooltip">--Select City--</option>');
+        var cityList = cityCountryList.filter(function (o) { return o.Country == $("#COUNTRYNAME").val(); });
+        $.each(cityList, function (item) {
+            $("#CITYNAME").append($("<option />").val(cityList[item].City).text(cityList[item].City));
+        });
+        if (selectedCity) {
+            $("#CITYNAME").val(selectedCity);
+        }
+    })
+
+    function SaveJob()
+    {
+        if ($('#frmJobPost')[0].checkValidity()) {
+            var frmSerialize = $("#frmJobPost").serialize();
+            swal('Please wait');
+            swal.showLoading();
+            $.post("/Admin/PostJob", frmSerialize, function (data) {
+                if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
+                    //swal.close();
+                    swal('@(Shared.Constants.MSG_SUCCESS.Value)').then((result) => {
+                        if (result.value) {
+                            location.href = "/Admin/Index";
+                        }
+                    })
+                    
+                }
+                else {
+                    swal(data);
+                }
+            })
+        }
+        else {
+            $('#frmJobPost').find(':submit').click();
+        }
+    }
+</script>

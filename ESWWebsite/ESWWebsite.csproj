@@ -57,6 +57,10 @@
       <HintPath>..\packages\MySql.Data.8.0.11\lib\net452\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.Configuration.Install" />
@@ -80,9 +84,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -219,6 +220,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Practice\AdminDefaultController.cs" />
     <Compile Include="Controllers\Practice\DefaultController.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ViewModel\VMSignUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -260,6 +263,8 @@
     <Content Include="Content\assets\cache\css_21_sign_up.min.css" />
     <Content Include="Content\assets\cache\css_22_log_in.min.css" />
     <Content Include="Content\assets\cache\css_index.min.css" />
+    <Content Include="Content\assets\cache\css_jobopen.css" />
+    <Content Include="Content\assets\cache\css_staticpages.min.css" />
     <Content Include="Content\assets\cache\fontawesome\css\all.css" />
     <Content Include="Content\assets\cache\fontawesome\css\brands.css" />
     <Content Include="Content\assets\cache\fontawesome\css\fontawesome.css" />
@@ -1604,6 +1609,8 @@
     <Content Include="Content\assets\img\pic\home_1\articel_1.jpg" />
     <Content Include="Content\assets\img\pic\home_1\article_2.jpg" />
     <Content Include="Content\assets\img\pic\home_1\article_3.jpg" />
+    <Content Include="Content\assets\img\pic\home_1\asas.png" />
+    <Content Include="Content\assets\img\pic\home_1\javed.jpg" />
     <Content Include="Content\assets\img\pic\home_1\user_1.jpg" />
     <Content Include="Content\assets\img\pic\home_1\user_2.jpg" />
     <Content Include="Content\assets\img\pic\home_1\user_3.jpg" />
@@ -1798,6 +1805,16 @@
     <Content Include="Content\DashBoard\assets\vendor\linearicons\fonts\Linearicons-Free.ttf" />
     <Content Include="Content\DashBoard\assets\vendor\linearicons\fonts\Linearicons-Free.woff" />
     <Content Include="Content\DashBoard\assets\vendor\linearicons\fonts\Linearicons-Free.woff2" />
+    <Content Include="CountryCity.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\ESWWebPub.pubxml" />
+    <Content Include="resume.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="runResume.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1809,7 +1826,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1835,9 +1854,32 @@
     <Content Include="Views\Default\TabView.cshtml" />
     <Content Include="Views\Default\_EduTabView.cshtml" />
     <Content Include="Views\Default\_ExpTabView.cshtml" />
+    <Content Include="Views\Home\Signin.cshtml" />
+    <Content Include="Views\Home\Signup.cshtml" />
+    <Content Include="Views\Home\CareerCounselling.cshtml" />
+    <Content Include="Views\Home\OurClients.cshtml" />
+    <Content Include="Views\Home\Outsourcing.cshtml" />
+    <Content Include="Views\Home\SoftwareServices.cshtml" />
+    <Content Include="Views\Home\Training.cshtml" />
+    <Content Include="Views\Home\MyProfile.cshtml" />
+    <Content Include="Views\Home\_EduTabView.cshtml" />
+    <Content Include="Views\Home\_ExpTabView.cshtml" />
+    <Content Include="Views\Home\_EduFormView.cshtml" />
+    <Content Include="Views\Home\_ExpFormView.cshtml" />
+    <Content Include="Views\Admin\Signin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\PostJob.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Admin\ListJobs.cshtml" />
+    <Content Include="Views\Admin\ListJobApplications.cshtml" />
+    <Content Include="Views\Home\ListJobs.cshtml" />
+    <Content Include="Views\Home\JobDetail.cshtml" />
+    <Content Include="Views\Home\JobCards.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Resumes\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

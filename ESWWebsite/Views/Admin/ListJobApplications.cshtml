@@ -1,0 +1,115 @@
+﻿@model List<WebsiteBackEnd.Models.jpprofile>
+@{ 
+    bool noRecord = false;
+    //List<Shared.DDList> lstSalary = Shared.Constants.getSalary();
+}
+<div>
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr class="tdcenterallign">
+                <th>Applicant Name</th>
+                <th>Contact</th>
+                <th>Last Education</th>
+                <th>Last / Current Job</th>
+                <th>Current Salary</th>
+                <th>Expected Salary</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    string Education = "";
+                    if (item.lstjpqualification.Count > 0)
+                    {
+                        var obj = item.lstjpqualification.First();
+                        Education = obj.DEGREENAME + " from " + obj.INSTITUTIONNAME;
+                    }
+                    string Job = "";
+                    if (item.lstjpexperience.Count > 0)
+                    {
+                        var obj = item.lstjpexperience.First();
+                        Job = obj.DESIGNATION + " at " + obj.ORGANIZATIONNAME;
+                    }
+                <tr>
+                    <td class="tdcenterallign">@item.NAME</td>
+                    <td class="tdcenterallign">@item.CONTACT</td>
+                    <td class="tdcenterallign">@Education</td>
+                    <td class="tdcenterallign">@Job</td>
+                    <td class="tdcenterallign">@Shared.Constants.lstSalary.Find(a => a.Value.Equals(item.CURRENTSALARY)).Text</td>
+                    <td class="tdcenterallign">@item.expectedSalary</td>
+                    <td class="tdcenterallign">
+                    @{string longCV = (!string.IsNullOrEmpty(item.LONGCV)) ? "LongCV" : item.LONGCV;}
+                        <button onclick="DownloadCV('@item.USERID','@item.NAME','@longCV');" class="btn btn-sm btn-success" style="color:white; margin: 3px;  width:100%;">
+                            <span>Download CV&nbsp;&nbsp;</span>
+                        </button>
+                    </td>
+                </tr>
+                }
+            }
+            else
+            {
+                noRecord = true;
+            }
+        </tbody>
+    </table>
+    @if (noRecord)
+    {
+        <h3 style="text-align:center;font-weight:600;">
+            No Applications Found
+        </h3>
+    }
+</div>
+<a id='dwnldLnk' download='o ficheirinho de tostas.pdf' style="display:none;" /> 
+<script type="text/javascript">
+    function DownloadCV(id, name, cv) {
+        swal('Please wait');
+        swal.showLoading();
+        if (!cv || !jobRequireCV) {
+            $.get("/Admin/DownloadCV/" + id, function (data) {
+                if (data == "@(Shared.Constants.MSG_ERROR.Text)") {
+                    //swal('Unable to retrive CV! Please try again in some time');
+                    swal('@(Shared.Constants.MSG_ERROR.Value)');
+                }
+                else {
+                    var pdf = '/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY]/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]';
+                    var dlnk = document.getElementById('dwnldLnk');
+                    dlnk.href = pdf;
+                    dlnk.download = name + ".pdf";
+                    dlnk.click();
+                    swal.close();
+                }
+
+            })
+        }
+        else {
+            swal('Please wait');
+            swal.showLoading();
+            $.get("/Admin/DownloadUploadedCV/" + id, function (data) {
+                if (data == "@(Shared.Constants.MSG_ERROR.Text)") {
+                    //swal('Unable to retrive CV! Please try again in some time');
+                    swal('@(Shared.Constants.MSG_ERROR.Value)');
+                }
+                else {
+                    var pdf = '/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY]/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]';
+                    var dlnk = document.getElementById('dwnldLnk');
+                    dlnk.href = pdf;
+                    dlnk.download = name + ".pdf";
+                    dlnk.click();
+                    swal.close();
+                }
+            });
+        }
+    }
+
+    function DownloadUploadedCV(base64string, name) {
+        var pdf = 'data:application/octet-stream;base64,' + base64string;
+        var dlnk = document.getElementById('dwnldLnk');
+        dlnk.href = pdf;
+        dlnk.download = name + ".pdf";
+        dlnk.click();
+    }
+</script>
+
