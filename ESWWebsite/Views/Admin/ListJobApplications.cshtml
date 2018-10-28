@@ -38,7 +38,7 @@
                     <td class="tdcenterallign">@item.CONTACT</td>
                     <td class="tdcenterallign">@Education</td>
                     <td class="tdcenterallign">@Job</td>
-                    <td class="tdcenterallign">@Shared.Constants.lstSalary.Find(a => a.Value.Equals(item.CURRENTSALARY)).Text</td>
+                    <td class="tdcenterallign">@item.CURRENTSALARY</td>@*Shared.Constants.lstSalary.Find(a => a.Value.Equals()).Text*@
                     <td class="tdcenterallign">@item.expectedSalary</td>
                     <td class="tdcenterallign">
                     @{string longCV = (!string.IsNullOrEmpty(item.LONGCV)) ? "LongCV" : item.LONGCV;}
@@ -74,12 +74,14 @@
                     swal('@(Shared.Constants.MSG_ERROR.Value)');
                 }
                 else {
-                    var pdf = '/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY]/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]';
+                    @*var pdf = '/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY]/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]';
                     var dlnk = document.getElementById('dwnldLnk');
                     dlnk.href = pdf;
                     dlnk.download = name + ".pdf";
                     dlnk.click();
+                    swal.close();*@
                     swal.close();
+                    window.open('/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY]/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]');
                 }
 
             })
@@ -93,12 +95,13 @@
                     swal('@(Shared.Constants.MSG_ERROR.Value)');
                 }
                 else {
-                    var pdf = '/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY]/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]';
+                    @*var pdf = '/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY]/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]';
                     var dlnk = document.getElementById('dwnldLnk');
                     dlnk.href = pdf;
                     dlnk.download = name + ".pdf";
-                    dlnk.click();
+                    dlnk.click();*@
                     swal.close();
+                    window.open('/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY]/@System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]');
                 }
             });
         }

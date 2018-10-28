@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using WebsiteBackEnd.Models;
@@ -189,9 +191,10 @@ namespace ESWWebsite.Controllers
             return Shared.Constants.MSG_ERROR.Text;
             #endregion
         }
-        public string DownloadCV(string id)
+        public async Task<string> DownloadCV(string id)
         {
             string basePath = System.AppDomain.CurrentDomain.BaseDirectory;
+            string nodeSrvpath = ConfigurationManager.AppSettings[Shared.Constants.ASK_NODE_SRV_PATH];
 
             #region ::make json object::
             string json = "";
@@ -212,7 +215,7 @@ namespace ESWWebsite.Controllers
             if (!string.IsNullOrEmpty(json)) {
                 try
                 {
-                    System.IO.File.WriteAllText(basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESJSON_FNAME], json);
+                    System.IO.File.WriteAllText(nodeSrvpath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESJSON_FNAME], json);
                 }
                 catch (Exception) {
                     return Shared.Constants.MSG_ERROR.Text;
@@ -223,7 +226,9 @@ namespace ESWWebsite.Controllers
             try
             {
                 #region ::make resume pdf (NodeJS process)::
-                ProcessStartInfo ProcessInfo;
+
+                #region Batch CMD Process code
+                /*ProcessStartInfo ProcessInfo;
                 Process process;
 
                 ProcessInfo = new ProcessStartInfo(basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESBAT_FNAME] , "");
@@ -244,38 +249,62 @@ namespace ESWWebsite.Controllers
                 }
                 else {
                     process.Close();
-                }
+                }*/
                 #endregion
 
-                #region copy pdf to directory
-                string resumeDIR = basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY] + "//";
+                var client = new HttpClient();
+                var queryString = HttpUtility.ParseQueryString(string.Empty);
 
-                if (!System.IO.Directory.Exists(resumeDIR))
+                // Request headers
+                //client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "444085ce3f10484997c9aed8f7da8327");
+
+                var uri = ConfigurationManager.AppSettings[Shared.Constants.ASK_NODE_SRVURL];//constant
+
+                var response = await client.GetAsync(uri);
+                string body = await response.Content.ReadAsStringAsync();
+                try
                 {
-                    System.IO.Directory.CreateDirectory(resumeDIR);
+                    var obj = (body);
+                    if (obj.Equals(ConfigurationManager.AppSettings[Shared.Constants.ASK_NODE_SRVURL_RETSUCCESS]))//constant
+                    {
+                        #region copy pdf to directory
+                        string resumeDIR = basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_DIRECTORY] + "//";
+
+                        if (!System.IO.Directory.Exists(resumeDIR))
+                        {
+                            System.IO.Directory.CreateDirectory(resumeDIR);
+                        }
+
+
+                        if (System.IO.File.Exists(nodeSrvpath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]))
+                        {
+                            System.IO.File.Copy(nodeSrvpath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME], resumeDIR + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME], true);
+
+                            //byte[] bytes = System.IO.File.ReadAllBytes(basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]);
+                            //string file = Convert.ToBase64String(bytes);
+
+                            System.IO.File.Delete(nodeSrvpath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]);
+
+                            return Shared.Constants.MSG_SUCCESS.Text;
+                        }
+                        
+                        #endregion
+                    }
                 }
-                
-
-                if (System.IO.File.Exists(basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME])) {
-                    System.IO.File.Copy(basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME], resumeDIR + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME], true);
-
-                    //byte[] bytes = System.IO.File.ReadAllBytes(basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]);
-                    //string file = Convert.ToBase64String(bytes);
-
-                    System.IO.File.Delete(basePath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESPDF_FNAME]);
-
-                    return Shared.Constants.MSG_SUCCESS.Text;
-                }
-                else
+                catch (Exception ex)
                 {
-                    return Shared.Constants.MSG_ERROR.Text;
+
                 }
+
                 #endregion
+
+                //return Shared.Constants.MSG_ERROR.Text;
             }
             catch (Exception)
             {
-                return Shared.Constants.MSG_ERROR.Text;
+                //return Shared.Constants.MSG_ERROR.Text;
             }
+            return Shared.Constants.MSG_ERROR.Text;
         }
 
         public jpprofile GetCompleteUserProfile(int USERID)

@@ -26,7 +26,11 @@ namespace Shared
         public const string ASK_ORG_CONTACT_ADD = "OrganizationContactAddress";
         public const string ASK_ORG_CONTACT_PH = "OrganizationContactPhone";
         public const string ASK_ORG_CONTACT_EML = "OrganizationContactEmail";
-
+        public const string ASK_NODE_SRVURL = "LocalNodeServer";
+        public const string ASK_NODE_SRVURL_RETSUCCESS = "LocalNodeServerRetSuccess";
+        public const string ASK_NODE_SRVURL_RETERROR = "LocalNodeServerRetFailure";
+        public const string ASK_NODE_SRV_PATH = "LocalNodeServerPath";
+        
         public const int ZERO = 0;
 
         public const string STR_YES = "Y";
