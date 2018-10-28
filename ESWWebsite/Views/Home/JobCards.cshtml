@@ -17,8 +17,8 @@
             <div class="col-sm-4">
 
                 <div class="card">
-                    <div class="aa" style="background-color:#4db74e; padding-bottom:15px; padding-top: 10px;">
-                        <img class="card-img-reponsive ;" align="middle" style="border-radius:50%;  " src="~/Content/assets/img/pic/loglo-company.png" alt="Company logo">
+                    <div class="aa" style="background-color:#114b4b; padding-bottom:15px; padding-top: 10px;">
+                        <img class="card-img-reponsive ;" align="middle" style="border-radius:70%;  " src="~/Content/assets/img/pic/Briefcase-5.png" alt="Company logo">
 
                     </div>
 
@@ -27,8 +27,7 @@
                     <div class="card-body">
 
                         <a class="Job-title" href="#" style="font-size:18px;"> @item.JOBTITLE </a> <br>
-
-
+                      
                         <span class="c_name" style="font-size:16px;">@item.COMPANYNAME</span><br>
                         <span class="c_industry">@item.DEPARTMENT</span><br>
 
@@ -53,12 +52,13 @@
                         </div>
 
                         <div class="btn-group">
-                            @if (item.ALLOWLONGCV.Equals(Shared.Constants.STR_NO)) {
-                                <button type="button" class="btn btn-primary" onclick="ApplyJob('@item.OPENINGID')">Apply Now</button>
+                            @if (item.ALLOWLONGCV.Equals(Shared.Constants.STR_NO))
+                            {
+                                <button type="button" class="btn btn-info" onclick="ApplyJob('@item.OPENINGID')">Apply Now</button>
                             }
                             else
                             {
-                                <button type="button" class="btn btn-primary" onclick="ApplyJobCV('@item.OPENINGID','@isCvAdded')">Apply Now</button>
+                                <button type="button" class="btn btn-info" onclick="ApplyJobCV('@item.OPENINGID','@isCvAdded')">Apply Now</button>
                             }
                         </div>
                     </div>

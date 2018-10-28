@@ -16,8 +16,11 @@
     string JobStatusDesc = lstJobStatus.Find(x => x.Value.Equals(Model.JOBSTATUS)).Text;
     string JobTypeDesc = lstJobType.Find(x => x.Value.Equals(Model.JOBTYPE)).Text;
 
+
     string MinExpDesc = (int.Parse(Model.MINIMUMEXPERIENCE) == 0) ? "Fresh" : Model.MINIMUMEXPERIENCE + " years";
-    string SalaryDesc = (Model.SALARYRANGE == 0) ? "Not Discolsed" : "PKR " + Model.SALARYRANGE;
+    string MaxExpDesc = (int.Parse(Model.MAXIMUMEXPERIENCE) == 0) ? "Any" : Model.MAXIMUMEXPERIENCE + " years";
+
+    string SalaryDesc = (Model.SALARYRANGE == 0) ? "Not Disclosed" : Model.CURRENCY+" " +Model.SALARYRANGE;
 
     string jobStatusClassName = "";
     if (Model.JOBSTATUS.Equals("O"))
@@ -85,7 +88,7 @@
                 <div class="subtext"><i class="fa fa-road" style="margin-right:10px;"> </i><span> @Html.DisplayFor(model => model.COMPANYNAME)</span> </div>
                 <div class="subtext"><i class="fa fa-genderless" style="margin-right:10px;"> </i><span style="margin-right:10px;"> @GenderDesc </span> <i class="fa fa-battery-full" style="margin-right:10px;"> </i><span class="@jobStatusClassName"> @JobStatusDesc </span>  </div>
                 <div class="subtext" title="Job Post Date"><i class="fa fa-calendar" style="margin-right:10px;"> </i><span> @Html.DisplayFor(model => model.JOBPOSTDATE) </span> </div>
-
+                <div class="subtext"><i class=" fa fa-money-bill" style="margin-right:10px;"></i><span>@SalaryDesc</span></div>
             </div>
         </div>
 
@@ -108,8 +111,16 @@
                 <div class="decription"> @Html.DisplayFor(model => model.MINIMUMEDUCATION)</div>
             </div>
             <div class="rsm-sub-box">
+                <h4 class="title" style="">Maximum Education: </h4>
+                <div class="decription"> @Html.DisplayFor(model => model.MAXIMUMEDUCATION)</div>
+            </div>
+            <div class="rsm-sub-box">
                 <h4 class="title"> Minimum Experience: </h4>
                 <div class="decription">  @MinExpDesc</div>
+            </div>
+            <div class="rsm-sub-box">
+                <h4 class="title"> Maximum Experience: </h4>
+                <div class="decription">  @MaxExpDesc</div>
             </div>
         </div>
     </div>

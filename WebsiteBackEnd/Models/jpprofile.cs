@@ -35,7 +35,13 @@ namespace WebsiteBackEnd.Models
         [JsonIgnore]
         public string CURRENTSALARY { get; set; }
         [JsonIgnore]
+        public string CURRENTCURRENCY { get; set; }
+        [JsonIgnore]
         public string LONGCV { get; set; }
+        [JsonIgnore]
+        public string NATIONALITY { get; set; }
+        [JsonIgnore]
+        public string LANGUAGE { get; set; }
         //other vars
         [JsonIgnore]
         public List<jpexperience> lstjpexperience { get; set; }
@@ -43,9 +49,9 @@ namespace WebsiteBackEnd.Models
         public List<jpqualification> lstjpqualification { get; set; }
         [JsonIgnore]
         public string expectedSalary { get; set; }
+       
+       
 
-        [JsonProperty(PropertyName = "email")]
-        public string Email { get; set; }
     }
 	public class jpprofileManager : BaseManager
 {
@@ -106,9 +112,12 @@ namespace WebsiteBackEnd.Models
         objjpprofile.USERID = Utility.IsValidInt(reader["USERID"]);
         objjpprofile.CURRENTSALARY = Utility.IsValidString(reader["CURRENTSALARY"]);
         objjpprofile.LONGCV = Utility.IsValidString(reader["LONGCV"]);
-            
+        objjpprofile.CURRENTCURRENCY = Utility.IsValidString(reader["CURRENTCURRENCY"]);
+        objjpprofile.NATIONALITY = Utility.IsValidString(reader["NATIONALITY"]);
+        objjpprofile.LANGUAGE = Utility.IsValidString(reader["LANGUAGE"]);
+           
         return objjpprofile;
-    }
+   }
 
     public static string Savejpprofile(jpprofile objjpprofile, MySqlConnection conn = null, MySqlTransaction trans = null)
     {
@@ -137,7 +146,11 @@ CONTACT,
 PROFILEBIO,
 USERID,
 CURRENTSALARY,
-LONGCV
+LONGCV,
+
+NATIONALITY,
+LANGUAGE,
+CURRENTCURRENCY
 )
 VALUES(
 @NAME,
@@ -148,7 +161,10 @@ VALUES(
 @PROFILEBIO,
 @USERID,
 @CURRENTSALARY,
-@LONGCV
+@LONGCV,
+@NATIONALITY,
+@LANGUAGE,
+@CURRENTCURRENCY
 )";
                 }
                 else
@@ -163,8 +179,10 @@ CONTACT=@CONTACT,
 PROFILEBIO=@PROFILEBIO,
 USERID=@USERID,
 CURRENTSALARY=@CURRENTSALARY,
-LONGCV=@LONGCV
-
+LONGCV=@LONGCV,
+NATIONALITY=@NATIONALITY,
+LANGUAGE=@LANGUAGE
+CURRENTCURRENCY=@CURRENTCURRENCY
 Where PROFILEID=@PROFILEID";
                 }
                 if (trans != null)
@@ -192,7 +210,10 @@ Where PROFILEID=@PROFILEID";
                 command.Parameters.AddWithValue("@USERID", objjpprofile.USERID);
                 command.Parameters.AddWithValue("@CURRENTSALARY", objjpprofile.CURRENTSALARY);
                 command.Parameters.AddWithValue("@LONGCV", objjpprofile.LONGCV);
-                    
+                command.Parameters.AddWithValue("@LANGUAGE", objjpprofile.LANGUAGE);
+                command.Parameters.AddWithValue("@NATIONALITY", objjpprofile.NATIONALITY);
+                    command.Parameters.AddWithValue("@CURRENTCURRENCY", objjpprofile.CURRENTCURRENCY);
+                    // command.Parameters.AddWithValue("@EMAIL", objjpprofile.EMAIL);
                 int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {

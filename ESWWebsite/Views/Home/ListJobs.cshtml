@@ -239,7 +239,11 @@
                             swal({
                                 title: "You have previously uploaded a CV in our system. Do you want to re upload the CV?",
                                 type: 'info',
-                                showCancelButton: true
+                                button: {
+                                    Yes: true,
+                                    cancel: "No"
+                                }
+                               
                             }).then((result) => {
                                 if (result.value) {
                                     swal({

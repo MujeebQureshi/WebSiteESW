@@ -1,0 +1,84 @@
+﻿@model List<WebsiteBackEnd.Models.jpopening>
+@{Layout = "~/Views/Shared/MyCustomLayout.cshtml";
+}
+
+@{
+    bool noRecord = false;
+    if (!(Model.Count > 0))
+    {
+        noRecord = true;
+    }
+}
+<style>
+    .tdcenterallign {
+        /*text-align: center!important; */
+        vertical-align: middle !important;
+    }
+    .center {
+        margin: auto;
+        width: 50%;
+        border: 3px #114b4b;
+        padding: 10px;
+    }
+</style>
+
+<div class="main-content">
+    <div class="container-fluid" style="display:block">
+        @*<h3 class="page-title">Typography</h3>*@
+        <div class="panel panel-headline">
+            <div class="panel-body" style="margin: auto;margin-left:20%;
+        width: 50%;
+        border: 3px #114b4b;
+        padding: 10px;">
+                <h2>Applied Jobs</h2>
+               
+                <div>
+                    <table class="table table-striped table-responsive table-center"  >
+                        <thead>
+                            <tr class="tdcenterallign">
+                                <th>Job Title</th>
+                                <th>Company Name</th>
+                                <th>Job Posted on</th>
+                                <th>Applied on </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                string loaderVwId = "loaderVw" + item.OPENINGID;
+                                string loaderEdId = "loaderEd" + item.OPENINGID;
+                                string JobPostDate = (item.JOBPOSTDATE != null) ? item.JOBPOSTDATE.Value.ToString(Shared.Constants.DATE_DISP_TAB_FORMAT) : "";
+                                string AppliedDate = (item.APPLIEDDATE != null) ? item.APPLIEDDATE.Value.ToString(Shared.Constants.DATE_DISP_TAB_FORMAT) : "";
+
+                                <tr>
+                                    <td class="tdcenterallign">@item.JOBTITLE</td>
+                                    <td class="tdcenterallign">@item.COMPANYNAME</td>
+                                    <td class="tdcenterallign">@JobPostDate</td>
+                                    <td class="tdcenterallign">@AppliedDate</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @if (noRecord)
+                    {
+                        <h3 style="text-align:center;font-weight:600;">
+                            No Applications Found
+                        </h3>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".loaderEd").hide();
+        $(".loaderVw").hide();
+    })
+
+
+</script>

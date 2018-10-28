@@ -14,7 +14,7 @@
             <div class="header">
                 <h1 class="title">Sign Up with ESW</h1>
             </div>
-            <form id="frmSignUp" action="#" class="job-sign-from">
+            <form id="frmSignUp" method="" action="#" class="job-sign-from">
                 <div class="form-group"><input id="Username" name="Username" type="text" placeholder="Username" class="form-control" required /></div>
                 <div class="form-group"><input id="Email" name="Email" type="email" placeholder="Email" class="form-control" required /></div>
                 <div class="form-group"><input id="Password" name="Password" type="password" placeholder="Password" class="form-control" required /></div>
@@ -27,7 +27,7 @@
                     </select>
                 </div>
                 <div class="form-group"><input id="DOB" name="DOB" type="date" placeholder="Date of Birth" class="form-control" required /></div>
-                <div class="form-group"><input id="Contact" name="Contact" type="number" placeholder="Contact Number" class="form-control" required /></div>
+                <div class="form-group"><input id="Contact" name="Contact" type="number" placeholder="Contact Number" class="form-control" @*onkeypress="Signinpress(event);"*@ required /></div>
                 @*<div class="form-group"><input type="text" placeholder="LinkedIn" class="form-control" /></div>*@
                 <input type="submit" style="display:none"/>
                 <div class="form-group"><input type="button" value="Sign Up" class="btn btn-custom btn-custom-secondary" onclick="SignUp();"></div>
@@ -42,7 +42,7 @@
     <script type="text/javascript">
 
         var password = document.getElementById("Password"), confirm_password = document.getElementById("ConfirmPassword");
-
+        var enableEnter = true;
         function validatePassword() {
             if (password.value != confirm_password.value) {
                 confirm_password.setCustomValidity("Passwords Don't Match");
@@ -51,9 +51,65 @@
             }
         }
 
+
         password.onchange = validatePassword;
         confirm_password.onkeyup = validatePassword;
 
+
+        $(document).keypress(function (e) {
+
+            if (e.which == 13) {
+                if (!swal.isVisible()) {
+                    e.preventDefault();
+                    if ($("#Username").val()) {
+                        if ($("#Email").val()) {
+                            if ($("#Password").val()) {
+                                if ($("#ConfirmPassword").val()) {
+                                    if ($("#Gender").val()) {
+                                        if ($("#DOB").val()) {
+                                            if ($("#Contact").val()) {
+                                                enableEnter = false;
+                                                SignUp();
+                                                
+                                            }
+
+                                            else {
+                                                $("#Contact").focus();
+                                            }
+                                        }
+                                        else {
+                                            $("#DOB").focus();
+                                        }
+                                    }
+                                    else {
+                                        $("#Gender").focus();
+                                    }
+
+                                }
+                                else {
+                                    $("#ConfirmPassword").focus();
+                                }
+
+                            }
+                            else {
+                                $("#Password").focus();
+                            }
+                        }
+                        else {
+                            $("#Email").focus();
+                        }
+                    }
+                    else {
+                        $("#Username").focus();
+                    }
+                }
+            }    
+        });
+
+        $("input").keypress(function (e) {
+            $("#ErrMsg").text('');
+            $("#ErrMsgDiv").hide();
+        })
         function SignUp() {
             if ($('#frmSignUp')[0].checkValidity()) {
                 swal('Please wait');
@@ -63,8 +119,10 @@
                     if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
                         //swal.close();
                         //location.href = "/Home/Index";
-                        swal('@(Shared.Constants.MSG_SUCCESS.Value)').then((result) => {
+                        swal('Verify your account ','@(Shared.Constants.MSG_SUCCESS.Value)').then((result) => {
                             if (result.value) {
+                                swal("Verify your account");
+                                swal.showLoading();
                                 location.href = "/Home/Index";
                             }
                         })
@@ -78,5 +136,6 @@
                 $('#frmSignUp').find(':submit').click();
             }
         }
+        
     </script>
 }

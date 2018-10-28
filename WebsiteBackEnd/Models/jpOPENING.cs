@@ -23,9 +23,13 @@ namespace WebsiteBackEnd.Models
 		public string JOBSTATUS { get; set; }
         public string ALLOWLONGCV { get; set; }
         public DateTime? JOBPOSTDATE { get; set; }
-
+        public string MAXIMUMEDUCATION { get; set; }
+        public string MAXIMUMEXPERIENCE { get; set; }
+        public string CURRENCY { get; set; }
         //other vars
         public string ExpectedSalary { get; set; }
+        public DateTime? APPLIEDDATE { get; set; }
+
     }
 	public class jpopeningManager : BaseManager
 {
@@ -91,6 +95,11 @@ namespace WebsiteBackEnd.Models
         objjpopening.JOBSTATUS = Utility.IsValidString(reader["JOBSTATUS"]);
         objjpopening.ALLOWLONGCV = Utility.IsValidString(reader["ALLOWLONGCV"]);
         objjpopening.JOBPOSTDATE = Utility.IsValidDateTime(reader["JOBPOSTDATE"]);
+            objjpopening.MAXIMUMEDUCATION = Utility.IsValidString(reader["MAXIMUMEDUCATION"]);
+            objjpopening.MAXIMUMEXPERIENCE = Utility.IsValidString(reader["MAXIMUMEXPERIENCE"]);
+            objjpopening.CURRENCY = Utility.IsValidString(reader["CURRENCY"]);
+          
+
         return objjpopening;
     }
 
@@ -126,7 +135,10 @@ MINIMUMEXPERIENCE,
 GENDER,
 JOBSTATUS,
 ALLOWLONGCV,
-JOBPOSTDATE
+JOBPOSTDATE,
+MAXIMUMEDUCATION,
+MAXIMUMEXPERIENCE,
+CURRENCY
 )
 VALUES(
 @JOBTITLE,
@@ -142,7 +154,10 @@ VALUES(
 @GENDER,
 @JOBSTATUS,
 @ALLOWLONGCV,
-@JOBPOSTDATE
+@JOBPOSTDATE,
+@MAXIMUMEDUCATION,
+@MAXIMUMEXPERIENCE,
+@CURRENCY
 )";
                 }
                 else
@@ -162,8 +177,10 @@ MINIMUMEXPERIENCE=@MINIMUMEXPERIENCE,
 GENDER=@GENDER,
 JOBSTATUS=@JOBSTATUS,
 ALLOWLONGCV=@ALLOWLONGCV,
-JOBPOSTDATE=@JOBPOSTDATE
-
+JOBPOSTDATE=@JOBPOSTDATE,
+MAXIMUMEDUCATION=@MAXIMUMEDUCATION,
+MAXIMUMEXPERIENCE=@MAXIMUMEXPERIENCE,
+CURRENCY=@CURRENCY
 Where OPENINGID=@OPENINGID";
                 }
 
@@ -189,7 +206,11 @@ Where OPENINGID=@OPENINGID";
                 command.Parameters.AddWithValue("@JOBSTATUS", objjpopening.JOBSTATUS);
                 command.Parameters.AddWithValue("@ALLOWLONGCV", objjpopening.ALLOWLONGCV);
                 command.Parameters.AddWithValue("@JOBPOSTDATE", objjpopening.JOBPOSTDATE);
-                int affectedRows = command.ExecuteNonQuery();
+                    command.Parameters.AddWithValue("@MAXIMUMEDUCATION", objjpopening.MAXIMUMEDUCATION);
+                    command.Parameters.AddWithValue("@MAXIMUMEXPERIENCE", objjpopening.MAXIMUMEXPERIENCE);
+                    command.Parameters.AddWithValue("CURRENCY", objjpopening.CURRENCY);
+
+                    int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {
                     returnMessage = "OK";
@@ -250,5 +271,63 @@ Where OPENINGID=@OPENINGID";
 
         return returnMessage;
     }
-}}
+
+        public static List<jpopening> GetjpopeningApplicationDetail(string profileid, MySqlConnection conn = null)
+        {
+            jpopening objjpopening = null;
+            List<jpopening> lstjpopening = new List<jpopening>();
+            try
+            {
+                bool isConnArgNull = (conn != null) ? false : true;
+                MySqlConnection connection = (conn != null) ? conn : PrimaryConnection();
+                tryOpenConnection(connection);
+                string sql = "SELECT P.PROFILEID, O.JOBTITLE, O.COMPANYNAME, O.JOBPOSTDATE, P.APPLIEDDATE FROM jpopeningapplication P INNER JOIN jpopening O ON P.OPENINGID = O.OPENINGID WHERE (P.PROFILEID = "+(profileid)+")";
+                //if (!string.IsNullOrEmpty(whereclause))
+                //    sql += " where " + whereclause;
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = sql;
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                objjpopening = ReaderDatajpopeningApplicationDetail(reader);
+                                lstjpopening.Add(objjpopening);
+                            }
+                        }
+                        else
+                        {
+                        }
+                    }
+                }
+
+                if (isConnArgNull == true)
+                {
+                    connection.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return lstjpopening;
+        }
+
+        private static jpopening ReaderDatajpopeningApplicationDetail(MySqlDataReader reader)
+        {
+            jpopening objjpopening = new jpopening();
+            objjpopening.JOBTITLE = Utility.IsValidString(reader["JOBTITLE"]);
+            objjpopening.COMPANYNAME = Utility.IsValidString(reader["COMPANYNAME"]);
+            objjpopening.JOBPOSTDATE = Utility.IsValidDateTime(reader["JOBPOSTDATE"]);
+            objjpopening.APPLIEDDATE = Utility.IsValidDateTime(reader["APPLIEDDATE"]);
+
+            return objjpopening;
+        }
+
+
+    }
+}
 

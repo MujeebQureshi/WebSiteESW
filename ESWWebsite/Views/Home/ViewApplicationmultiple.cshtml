@@ -1,0 +1,62 @@
+﻿@model WebsiteBackEnd.Models.jpopeningapplication
+
+@{
+    ViewBag.Title = "ViewApplicationmultiple";
+    Layout = "~/Views/Shared/MyCustomLayout.cshtml";
+}
+@{
+    bool noRecord = false;
+    if (!(Model.Count > 0))
+    {
+        noRecord = true;
+    }
+}
+
+<div class="main-content">
+    <div class="container-fluid">
+        @*<h3 class="page-title">Typography</h3>*@
+        <div class="panel panel-headline">
+            <div class="panel-body">
+                <h2>List All Applied Jobs</h2>
+                <hr />
+                <div>
+                    <table class="table table-striped table-responsive">
+                        <thead>
+                            <tr class="tdcenterallign">
+                                <th>Job Title</th>
+                                <th>Company Name</th>
+                                <th>Date Posted</th>
+                                <th>Applied Date</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td class="tdcenterallign">@item.JOBTITLE</td>
+                                    <td class="tdcenterallign">@item.COMPANYNAME</td>
+                                    <td class="tdcenterallign">@item.DEPARTMENT</td>
+                                    <td class="tdcenterallign">@item.COUNTRYNAME , @item.CITYNAME</td>
+                                    <td class="tdcenterallign"><span class="label @className" style="font-size:15px!important;">@JobStatus</span></td>
+                                    <td class="tdcenterallign">@JobPostDate</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @if (noRecord)
+                    {
+                        <h3 style="text-align:center;font-weight:600;">
+                            No Applications Found
+                        </h3>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>ViewApplicationmultiple</h2>
+

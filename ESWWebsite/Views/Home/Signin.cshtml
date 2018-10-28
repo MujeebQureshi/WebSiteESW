@@ -7,10 +7,10 @@
             <div class="header">
                 <h1 class="title">Sign In with @OrgInitials</h1>
             </div>
-            <form id="frmLogin" action="#" class="job-sign-from">
+            <form  method="" id="frmLogin" action="#"  class="job-sign-from">
                 <input type="submit" style="display:none" />
                 <div class="form-group" style="padding-top:20px;"><input id="EMAIL" name="EMAIL" type="email" placeholder="Email" class="form-control" required /></div>
-                <div class="form-group" style="padding-top:20px;"><input id="PASSWORD" name="PASSWORD" type="password" placeholder="Password" class="form-control" required /></div>
+                <div class="form-group" style="padding-top:20px;"><input id="PASSWORD" name="PASSWORD" type="password" placeholder="Password" class="form-control" @*onkeypress="loginpress(event)"*@  required /></div>
                 @*<div class="form-group">
                     <div class="flex-group">
                         <div class="left"><label class="checkbox-inline"><input type="checkbox" class="" />Keep me logged in</label></div>
@@ -25,7 +25,7 @@
                 </div>
             </form>
 
-            <div class="footer"> <span>Don't have a account?</span><br /> <a onclick="location.href='@Url.Action("Signup","Home")'" class="sign-from-link">Sign Up</a> </div>
+            <div class="footer"> <span style="cursor:context-menu;">Don't have an account?</span><br /> <a style="cursor: pointer;" onclick="location.href='@Url.Action("Signup","Home")'" class="sign-from-link">Sign Up</a> </div>
 
         </div>
     </div>
@@ -33,12 +33,30 @@
 
 @section scripts{
 <script type="text/javascript">
-    $("input").focus(function (e) {
+    $(document).keypress(function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            if ($("#EMAIL").val()) {
+                if ($("#PASSWORD").val()) {
+                    LogIn();
+                }
+                else {
+                    $("#PASSWORD").focus();
+                }
+            }
+            else {
+                $("#EMAIL").focus();
+            }
+        }
+    });
+
+    $("input").keypress(function (e) {
         $("#ErrMsg").text('');
         $("#ErrMsgDiv").hide();
     })
-
+    
     function LogIn() {
+      
         if ($('#frmLogin')[0].checkValidity()) {
             swal('Please wait');
             swal.showLoading();
@@ -53,12 +71,15 @@
                     var msg = "@(Shared.Constants.MSG_ERR_INVALIDCRED.Value)"
                     $("#ErrMsg").text(msg);
                     $("#ErrMsgDiv").show();
+                    $("#EMAIL").focus();
                 }
                 else if (data == "@(Shared.Constants.MSG_ERR_NOUSEREXIST.Text)") {
                     //var msg = "No user exists against the provided Email!"
                     var msg = "@(Shared.Constants.MSG_ERR_NOUSEREXIST.Value)"
                     $("#ErrMsg").text(msg);
                     $("#ErrMsgDiv").show();
+                    $("#EMAIL").focus();
+
                 }
             })
         }
@@ -66,5 +87,6 @@
             $('#frmLogin').find(':submit').click();
         }
     }
+
 </script>
 }

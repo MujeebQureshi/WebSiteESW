@@ -6277,11 +6277,11 @@ pre {
     }
 
 .table-success, .table-success > td, .table-success > th {
-    background-color: #c3e6cb
+    background-color: #114b4b
 }
 
 .table-hover .table-success:hover {
-    background-color: #b1dfbb
+    background-color: #114b4b
 }
 
     .table-hover .table-success:hover > td, .table-hover .table-success:hover > th {
@@ -7284,7 +7284,7 @@ a.btn.disabled, fieldset:disabled a.btn {
 
     .btn-outline-success:hover {
         color: #fff;
-        background-color: #28a745;
+        background-color: #114b4b;
         border-color: #28a745
     }
 
@@ -13809,7 +13809,7 @@ a {
 }
 
     a:hover, .text-color-primary {
-        color: #18ad50;
+        color: #114b4b;
         text-decoration: none;
     }
 
@@ -13818,7 +13818,7 @@ a {
 }
 
 .bg-color-primary {
-    background: #18ad50;
+    background: #114b4b;
 }
 
 .row {
@@ -15193,7 +15193,7 @@ body {
 }
 
     .btn.btn-clear:hover {
-        color: #18ad50;
+        color: #114b4b;
     }
 
 .btn-custom.btn-custom-secondary {
@@ -15203,7 +15203,7 @@ body {
 
 .btn-custom.btn-custom-primary {
     border-radius: 5px;
-    background: #18ad50;
+    background: #114b4b;
 }
 
 .btn-custom.btn-custom-default {
@@ -15303,31 +15303,31 @@ label {
 }
 
 .job-form.placeholder-primary input::-webkit-input-placeholder {
-    color: #18ad50;
+    color: #114b4b;
 }
 
 .job-form.placeholder-primary input:-ms-input-placeholder {
-    color: #18ad50;
+    color: #114b4b;
 }
 
 .job-form.placeholder-primary input::-ms-input-placeholder {
-    color: #18ad50;
+    color: #114b4b;
 }
 
 .job-form.placeholder-primary input::placeholder {
-    color: #18ad50;
+    color: #114b4b;
 }
 
 .job-form.placeholder-primary input::-webkit-input-placeholder {
-    color: #18ad50;
+    color: #114b4b;
 }
 
 .job-form.placeholder-primary input::-moz-input-placeholder {
-    color: #18ad50;
+    color: #114b4b;
 }
 
 .job-form.placeholder-primary input::-ms-input-placeholder {
-    color: #18ad50;
+    color: #114b4b;
 }
 
 .job-form.placeholder-secondary input::-webkit-input-placeholder {
@@ -15704,12 +15704,12 @@ label {
 }
 
 .nav-bar .dropdown-item.active, .nav-bar .dropdown-item:active, .nav-bar .default-menu a:hover {
-    color: #18ad50;
+    color: #114b4b;
     background: transparent;
 }
 
 .navbar-light .navbar-nav .nav-item:hover .nav-link, .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show > .nav-link {
-    color: #18ad50;
+    color: #114b4b;
 }
 
 .nav-bar .quick-navigation .btn.btn-clear {
@@ -15841,7 +15841,7 @@ label {
         -webkit-box-shadow: none;
         box-shadow: none;
         padding-right: 0;
-        color: #18ad50;
+        color: #114b4b;
         font-size: 15px;
         font-weight: 700;
     }
@@ -15873,7 +15873,7 @@ label {
 
             .lang-manu .dropdown-menu > li > a:hover {
                 color: #fff;
-                background: #18ad50;
+                background: #114b4b;
             }
 
     .lang-manu .caret {
@@ -16008,7 +16008,7 @@ label {
 
     .content-grid .card .pic {
         font-size: 48px;
-        color: #18ad50;
+        color: #114b4b;
         margin-bottom: 10px;
         line-height: 1;
         padding-top: 17px;
@@ -16168,7 +16168,7 @@ label {
         }
 
             .results-list .item .title a:hover {
-                color: #18ad50;
+                color: #114b4b;
             }
 
     .results-list .item .options {
@@ -16293,8 +16293,8 @@ label {
         top: 0;
         left: 0;
         border: 25px solid transparent;
-        border-left: 25px solid #18ad50;
-        border-top: 25px solid #18ad50;
+        border-left: 25px solid #114b4b;
+        border-top: 25px solid #114b4b;
         width: 50px;
         height: 50px;
     }
@@ -16423,7 +16423,7 @@ label {
 
                 .banner .banner-container .banner-navigation .btn.btn-default:hover {
                     background: #fff;
-                    color: #18ad50;
+                    color: #114b4b;
                 }
 
         .banner .banner-container .title {
@@ -16493,7 +16493,7 @@ label {
         }
 
             .owl-reviews-corousel .item .footer a:hover {
-                color: #18ad50;
+                color: #114b4b;
             }
 
 .owl-reviews-corousel.owl-theme .owl-dots .owl-dot span {
@@ -16639,7 +16639,7 @@ label {
 }
 
 .footer .footer-top {
-    background: #1d1e1f;
+    background: #114b4b;
     padding-top: 90px;
     padding-bottom: 70px;
     border-bottom: 1px solid #1d1e1f;
@@ -16681,11 +16681,11 @@ label {
     }
 
         .f_widget .list-f-nav a:hover {
-            color: #18ad50;
+            color: #114b4b;
         }
 
         .f_widget .list-f-nav a i {
-            color: #18ad50;
+            color: #114b4b;
             margin-right: 15px;
         }
 
@@ -16804,7 +16804,7 @@ label {
 }
 
 .search-overflow {
-    background: #18ad50;
+    background: #114b4b;
     border-radius: 5px;
     padding: 7.5px 15px;
     -webkit-transform: translateY(-50%);
@@ -16948,7 +16948,7 @@ label {
     }
 
         .thumbnail.thumbnail-advice .btn.btn-clear:hover {
-            background: #18ad50;
+            background: #114b4b;
             color: white;
         }
 
@@ -17042,7 +17042,7 @@ label {
 
         .preview-ads .btn.btn-clear:hover {
             background: #fff;
-            color: #18ad50;
+            color: #114b4b;
         }
 
         .preview-ads .btn.btn-clear i {
@@ -17203,7 +17203,7 @@ label {
     }
 
         .grid-tile .preview i {
-            color: #18ad50;
+            color: #114b4b;
             font-size: 50px;
             line-height: 71px;
         }
@@ -17219,7 +17219,7 @@ label {
     }
 
     .grid-tile a:hover .title {
-        color: #18ad50;
+        color: #114b4b;
     }
 
     .grid-tile .preview {
@@ -17366,7 +17366,7 @@ label {
     .counting-grid .title {
         font-size: 16px;
         font-weight: 700;
-        color: #18ad50;
+        color: #114b4b;
     }
 
 .widget {
@@ -17397,15 +17397,15 @@ label {
     .widget .widget-header.header-styles {
         font-size: 24px;
         font-weight: 700;
-        color: #18ad50;
+        color: #114b4b;
         padding-bottom: 15px;
-        border-bottom: 3px solid #18ad50;
+        border-bottom: 3px solid #114b4b;
     }
 
         .widget .widget-header.header-styles .title {
             font-size: 24px;
             font-weight: 700;
-            color: #18ad50;
+            color: #114b4b;
         }
 
 .widget-list {
@@ -17786,7 +17786,7 @@ label {
     .widget-rsm .rsm-box .rsm-title {
         font-size: 15px;
         font-weight: 700;
-        color: #18ad50;
+        color: #114b4b;
         margin: 0;
         margin-bottom: 22px;
     }
@@ -18135,19 +18135,19 @@ label {
         .widget-jpreview .jpreview-card .jpreview-header .title {
             font-size: 24px;
             font-weight: 700;
-            color: #18ad50;
+            color: #114b4b;
             margin: 0;
             padding-bottom: 10px;
-            border-bottom: 3px solid #18ad50;
+            border-bottom: 3px solid #114b4b;
         }
 
         .widget-jpreview .jpreview-card .jpreview-header .title {
             font-size: 24px;
             font-weight: 700;
-            color: #18ad50;
+            color: #114b4b;
             margin: 0;
             padding-bottom: 5px;
-            border-bottom: 3px solid #18ad50;
+            border-bottom: 3px solid #114b4b;
         }
 
     .widget-jpreview .jpreview-card .jpreview-caption {
@@ -18248,7 +18248,7 @@ label {
             margin: 0;
             font-weight: 700;
             font-size: 18px;
-            color: #18ad50;
+            color: #114b4b;
         }
 
             .widget-jsummary .widget-header .title.black {
@@ -18272,7 +18272,7 @@ label {
         margin: 0;
         font-weight: 700;
         font-size: 18px;
-        color: #18ad50;
+        color: #114b4b;
     }
 
     .widget-jsummary .joptions-list {
@@ -18384,7 +18384,7 @@ label {
     .widget-subcrtibe .wsubcrtibe-footer {
         padding-top: 35px;
         text-align: center;
-        color: #18ad50;
+        color: #114b4b;
         font-size: 14px;
         font-weight: 700;
     }
@@ -18449,7 +18449,7 @@ label {
             }
 
                 .section-categories .flex-categories .item .header i {
-                    color: #18ad50;
+                    color: #114b4b;
                     font-size: 48px;
                 }
 
@@ -18539,7 +18539,7 @@ label {
     }
 
         .grid-post .header .title a:hover {
-            color: #18ad50;
+            color: #114b4b;
         }
 
     .grid-post .header .meta-tags {
@@ -18639,7 +18639,7 @@ label {
                 }
 
                     .w-posts-list .item .body .title a:hover {
-                        color: #18ad50;
+                        color: #114b4b;
                     }
 
         .w-posts-list .item .body .data {
@@ -18674,7 +18674,7 @@ label {
         }
 
             .list-pins li a:hover {
-                color: #18ad50;
+                color: #114b4b;
             }
 
         .list-pins li a {
@@ -18755,18 +18755,18 @@ label {
     }
 
     .pg-calendar.job-calendar .pignose-calendar .pignose-calendar-unit.pignose-calendar-unit-active a {
-        background-color: #18ad50;
+        background-color: #114b4b;
         color: #fff;
     }
 
     .pg-calendar.job-calendar .pignose-calendar .pignose-calendar-top .pignose-calendar-top-date {
-        color: #18ad50;
+        color: #114b4b;
         font-size: 16px;
         font-weight: 700;
     }
 
     .pg-calendar.job-calendar .pignose-calendar .pignose-calendar-top .pignose-calendar-top-date {
-        color: #18ad50;
+        color: #114b4b;
         font-size: 16px;
         font-weight: 700;
         display: -webkit-box;
@@ -18933,7 +18933,7 @@ label {
         }
 
             .social-content-btns li a:hover {
-                color: #18ad50;
+                color: #114b4b;
             }
 
 .pwidget-usercard {
@@ -18987,7 +18987,7 @@ label {
         }
 
             .pwidget-usercard .title a:hover {
-                color: #18ad50;
+                color: #114b4b;
             }
 
     .pwidget-usercard .caption {
@@ -19021,7 +19021,7 @@ label {
         }
 
             .pwidget-usercard .social a:hover {
-                color: #18ad50;
+                color: #114b4b;
             }
 
 .pwidget-reviews {
@@ -19035,7 +19035,7 @@ label {
     }
 
     .pwidget-reviews .title {
-        color: #18ad50;
+        color: #114b4b;
         font-size: 15px;
         font-weight: 700;
         padding: 0;
@@ -19298,7 +19298,7 @@ label {
     }
 
         .plans-grid .item.active .body .type, .plans-grid .item.active .body .price, .plans-grid .item:hover .body .type, .plans-grid .item:hover .body .price {
-            color: #18ad50;
+            color: #114b4b;
         }
 
 .widget-btn {
@@ -19306,7 +19306,7 @@ label {
 }
 
     .widget-btn .widget-btn-icon {
-        color: #18ad50;
+        color: #114b4b;
         font-size: 48px;
         margin-bottom: 10px;
     }
@@ -19325,7 +19325,7 @@ label {
         }
 
             .widget-btn .widget-btn-text a:hover {
-                color: #18ad50;
+                color: #114b4b;
             }
 
 .page-sign {
@@ -19577,7 +19577,7 @@ label {
 
     .bootstrap-select > .dropdown-menu > .dropdown-menu li a:hover {
         background-color: transparent;
-        color: #18ad50;
+        color: #114b4b;
     }
 
 .bootstrap-select > .dropdown-toggle {
@@ -22043,7 +22043,7 @@ label {
         -o-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
         border-radius: 50% 50% 0 50%;
-        background: #18ad50;
+        background: #114b4b;
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
@@ -22060,7 +22060,7 @@ label {
         border-left: 25px solid transparent;
         border-right: 25px solid transparent;
         border-top: 32px solid;
-        border-top-color: #18ad50;
+        border-top-color: #114b4b;
         border-radius: 15px 15px 25px 0;
     }
 
@@ -22089,7 +22089,7 @@ label {
         -o-transition: all 0.2s ease-in-out;
         transition: all 0.2s ease-in-out;
         border-radius: 50% 50% 0 50%;
-        background: #18ad50;
+        background: #114b4b;
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
@@ -22106,7 +22106,7 @@ label {
         border-left: 25px solid transparent;
         border-right: 25px solid transparent;
         border-top: 32px solid;
-        border-top-color: #18ad50;
+        border-top-color: #114b4b;
         border-radius: 15px 15px 25px 0;
     }
 
@@ -22130,7 +22130,7 @@ label {
         top: 50%;
         background: white;
         border-radius: 50%;
-        color: #18ad50;
+        color: #114b4b;
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
@@ -22161,8 +22161,8 @@ label {
     line-height: 32px !important;
     background: white !important;
     border-radius: 50% !important;
-    border: 10px solid #18ad50 !important;
-    color: #18ad50 !important;
+    border: 10px solid #114b4b !important;
+    color: #114b4b !important;
     font-size: 14px !important;
 }
 
@@ -22176,7 +22176,7 @@ label {
         border-left: 25px solid transparent;
         border-right: 25px solid transparent;
         border-top: 32px solid;
-        border-top-color: #18ad50;
+        border-top-color: #114b4b;
         border-radius: 15px 15px 25px 0;
         z-index: -1;
     }
@@ -22203,12 +22203,12 @@ label {
 }
 
     .infobox.primary .content .title {
-        color: #18ad50;
+        color: #114b4b;
         font-size: 18px;
     }
 
         .infobox.primary .content .title a {
-            color: #18ad50;
+            color: #114b4b;
         }
 
     .infobox .thumbnail {
@@ -22284,9 +22284,9 @@ label {
         height: 27px;
         z-index: 10000;
         cursor: pointer;
-        border: 7px solid #18ad50;
+        border: 7px solid #114b4b;
         border-radius: 13px;
-        background: #18ad50;
+        background: #114b4b;
     }
 
         .infoBox > img:after {
@@ -22348,3 +22348,4 @@ label {
                 .infobox.s_preview .content .options .opt-light {
                     color: #888a8c;
                 }
+               

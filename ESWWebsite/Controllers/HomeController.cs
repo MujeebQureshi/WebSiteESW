@@ -1,5 +1,6 @@
 ﻿using ESWWebsite.Models;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -160,7 +161,25 @@ namespace ESWWebsite.Controllers
             }
             return View(new jpprofile());
         }
+        public ActionResult ViewApplicationmultiple()
+        {
+            jpuser SessionUser = GetSessionUser();
+            if (SessionUser != null)
+            {
+                if (SessionUser.objjpprofile == null)
+                {
+                    SessionUser.objjpprofile = GetCompleteUserProfile(SessionUser.USERID);
+                    SetSessionUser(SessionUser);
+                    return View(SessionUser.objjpprofile);
+                }
+                else
+                {
+                    return View(SessionUser.objjpprofile);
+                }
+            }
+            return View(new jpprofile());
 
+        }
         [HttpPost]
         public string MyProfile(jpprofile model)
         {
@@ -177,7 +196,10 @@ namespace ESWWebsite.Controllers
                             SessionUser.objjpprofile.CURRENTSALARY = model.CURRENTSALARY;
                             SessionUser.objjpprofile.NAME = model.NAME;
                             SessionUser.objjpprofile.GENDER = model.GENDER;
-
+                            SessionUser.objjpprofile.CURRENTCURRENCY = model.CURRENTCURRENCY;
+                            SessionUser.objjpprofile.NATIONALITY = model.NATIONALITY;
+                            SessionUser.objjpprofile.LANGUAGE = model.LANGUAGE;
+                            
                             SessionUser.objjpprofile.lstjpqualification.FindAll(a=> a.isNewRecord).Select(c => { c.QUALIFICATIONID = 0; return c; }).ToList();
                             SessionUser.objjpprofile.lstjpexperience.FindAll(a => a.isNewRecord).Select(c => { c.EXPID = 0; return c; }).ToList();
 
@@ -185,14 +207,14 @@ namespace ESWWebsite.Controllers
                             conn.Open();
                             var transaction = conn.BeginTransaction();
                             string ret = jpprofileManager.Savejpprofile(SessionUser.objjpprofile, conn, transaction);
-                            if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+                            if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
                             {
                                 bool EduContinue = true;
                                 //ret = jpqualificationManager.Deletejpqualification()
                                 foreach(var edu in SessionUser.objjpprofile.lstjpqualification)
                                 {
                                     ret = jpqualificationManager.Savejpqualification(edu, conn, transaction);
-                                    if (!ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+                                    if (!ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
                                     {
                                         EduContinue = false;
                                         break;
@@ -205,7 +227,7 @@ namespace ESWWebsite.Controllers
                                     foreach (var exp in SessionUser.objjpprofile.lstjpexperience)
                                     {
                                         ret = jpexperienceManager.Savejpexperience(exp, conn, transaction);
-                                        if (!ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+                                        if (!ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
                                         {
                                             ExpContinue = false;
                                             break;
@@ -474,7 +496,27 @@ namespace ESWWebsite.Controllers
             }
             return PartialView(lstjpopening);
         }
+        public ActionResult JobsApplied() {
 
+            jpuser SessionUser = GetSessionUser();
+            if(SessionUser != null)
+            {
+                if (SessionUser.objjpprofile != null)
+                {
+                   List<jpopening> lstjpopeningapplications = jpopeningManager.GetjpopeningApplicationDetail( SessionUser.objjpprofile.PROFILEID.ToString());
+                    return PartialView(lstjpopeningapplications);
+                }
+
+            }
+
+            //List<jpopening> lstjpopeningapplications = jpopeningManager.Getjpopening("PROFILEID='" + id + "'");
+
+            return PartialView();
+        }
+        //public string GetDegreelist()
+        //{
+        //    return JsonConvert.SerializeObject(Shared.Constants.lstdegreelist);
+        //}
         public ActionResult JobDetail(string id) {
             List<jpopening> lstjpopening = jpopeningManager.Getjpopening("OPENINGID = '"+id+"'");
             if (lstjpopening.Count > 0)
@@ -539,7 +581,7 @@ namespace ESWWebsite.Controllers
                 SessionUser.objjpprofile.LONGCV = fileAsString;
                 string ret = jpprofileManager.Savejpprofile(SessionUser.objjpprofile);
                 
-                if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+                if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
                 {
                     string id = fc["id"].ToString();
                     string expsal = fc["expsal"].ToString();

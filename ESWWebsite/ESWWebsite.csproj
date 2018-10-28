@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1586,6 +1587,7 @@
     <Content Include="Content\assets\img\flags\en.png" />
     <Content Include="Content\assets\img\flags\hr.png" />
     <Content Include="Content\assets\img\images.jpg" />
+    <Content Include="Content\assets\img\logo.png" />
     <Content Include="Content\assets\img\pic\advices\advice_1.jpg" />
     <Content Include="Content\assets\img\pic\advices\advice_10.jpg" />
     <Content Include="Content\assets\img\pic\advices\advice_2.jpg" />
@@ -1601,6 +1603,7 @@
     <Content Include="Content\assets\img\pic\blog_big\post-job.jpg" />
     <Content Include="Content\assets\img\pic\blog_big\post-level.jpg" />
     <Content Include="Content\assets\img\pic\blog_big\post-us.jpg" />
+    <Content Include="Content\assets\img\pic\Briefcase-5.png" />
     <Content Include="Content\assets\img\pic\employer\employer_1.png" />
     <Content Include="Content\assets\img\pic\employer\employer_2.png" />
     <Content Include="Content\assets\img\pic\employer\employer_3.png" />
@@ -1808,6 +1811,7 @@
     <Content Include="CountryCity.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="degreelist.csv" />
     <None Include="Properties\PublishProfiles\ESWWebPub.pubxml" />
     <Content Include="resume.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1876,6 +1880,9 @@
     <Content Include="Views\Home\JobDetail.cshtml" />
     <Content Include="Views\Home\JobCards.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
+    <Content Include="Views\Home\ViewApplicationmultiple.cshtml" />
+    <Content Include="Views\Admin\.cshtml" />
+    <Content Include="Views\Home\JobsApplied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1904,6 +1911,13 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>

@@ -6,17 +6,69 @@ using MySql.Data.MySqlClient;
 
 namespace WebsiteBackEnd.Models
 {
-	public class jpopeningapplication
-	{
-		public int OPENINGID { get; set; }
-		public int PROFILEID { get; set; }
+    public class jpopeningapplication
+    {
+        public int OPENINGID { get; set; }
+        public int PROFILEID { get; set; }
         public string EXPECTEDSALARY { get; set; }
         public DateTime? APPLIEDDATE { get; set; }
 
+
+        //EXTRA VARIABLE
+        //public string JOBTITLE {get;set;}
+        //public string COMPANYNAME { get; set; }
+        //public DateTime? JOBPOSTDATE { get; set; }
+       
     }
+
 	public class jpopeningapplicationManager : BaseManager
 {
-    public static List<jpopeningapplication> Getjpopeningapplication(string whereclause, MySqlConnection conn = null)
+        //public static List<jpopeningapplication> GetJpopeningapplicationsmultiple(string whereclause, MySqlConnection conn = null)
+        //{
+        //    jpopeningapplication objjpopeningapplication = null;
+        //    List<jpopeningapplication> lstjpopeningapplication = new List<jpopeningapplication>();
+        //    try
+        //    {
+        //        bool isConnArgNull = (conn != null) ? false : true;
+        //        MySqlConnection connection = (conn != null) ? conn : PrimaryConnection();
+        //        tryOpenConnection(connection);
+        //        string sql = "SELECT  O.JOBTITLE, O.COMPANYNAME, O.JOBPOSTDATE, P.APPLIEDDATE FROM jpopeningapplication P INNER JOIN jpopening O ON P.OPENINGID = O.OPENINGID";
+        //        if (!string.IsNullOrEmpty(whereclause))
+        //            sql += " where " + whereclause;
+        //        using (MySqlCommand command = new MySqlCommand())
+        //        {
+        //            command.Connection = connection;
+        //            command.CommandText = sql;
+        //            using (MySqlDataReader reader = command.ExecuteReader())
+        //            {
+        //                if (reader.HasRows)
+        //                {
+        //                    while (reader.Read())
+        //                    {
+        //                        objjpopeningapplication = ReaderDatajpopeningapplicationmultiple(reader);
+        //                        lstjpopeningapplication.Add(objjpopeningapplication);
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                }
+        //            }
+        //        }
+
+        //        if (isConnArgNull == true)
+        //        {
+        //            connection.Dispose();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+
+        //    return lstjpopeningapplication;
+            
+
+        //}
+        public static List<jpopeningapplication> Getjpopeningapplication(string whereclause, MySqlConnection conn = null)
     {
         jpopeningapplication objjpopeningapplication = null;
         List<jpopeningapplication> lstjpopeningapplication = new List<jpopeningapplication>();
@@ -69,8 +121,21 @@ namespace WebsiteBackEnd.Models
         objjpopeningapplication.APPLIEDDATE = Utility.IsValidDateTime(reader["APPLIEDDATE"]);
         return objjpopeningapplication;
     }
+        //private static jpopeningapplication ReaderDatajpopeningapplicationmultiple(MySqlDataReader reader)
+        //{
+        //    jpopeningapplication objjpopeningapplication = new jpopeningapplication();
+        //  //  objjpopeningapplication.OPENINGID = Utility.IsValidInt(reader["OPENINGID"]);
+        //   // objjpopeningapplication.PROFILEID = Utility.IsValidInt(reader["PROFILEID"]);
+        //    //objjpopeningapplication.EXPECTEDSALARY = Utility.IsValidString(reader["EXPECTEDSALARY"]);
+        //    objjpopeningapplication.APPLIEDDATE = Utility.IsValidDateTime(reader["APPLIEDDATE"]);
+        //    objjpopeningapplication.COMPANYNAME = Utility.IsValidString(reader["COMPANYNAME"]);
+        //    objjpopeningapplication.JOBTITLE = Utility.IsValidString(reader["JOBTITLE"]);
+        //    objjpopeningapplication.JOBPOSTDATE = Utility.IsValidDateTime(reader["JOBPOSTDATE"]);
+        //    return objjpopeningapplication;
+            
+        //}
 
-    public static string Savejpopeningapplication(jpopeningapplication objjpopeningapplication, MySqlConnection conn = null)
+        public static string Savejpopeningapplication(jpopeningapplication objjpopeningapplication, MySqlConnection conn = null)
     {
         string returnMessage = "";
         //string sOPENINGID = "";

@@ -20,7 +20,7 @@
     <meta charset="UTF-8" />
     <title>@OrgName</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="shortcut icon" href="~/Content/assets/img/tile.png" type="image/png" />
+    <link rel="shortcut icon" href="~/Content/assets/img/logo.png" type="image/png" />
     <link rel="stylesheet" href='~/Content/assets/cache/css_01_home.min.css' />
     <link rel="stylesheet" href='~/Content/assets/cache/fontawesome/css/all.css' />
     <link rel="stylesheet" href='~/Content/assets/cache/css_22_log_in.min.css' />
@@ -35,6 +35,17 @@
         input[type="date"]:valid:before {
             content: "";
         }
+
+        input[type="month"]:before {
+            content: attr(placeholder) !important;
+            color: #6c757d;
+            margin-right: 0.5em;
+        }
+
+        input[type="month"]:focus:before,
+        input[type="month"]:valid:before {
+            content: "";
+        }
     </style>
 </head>
 <body>
@@ -43,11 +54,10 @@
             <div class="wide-container">
                 <div class="flex-row">
                     <div class="grid logo-container">
-                        <div class="logo">
-                            <a href="/Home/Index">
-                                <b class="text-color-primary" style="font-size:30px;">@OrgInitials</b>
-                            </a>
-                        </div>
+                        
+                        <a class="navbar-brand" href="/Home/Index">
+                            <img src="~/Content/assets/img/logo.png" width="120" height="40" alt="">
+                        </a>
                     </div>
                     <!-- ./ logo -->
                     <div class="grid nav-menu">
@@ -56,12 +66,17 @@
                             <div class="collapse navbar-collapse default-menu-collapse" id="main-menu">
                                 <button class="navbar-toggler mobile-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">  <i class="icon_close_alt2"></i>  </button>
                                 <ul class="nav navbar-nav collapse navbar-collapse default-menu" id="navbarNavDropdown">
-                                    @if (navActive.Equals(Shared.Constants.SP_CLIENT)){
-                                    <a class="nav-link active" href="/Home/OurClients" aria-haspopup="true" aria-expanded="false">  Client  </a>
+
+                                    @if (navActive.Equals("Home"))
+                                    {
+                                        <a class="nav-link active" href="/Home/Index" aria-haspopup="true" aria-expanded="false">  Home  </a>
                                     }
-                                    else{
-                                    <a class="nav-link" href="/Home/OurClients" aria-haspopup="true" aria-expanded="false">  Client  </a>
+                                    else
+                                    {
+                                        <a class="nav-link" href="/Home/Index" aria-haspopup="true" aria-expanded="false">  Home  </a>
                                     }
+
+
 
                                     @if (navActive.Equals(Shared.Constants.SP_ABOUT_US))
                                     {
@@ -72,36 +87,23 @@
                                         <a class="nav-link" href="/Home/AboutUs" aria-haspopup="true" aria-expanded="false">  About Us  </a>
                                     }
 
-                                    @if (navActive.Equals(Shared.Constants.SP_OUTSOURCE))
-                                    {
-                                    <a class="nav-link active" href="/Home/Outsourcing" aria-haspopup="true" aria-expanded="false">  Outsourcing  </a>
-                                    }
-                                    else{
-                                    <a class="nav-link" href="/Home/Outsourcing" aria-haspopup="true" aria-expanded="false">  Outsourcing  </a>
-                                    }
-
-                                    @if (navActive.Equals(Shared.Constants.SP_TRAIN_DEV))
-                                    {
-                                    <a class="nav-link active" href="/Home/Training" aria-haspopup="true" aria-expanded="false">  Training & Development  </a>
-                                    }
-                                    else{
-                                    <a class="nav-link" href="/Home/Training" aria-haspopup="true" aria-expanded="false">  Training & Development  </a>
-                                    }
 
                                     @if (navActive.Equals(Shared.Constants.SP_CAREER_COUNCIL))
                                     {
-                                    <a class="nav-link active" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+                                        <a class="nav-link active" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
                                     }
-                                    else{
-                                    <a class="nav-link" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+                                    else
+                                    {
+                                        <a class="nav-link" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
                                     }
 
                                     @if (navActive.Equals(Shared.Constants.SP_SOFTWARE_SRVS))
                                     {
-                                    <a class="nav-link active" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
+                                        <a class="nav-link active" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
                                     }
-                                    else{
-                                    <a class="nav-link" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
+                                    else
+                                    {
+                                        <a class="nav-link" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
                                     }
                                     @if (navActive.Equals(Shared.Constants.SP_LIST_JOBS))
                                     {
@@ -153,6 +155,13 @@
                                 <li>
                                     <div class="col-lg-12">
                                         <p>
+                                            <a href="/Home/JobsApplied" class="btn btn-info btn-block">View Applications</a>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="col-lg-12">
+                                        <p>
                                             <a href="/Home/Logout" class="btn btn-danger btn-block">Logout</a>
                                         </p>
                                     </div>
@@ -198,7 +207,7 @@
                         <div class="f_widget widget-about">
                             <h2 class="title">About @OrgInitials</h2>
                             <!-- ./ widget title -->
-                            <div class="body">@OrgName (@OrgInitials), is a HR services firm, was established in 2002. Javed Arif, the Chief Executive of the firm, has been a Marketing & Sales practitioner since 1974.His local and International exposure enabled @OrgInitials to become one of the trusted name in Human Capital Management Sector. <a href="/Home/AboutUs">Read More</a></div>
+                            <div class="body" >Management and Marketing International(MMI) is a Human Capital Solutions provider and a leader in a range of restructuring services and talent Solutions for organizations aiming to optimize their human capital and for individuals determined to develop their...</div><div><a href="/Home/AboutUs">Read More</a></div>
                             <!-- ./ widget body -->
                         </div>
                         <!-- ./ widget about -->

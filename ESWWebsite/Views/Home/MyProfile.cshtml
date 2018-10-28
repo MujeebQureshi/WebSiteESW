@@ -11,6 +11,12 @@
     {
         lstSalary.Find(g => g.Value.Equals(Model.CURRENTSALARY)).isSelected = true;
     }
+    List<Shared.DDList> lstCurrency = Shared.Constants.getNewCurreny();
+    if (!string.IsNullOrEmpty(Model.CURRENTCURRENCY))
+    {
+        lstCurrency.Find(g => g.Value.Equals(Model.CURRENTCURRENCY)).isSelected = true;
+    }
+
 }
 
 <style>
@@ -114,23 +120,49 @@
         <div class="" style="padding:10px;">
             <form id="frmProfile" action="#">
                 <input type="submit" style="display:none" />
-                <div class="form-group"><input type="text" id="NAME" name="NAME" placeholder="Full Name" class="form-control" value="@Model.NAME" required/></div>
                 <div class="form-group">
-                    <select id="GENDER" name="GENDER" type="text" placeholder="Gender" class="form-control" required>
-                    @foreach (var opt in lstGender)
-                    {
-                        string selected = "";
-                        if (opt.isSelected)
+                    @*<input type="text" id="NAME" name="NAME" placeholder="Full Name" class="form-control" value="@Model.NAME" required/>*@
+                    <input type="text" class="form-control" id="name" placeholder="Enter Full name" name="Name" value="@Model.NAME" required>
+
+                </div>
+
+
+                <div class="form-group">
+                    <select id="GENDER" name="GENDER" type="text" placeholder="Gender" class="form-control" value="@Model.GENDER"    required>
+                        @foreach (var opt in lstGender)
                         {
-                            selected = "selected";
+                            string selected = "";
+                            if (opt.isSelected)
+                            {
+                                selected = "selected";
+                            }
+                            <option value="@opt.Value" @selected>@opt.Text</option>
                         }
-                        <option value="@opt.Value" @selected>@opt.Text</option>
-                    }
                     </select>
                 </div>
-                <div class="form-group"><input type="number" id="CONTACT" name="CONTACT" placeholder="Contact Number" class="form-control" value="@Model.CONTACT"  required/></div>
                 <div class="form-group">
-                    <select id="CURRENTSALARY" name="CURRENTSALARY" type="text" placeholder="Current Salary" class="form-control" required>
+
+                    <input type="number" id="CONTACT" name="CONTACT" placeholder="Contact Number" class="form-control" value="@Model.CONTACT" required />
+
+                </div>
+                <div class="form-group">
+
+                    <input type="text" class="form-control" id="Nationality" placeholder="Nationality" name="Nationality" value="@Model.NATIONALITY" required>
+
+                </div>
+                <div class="form-group">
+
+                    <input type="text" class="form-control" id="Language" placeholder="language" name="language" value="@Model.LANGUAGE" required>
+
+                </div>
+                @*<div class="form-group">
+
+            <input type="text" class="form-control" id="name" placeholder="Enter Full name" name="Name">
+
+        </div>*@
+
+                <div class="form-group">
+                    <select id="CURRENTSALARY" name="CURRENTSALARY" type="text" placeholder="Current Salary" class="form-control" value="@Model.CURRENTSALARY" required>
                         @foreach (var opt in lstSalary)
                         {
                             string selected = "";
@@ -141,6 +173,32 @@
                             <option value="@opt.Value" @selected>@opt.Text</option>
                         }
                     </select>
+                </div>
+                <div class="form-group" >
+                    <select id="CURRENTCURRENCY" name="CURRENTCURRENCY" type="text" placeholder="Currency" class="form=control" value="@Model.CURRENTCURRENCY" style=" display: block;
+                         width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;" required>
+                        @foreach (var opt in lstCurrency)
+                        {
+                            string selected = "";
+                            if (opt.isSelected)
+                            {
+                                selected = "selected";
+                            }
+                            <option value="@opt.Value" @selected> @opt.Text</option>
+
+                        }
+
+                    </select>
+
                 </div>
             </form>
 

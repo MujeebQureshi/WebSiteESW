@@ -154,7 +154,7 @@ namespace ESWWebsite.Controllers
             if (lstjpUSER.Count > 0)
             {
                 lstjpUSER.First().objjpprofile = GetCompleteUserProfile(lstjpUSER.First().USERID);
-                lstjpUSER.First().objjpprofile.Email = lstjpUSER.First().EMAIL;
+                //lstjpUSER.First().objjpprofile.EMAIL = lstjpUSER.First().EMAIL;
 
                 if (lstjpUSER.First().objjpprofile != null)
                 {
@@ -199,7 +199,7 @@ namespace ESWWebsite.Controllers
             if (lstjpUSER.Count > 0)
             {
                 lstjpUSER.First().objjpprofile = GetCompleteUserProfile(lstjpUSER.First().USERID);
-                lstjpUSER.First().objjpprofile.Email = lstjpUSER.First().EMAIL;
+         //       lstjpUSER.First().objjpprofile.EMAIL = lstjpUSER.First().EMAIL;
 
                 jsonProfileWrapper obj = new jsonProfileWrapper();
                 obj.basics = lstjpUSER.First().objjpprofile;

@@ -5,6 +5,7 @@
     List<Shared.DDList> lstJobStatus = Shared.Constants.getNewJobStatus();
     List<Shared.DDList> lstJobType = Shared.Constants.getNewJobType();
     List<Shared.DDList> lstAllowCVUpload = Shared.Constants.getNewYesNoList();
+    List<Shared.DDList> lstCurrency = Shared.Constants.getNewCurreny();
 
 
     if (Model!=null)
@@ -24,6 +25,10 @@
         if (!string.IsNullOrEmpty(Model.ALLOWLONGCV))
         {
             lstAllowCVUpload.Find(g => g.Value.Equals(Model.ALLOWLONGCV)).isSelected = true;
+        }
+        if (!string.IsNullOrEmpty(Model.CURRENCY))
+        {
+            lstCurrency.Find(g => g.Value.Equals(Model.CURRENCY)).isSelected = true;
         }
     }
 }
@@ -82,7 +87,7 @@
 
                     <h4>Position Based In</h4>
                     <div class='form-group '>
-                        <select class="form-control" required  id="COUNTRYNAME" name="COUNTRYNAME">
+                        <select class="form-control" required id="COUNTRYNAME" name="COUNTRYNAME">
                             <option value="" title="Tooltip">--Select Country--</option>
                         </select>
                     </div>
@@ -92,7 +97,7 @@
                             <option value="" title="Tooltip">--Select City--</option>
                         </select>
                     </div>
-
+                        
                     <h4>Department</h4>
                     <div class="form-group">
                         <input type="text" class="form-control" required value="@(Model.DEPARTMENT)" id="DEPARTMENT" name="DEPARTMENT" />
@@ -119,12 +124,18 @@
                     <div class="form-group">
                         <input type="text" class="form-control" required value="@(Model.MINIMUMEDUCATION)" id="MINIMUMEDUCATION" name="MINIMUMEDUCATION" />
                     </div>
-
+                    <h4>Maximum Education</h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control" required value="@(Model.MAXIMUMEDUCATION)" id="MAXIMUMEDUCATION" name="MAXIMUMEDUCATION" />
+                    </div>
                     <h4>Minimum Experience (in years)</h4>
                     <div class="form-group">
                         <input type="number" class="form-control" required value="@(Model.MINIMUMEXPERIENCE)" id="MINIMUMEXPERIENCE" name="MINIMUMEXPERIENCE" />
                     </div>
-
+                    <h4>Maximum Experience (in years)</h4>
+                    <div class="form-group">
+                        <input type="number" class="form-control" required value="@(Model.MAXIMUMEXPERIENCE)" id="MAXIMUMEXPERIENCE" name="MAXIMUMEXPERIENCE" />
+                    </div>
                     <h4>Allow CV Upload</h4>
                     <div>
                         <select class="form-control" required value="@(Model.ALLOWLONGCV)" id="ALLOWLONGCV" name="ALLOWLONGCV">
@@ -142,7 +153,23 @@
 
                     <h4>Salary / Package Details</h4>
                     <div class="form-group">
-                        <input type="number" class="form-control" required value="@(Model.SALARYRANGE)" id="SALARYRANGE" name="SALARYRANGE" />
+                   
+                        <select id="CURRENCY" name="CURRENCY" typeof="text" placeholder="Currency" class="form=control" value="@Model.CURRENCY"   required>
+                            @foreach (var opt in lstCurrency)
+                            {
+                                string selected = "";
+                                if (opt.isSelected)
+                                {
+                                    selected = "selected";
+                                }
+                                <option value="@opt.Value" @selected> @opt.Text</option>
+
+                            }
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" placeholder="SalaryAmount" class="form-control" required value="  @(Model.SALARYRANGE)" id="SALARYRANGE" name="SALARYRANGE" />
                     </div>
                     <h4>Job Description</h4>
                     <div class="form-group">

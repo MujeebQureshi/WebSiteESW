@@ -1,1 +1,23 @@
-{"basics":{"name":" Abdul Mujeeb Qureshi","phone":"3323099762","email":"abdul.mujeeb.qureshi@hotmail.com"},"work":[{"company":"Aga Khan University","position":"Programmer Analyst","startDate":"June 2016","endDate":""}],"education":[{"area":"BS Computer Science","gpa":"3.02","institution":"IBA Karachi","endDate":"June 2016"}]}
+{
+  "basics": {
+    "name": " Abdul Mujeeb Qureshi",
+    "phone": "3323099762",
+    "email": "abdul.mujeeb.qureshi@hotmail.com"
+  },
+  "work": [
+    {
+      "company": "Aga Khan University",
+      "position": "Programmer Analyst",
+      "startDate": "June 2016",
+      "endDate": ""
+    }
+  ],
+  "education": [
+    {
+      "area": "BS Computer Science",
+      "gpa": "3.02",
+      "institution": "IBA Karachi",
+      "endDate": "June 2016"
+    }
+  ]
+}

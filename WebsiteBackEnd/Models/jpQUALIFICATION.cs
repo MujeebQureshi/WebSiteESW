@@ -24,7 +24,7 @@ namespace WebsiteBackEnd.Models
 
         //other vars:
         [JsonIgnore]
-        public string DegreeType { get; set; }
+        public string DEGREETYPE { get; set; }
         [JsonIgnore]
         public bool isNewRecord { get; set; }
         public string endDate {
@@ -86,6 +86,7 @@ namespace WebsiteBackEnd.Models
         objjpqualification.PASSINGYEAR = Utility.IsValidDateTime(reader["PASSINGYEAR"]);
         objjpqualification.GRADES = Utility.IsValidString(reader["GRADES"]);
         objjpqualification.INSTITUTIONNAME = Utility.IsValidString(reader["INSTITUTIONNAME"]);
+            objjpqualification.DEGREETYPE = Utility.IsValidString(reader["DEGREETYPE"]);
         return objjpqualification;
     }
 
@@ -112,14 +113,16 @@ PROFILEID,
 DEGREENAME,
 PASSINGYEAR,
 GRADES,
-INSTITUTIONNAME
+INSTITUTIONNAME,
+DEGREETYPE
 )
 VALUES(
 @PROFILEID,
 @DEGREENAME,
 @PASSINGYEAR,
 @GRADES,
-@INSTITUTIONNAME
+@INSTITUTIONNAME,
+@DEGREETYPE
 )";
                 }
                 else
@@ -130,7 +133,8 @@ PROFILEID=@PROFILEID,
 DEGREENAME=@DEGREENAME,
 PASSINGYEAR=@PASSINGYEAR,
 GRADES=@GRADES,
-INSTITUTIONNAME=@INSTITUTIONNAME
+INSTITUTIONNAME=@INSTITUTIONNAME,
+DEGREETYPE=@DEGREETYPE
 
 Where QUALIFICATIONID=@QUALIFICATIONID";
                 }
@@ -151,6 +155,7 @@ Where QUALIFICATIONID=@QUALIFICATIONID";
                 command.Parameters.AddWithValue("@PASSINGYEAR", objjpqualification.PASSINGYEAR);
                 command.Parameters.AddWithValue("@GRADES", objjpqualification.GRADES);
                 command.Parameters.AddWithValue("@INSTITUTIONNAME", objjpqualification.INSTITUTIONNAME);
+                    command.Parameters.AddWithValue("@DEGREETYPE", objjpqualification.DEGREETYPE);
                 int affectedRows = command.ExecuteNonQuery();
                 if (affectedRows > 0)
                 {

@@ -84,11 +84,28 @@
     @Scripts.Render("~/bundles/jquery")
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
     <script type="text/javascript">
-        $("input").focus(function (e) {
+        $("input").keypress(function (e) {
             $("#ErrMsg").text('');
             $("#ErrMsgDiv").hide();
         })
 
+
+        $(document).keypress(function (e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                if ($("#ADMINUSERNAME").val()) {
+                    if ($("#PASSWORD").val()) {
+                        LogIn();
+                    }
+                    else {
+                        $("#PASSWORD").focus();
+                    }
+                }
+                else {
+                    $("#ADMINUSERNAME").focus();
+                }
+            }
+        });
         function LogIn() {
             if ($('#frmAdmSignin')[0].checkValidity()) {
                 swal('Please wait');
@@ -104,12 +121,14 @@
                         var msg = "@(Shared.Constants.MSG_ERR_INVALIDCRED.Value)"
                         $("#ErrMsg").text(msg);
                         $("#ErrMsgDiv").show();
+                        $("#EMAIL").focus();
                     }
                     else if (data == "@(Shared.Constants.MSG_ERROR.Text)") {
                         //var msg = "Unknown Error. Please Try Again!"
                         var msg = "@(Shared.Constants.MSG_ERROR.Value)"
                         $("#ErrMsg").text(msg);
                         $("#ErrMsgDiv").show();
+                        $("#EMAIL").focus();
                     }
                 })
             }

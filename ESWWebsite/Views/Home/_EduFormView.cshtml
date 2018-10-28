@@ -1,21 +1,39 @@
 ﻿@model WebsiteBackEnd.Models.jpqualification
 @{ 
     List<Shared.DDList> lstDegreeType = Shared.Constants.getNewDegreeType();
-    if (!string.IsNullOrEmpty(Model.DegreeType))
+    if (!string.IsNullOrEmpty(Model.DEGREETYPE))
     {
-        lstDegreeType.Find(g => g.Value.Equals(Model.DegreeType)).isSelected = true;
+        lstDegreeType.Find(g => g.Value.Equals(Model.DEGREETYPE)).isSelected = true;
     }
 
     string dtPassing = (Model.PASSINGYEAR != null) ? Model.PASSINGYEAR.Value.ToString(Shared.Constants.DATE_RFC_YEAR_MONTH_FORMAT) : "";
+    List<Shared.DDList> degreelists = Shared.Constants.getdegree();
+    if (!string.IsNullOrEmpty(Model.DEGREENAME))
+    {
+        degreelists.Find(g => g.Value.Equals(Model.DEGREENAME)).isSelected = true;
+    }
 
 }
 <form id="EduRec" action="#">
     @*<input type="submit" style="display:none" />*@
     <div class="form-group">
-        <input id="DEGREENAME" name="DEGREENAME" type="text" placeholder="Degree Title" class="form-control" value="@Model.DEGREENAME" required/>
+        @*<input id="DEGREENAME" name="DEGREENAME" type="text" placeholder="Degree Title" class="form-control" value="@Model.DEGREENAME" required />*@
+        <select class="form-control"  id="DEGREE_TITLE" name="DEGREE_TITLE" value="@Model.DEGREENAME" required>
+            @foreach(var opt in degreelists)
+            {
+                string selected = "";
+                if (opt.isSelected)
+                {
+                    selected = "selected";
+                }
+                <option value="@opt.Value" @selected>@opt.Text</option>
+
+            }
+            </select>          
     </div>
+
     <div class='form-group'>
-        <select class='form-control' id='DegreeType' name="DegreeType" required>
+        <select class='form-control' id='DegreeType' name="DegreeType" value="@Model.DEGREETYPE" required>
             @foreach (var opt in lstDegreeType)
             {
                 string selected = "";
