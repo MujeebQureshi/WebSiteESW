@@ -18,8 +18,10 @@
     @*<input type="submit" style="display:none" />*@
     <div class="form-group">
         @*<input id="DEGREENAME" name="DEGREENAME" type="text" placeholder="Degree Title" class="form-control" value="@Model.DEGREENAME" required />*@
-        <select class="form-control"  id="DEGREE_TITLE" name="DEGREE_TITLE" value="@Model.DEGREENAME" required>
-            @foreach(var opt in degreelists)
+        @*<select class="form-control"  id="DEGREENAME" name="DEGREENAME" value="@Model.DEGREENAME" required>*@
+        <input id="DEGREENAME" name="DEGREENAME" placeholder="Degree Title" class="form-control" value="@Model.DEGREENAME" list="lstDegrees" required />
+        <datalist id="lstDegrees">
+            @foreach (var opt in degreelists)
             {
                 string selected = "";
                 if (opt.isSelected)
@@ -29,8 +31,9 @@
                 <option value="@opt.Value" @selected>@opt.Text</option>
 
             }
-            </select>          
-    </div>
+            </datalist>
+            @*</select>*@
+</div>
 
     <div class='form-group'>
         <select class='form-control' id='DegreeType' name="DegreeType" value="@Model.DEGREETYPE" required>

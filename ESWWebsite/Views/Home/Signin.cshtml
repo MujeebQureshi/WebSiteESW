@@ -54,9 +54,9 @@
         $("#ErrMsg").text('');
         $("#ErrMsgDiv").hide();
     })
-    
+
     function LogIn() {
-      
+
         if ($('#frmLogin')[0].checkValidity()) {
             swal('Please wait');
             swal.showLoading();
@@ -76,6 +76,14 @@
                 else if (data == "@(Shared.Constants.MSG_ERR_NOUSEREXIST.Text)") {
                     //var msg = "No user exists against the provided Email!"
                     var msg = "@(Shared.Constants.MSG_ERR_NOUSEREXIST.Value)"
+                    $("#ErrMsg").text(msg);
+                    $("#ErrMsgDiv").show();
+                    $("#EMAIL").focus();
+
+                }
+                else if (data == "@(Shared.Constants.MSG_ERROR.Text)") {
+                    //var msg = "No user exists against the provided Email!"
+                    var msg = "@(Shared.Constants.MSG_ERROR.Value)"
                     $("#ErrMsg").text(msg);
                     $("#ErrMsgDiv").show();
                     $("#EMAIL").focus();

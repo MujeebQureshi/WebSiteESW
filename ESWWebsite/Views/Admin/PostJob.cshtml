@@ -28,7 +28,7 @@
         }
         if (!string.IsNullOrEmpty(Model.CURRENCY))
         {
-            lstCurrency.Find(g => g.Value.Equals(Model.CURRENCY)).isSelected = true;
+            lstCurrency.Find(g => g.Text.Equals(Model.CURRENCY)).isSelected = true;
         }
     }
 }
@@ -154,7 +154,7 @@
                     <h4>Salary / Package Details</h4>
                     <div class="form-group">
                    
-                        <select id="CURRENCY" name="CURRENCY" typeof="text" placeholder="Currency" class="form=control" value="@Model.CURRENCY"   required>
+                        <select id="CURRENCY" name="CURRENCY" typeof="text" placeholder="Currency" class="form-control" value="@Model.CURRENCY"   required>
                             @foreach (var opt in lstCurrency)
                             {
                                 string selected = "";

@@ -1,16 +1,17 @@
 ﻿@model WebsiteBackEnd.Models.jpprofile
 @{
     ViewBag.Title = "MyProfile";
+    Model.NAME = (Model.NAME == " ") ? null : Model.NAME;
     List<Shared.DDList> lstGender = Shared.Constants.getNewGender();
     if(!string.IsNullOrEmpty(Model.GENDER))
     {
         lstGender.Find(g => g.Value.Equals(Model.GENDER)).isSelected = true;
     }
-    List<Shared.DDList> lstSalary = Shared.Constants.getNewSalary();
-    if (!string.IsNullOrEmpty(Model.CURRENTSALARY))
-    {
-        lstSalary.Find(g => g.Value.Equals(Model.CURRENTSALARY)).isSelected = true;
-    }
+    //List<Shared.DDList> lstSalary = Shared.Constants.getNewSalary();
+    //if (!string.IsNullOrEmpty(Model.CURRENTSALARY))
+    //{
+    //    lstSalary.Find(g => g.Value.Equals(Model.CURRENTSALARY)).isSelected = true;
+    //}
     List<Shared.DDList> lstCurrency = Shared.Constants.getNewCurreny();
     if (!string.IsNullOrEmpty(Model.CURRENTCURRENCY))
     {
@@ -19,7 +20,7 @@
     List<Shared.DDList> lstNationality = Shared.Constants.getNationality();
     if (!string.IsNullOrEmpty(Model.NATIONALITY))
     {
-        lstNationality.Find(g => g.Value.Equals(Model.NATIONALITY)).isSelected = true;
+        lstNationality.Find(g => g.Text.Equals(Model.NATIONALITY)).isSelected = true;
     }
 
 }
@@ -147,7 +148,7 @@
                 </div>
                 <div class="form-group">
 
-                    <input type="number" id="CONTACT" name="CONTACT" placeholder="Contact Number" class="form-control" value="@Model.CONTACT" required />
+                    <input type="text" id="CONTACT" name="CONTACT" placeholder="Contact Number" class="form-control" value="@Model.CONTACT" required />
 
                 </div>
                 <div class="form-group">
@@ -161,13 +162,13 @@
                             {
                                 selected = "selected";
                             }
-                            <option value="@opt.Value" @selected>@opt.Text</option>
+                            <option value="@opt.Text" @selected>@opt.Value</option>
                         }
                     </select>
                 </div>
                 <div class="form-group">
 
-                    <input type="text" class="form-control" id="Language" placeholder="language" name="language" value="@Model.LANGUAGE" required>
+                    <input type="text" class="form-control" id="LANGUAGE" placeholder="language" name="LANGUAGE" value="@Model.LANGUAGE" required>
 
                 </div>
                 @*<div class="form-group">
@@ -177,7 +178,8 @@
         </div>*@
 
                 <div class="form-group">
-                    <select id="CURRENTSALARY" name="CURRENTSALARY" type="text" placeholder="Current Salary" class="form-control" value="@Model.CURRENTSALARY" required>
+                    <input type="number" id="CURRENTSALARY" name="CURRENTSALARY" placeholder="Current Salary" class="form-control" value="@Model.CURRENTSALARY" required />
+                    @*<select id="CURRENTSALARY" name="CURRENTSALARY" type="text" placeholder="Current Salary" class="form-control" value="@Model.CURRENTSALARY" required>
                         @foreach (var opt in lstSalary)
                         {
                             string selected = "";
@@ -187,7 +189,7 @@
                             }
                             <option value="@opt.Value" @selected>@opt.Text</option>
                         }
-                    </select>
+                    </select>*@
                 </div>
                 <div class="form-group" >
                     <select id="CURRENTCURRENCY" name="CURRENTCURRENCY" type="text" placeholder="Currency" class="form=control" value="@Model.CURRENTCURRENCY" style=" display: block;

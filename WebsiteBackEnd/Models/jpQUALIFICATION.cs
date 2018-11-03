@@ -26,7 +26,7 @@ namespace WebsiteBackEnd.Models
         [JsonIgnore]
         public string DEGREETYPE { get; set; }
         [JsonIgnore]
-        public bool isNewRecord { get; set; }
+        public string isNewRecord { get; set; }
         public string endDate {
             get { return (PASSINGYEAR != null) ? PASSINGYEAR.Value.ToString(Constants.DATE_MONTH_YEAR_FORMAT) : ""; } set { }
         }

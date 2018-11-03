@@ -79,13 +79,14 @@
 
     }
 
-    function ApplyJob(id) {
+    function ApplyJob(id, currency) {
+        currency = (currency == null || currency == '') ? 'Native currency' : currency;
         swal('Please wait');
         swal.showLoading();
         $.get("/Home/validateApplyJob?id=" + encodeURI(id), function (data) {
             if(data == "@Shared.Constants.MSG_SUCCESS.Text"){
                 swal({
-                    title: 'Input Expected Salary',
+                    title: 'Input Expected Salary in ' + currency,
                     input: 'number',
                     inputAttributes: {
                         min: '0'
@@ -155,13 +156,14 @@
 
     var expectedSal;
     var progressSwal;
-    function ApplyJobCV(id, isCVAdded) {
+    function ApplyJobCV(id, isCVAdded, currency) {
+        currency = (currency == null || currency == '') ? 'Native currency' : currency;
         swal('Please wait');
         swal.showLoading();
         $.get("/Home/validateApplyJob?id=" + encodeURI(id), function (data) {
             if (data == "@Shared.Constants.MSG_SUCCESS.Text") {
                 swal({
-                    title: 'Input Expected Salary',
+                    title: 'Input Expected Salary in ' + currency,
                     input: 'number',
                     inputAttributes: {
                         min: '0'
@@ -219,8 +221,8 @@
                                             //console.log(this);
                                             var data = this.responseText;
                                             if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
-                                                //swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
-                                                swal('@(Shared.Constants.MSG_SUCCESS.Value)');
+                                                swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
+                                                @*swal('@(Shared.Constants.MSG_SUCCESS.Value)');*@
                                             }
                                             else {
                                                 swal('Unable to apply for the job. Please try again in some time. ');
@@ -239,10 +241,9 @@
                             swal({
                                 title: "You have previously uploaded a CV in our system. Do you want to re upload the CV?",
                                 type: 'info',
-                                button: {
-                                    Yes: true,
-                                    cancel: "No"
-                                }
+                                showCancelButton: true,
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No'
                                
                             }).then((result) => {
                                 if (result.value) {
@@ -276,12 +277,14 @@
 
                                             ajax = new XMLHttpRequest();
                                             ajax.onreadystatechange = function () {
+                                                //alert(this.readyState + " : " + this.status);
                                                 if (this.readyState == 4 && this.status == 200) {
                                                     //console.log(this);
                                                     var data = this.responseText;
+                                                    //alert(data);
                                                     if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
-                                                        //swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
-                                                        swal('@(Shared.Constants.MSG_SUCCESS.Value)');
+                                                        swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
+                                                        @*swal('@(Shared.Constants.MSG_SUCCESS.Value)');*@
                                                     }
                                                     else {
                                                         swal('Unable to apply for the job. Please try again in some time. ');
@@ -301,8 +304,8 @@
                                     swal.showLoading();
                                     $.get("/Home/ApplyJob?id=" + encodeURI(id) + "&expsal=" + encodeURI(expectedSal), function (data) {
                                         if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
-                                            //swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
-                                            swal('@(Shared.Constants.MSG_SUCCESS.Value)');
+                                            swal('You have successfully applied for the job, You will be contacted by our staff shortly. ');
+                                            @*swal('@(Shared.Constants.MSG_SUCCESS.Value)');*@
                                         }
                                         else {
                                             swal('Unable to apply for the job. Please try again in some time. ');

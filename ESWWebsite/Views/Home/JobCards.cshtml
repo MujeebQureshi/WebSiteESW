@@ -18,7 +18,7 @@
 
                 <div class="card">
                     <div class="aa" style="background-color:#114b4b; padding-bottom:15px; padding-top: 10px;">
-                        <img class="card-img-reponsive ;" align="middle" style="border-radius:70%;  " src="~/Content/assets/img/pic/Briefcase-5.png" alt="Company logo">
+                        <img class="card-img-reponsive ;" align="middle" style="" src="~/Content/assets/img/pic/Briefcase-5.png" alt="Company logo">
 
                     </div>
 
@@ -54,11 +54,11 @@
                         <div class="btn-group">
                             @if (item.ALLOWLONGCV.Equals(Shared.Constants.STR_NO))
                             {
-                                <button type="button" class="btn btn-info" onclick="ApplyJob('@item.OPENINGID')">Apply Now</button>
+                                <button type="button" class="btn btn-info" onclick="ApplyJob('@item.OPENINGID','@item.CURRENCY')">Apply Now</button>
                             }
                             else
                             {
-                                <button type="button" class="btn btn-info" onclick="ApplyJobCV('@item.OPENINGID','@isCvAdded')">Apply Now</button>
+                                <button type="button" class="btn btn-info" onclick="ApplyJobCV('@item.OPENINGID','@isCvAdded','@item.CURRENCY')">Apply NowX</button>
                             }
                         </div>
                     </div>
@@ -97,14 +97,14 @@
     </div>
 </div>
 <script type="text/javascript">
-    function DetailsFunc(id) {
-        //alert(id);
-        $("#DetailsModalHeader").text(id);
-        $("#DetailsModalBody").load("/Home/JobDetail/" + encodeURI(id), function () {
-            $("#DetailsModal").modal('show');
-        });
+    //function DetailsFunc(id) {
+    //    //alert(id);
+    //    $("#DetailsModalHeader").text(id);
+    //    $("#DetailsModalBody").load("/Home/JobDetail/" + encodeURI(id), function () {
+    //        $("#DetailsModal").modal('show');
+    //    });
 
-    }
+    //}
 </script>
 
 

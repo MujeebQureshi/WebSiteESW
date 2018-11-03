@@ -126,7 +126,7 @@ namespace ESWWebsite.Controllers
         {
             model.JOBPOSTDATE = DateTime.Now;
             string ret = jpopeningManager.Savejpopening(model);
-            if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+            if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
             {
                 return Shared.Constants.MSG_SUCCESS.Text;
             }

@@ -69,10 +69,17 @@ namespace ESWWebsite.Controllers
                 if (lstjpUSER.First().PASSWORD.Equals(model.PASSWORD))
                 {
                     lstjpUSER.First().objjpprofile = GetCompleteUserProfile(lstjpUSER.First().USERID);
-                    lstjpUSER.First().isProfileComplete = isProfileComplete(lstjpUSER.First().objjpprofile);
-                    SetSessionUser(lstjpUSER.First());
+                    if (lstjpUSER.First().objjpprofile != null)
+                    {
+                        lstjpUSER.First().isProfileComplete = isProfileComplete(lstjpUSER.First().objjpprofile);
+                        SetSessionUser(lstjpUSER.First());
 
-                    ret = Shared.Constants.MSG_SUCCESS.Text;
+                        ret = Shared.Constants.MSG_SUCCESS.Text;
+                    }
+                    else {
+                        ret = Shared.Constants.MSG_ERROR.Text;
+                    }
+                    
                 }
                 else
                 {
@@ -161,6 +168,7 @@ namespace ESWWebsite.Controllers
             }
             return View(new jpprofile());
         }
+
         public ActionResult ViewApplicationmultiple()
         {
             jpuser SessionUser = GetSessionUser();
@@ -180,6 +188,7 @@ namespace ESWWebsite.Controllers
             return View(new jpprofile());
 
         }
+
         [HttpPost]
         public string MyProfile(jpprofile model)
         {
@@ -200,8 +209,8 @@ namespace ESWWebsite.Controllers
                             SessionUser.objjpprofile.NATIONALITY = model.NATIONALITY;
                             SessionUser.objjpprofile.LANGUAGE = model.LANGUAGE;
                             
-                            SessionUser.objjpprofile.lstjpqualification.FindAll(a=> a.isNewRecord).Select(c => { c.QUALIFICATIONID = 0; return c; }).ToList();
-                            SessionUser.objjpprofile.lstjpexperience.FindAll(a => a.isNewRecord).Select(c => { c.EXPID = 0; return c; }).ToList();
+                            SessionUser.objjpprofile.lstjpqualification.FindAll(a=> a.QUALIFICATIONID < 0).Select(c => { c.QUALIFICATIONID = 0; return c; }).ToList();
+                            SessionUser.objjpprofile.lstjpexperience.FindAll(a => a.EXPID < 0).Select(c => { c.EXPID = 0; return c; }).ToList();
 
                             MySqlConnection conn = Shared.BaseManager.PrimaryConnection();
                             conn.Open();
@@ -298,7 +307,7 @@ namespace ESWWebsite.Controllers
                     }
                 }
             }
-            return PartialView(new jpqualification() { isNewRecord = true });
+            return PartialView(new jpqualification() { isNewRecord = Shared.Constants.STR_YES });
         }
 
         [HttpPost]
@@ -350,13 +359,22 @@ namespace ESWWebsite.Controllers
                             jpqualification obj = SessionUser.objjpprofile.lstjpqualification.Find(q => q.QUALIFICATIONID == int.Parse(id) && q.PROFILEID.Equals(SessionUser.objjpprofile.PROFILEID));
                             if (obj != null)
                             {
-                                var ret = jpqualificationManager.Deletejpqualification(obj.QUALIFICATIONID);
-                                if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+                                if (int.Parse(id) > 0)
+                                {
+                                    var ret = jpqualificationManager.Deletejpqualification(obj.QUALIFICATIONID);
+                                    if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
+                                    {
+                                        SessionUser.objjpprofile.lstjpqualification.Remove(obj);
+                                        return Shared.Constants.MSG_SUCCESS.Text;
+                                    }
+                                }
+                                else
                                 {
                                     SessionUser.objjpprofile.lstjpqualification.Remove(obj);
                                     return Shared.Constants.MSG_SUCCESS.Text;
                                 }
                             }
+                            
                         }
                     }
                 }
@@ -401,7 +419,7 @@ namespace ESWWebsite.Controllers
                     }
                 }
             }
-            return PartialView(new jpexperience() { isNewRecord = true});
+            return PartialView(new jpexperience() { isNewRecord = Shared.Constants.STR_YES });
         }
 
         [HttpPost]
@@ -453,9 +471,16 @@ namespace ESWWebsite.Controllers
                             jpexperience obj = SessionUser.objjpprofile.lstjpexperience.Find(q => q.EXPID == int.Parse(id) && q.PROFILEID.Equals(SessionUser.objjpprofile.PROFILEID));
                             if (obj != null)
                             {
-                                var ret = jpexperienceManager.Deletejpexperience(obj.EXPID);
-                                if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+                                if (int.Parse(id) > 0)
                                 {
+                                    var ret = jpexperienceManager.Deletejpexperience(obj.EXPID);
+                                    if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
+                                    {
+                                        SessionUser.objjpprofile.lstjpexperience.Remove(obj);
+                                        return Shared.Constants.MSG_SUCCESS.Text;
+                                    }
+                                }
+                                else {
                                     SessionUser.objjpprofile.lstjpexperience.Remove(obj);
                                     return Shared.Constants.MSG_SUCCESS.Text;
                                 }
@@ -496,6 +521,7 @@ namespace ESWWebsite.Controllers
             }
             return PartialView(lstjpopening);
         }
+
         public ActionResult JobsApplied() {
 
             jpuser SessionUser = GetSessionUser();
@@ -513,10 +539,7 @@ namespace ESWWebsite.Controllers
 
             return PartialView();
         }
-        //public string GetDegreelist()
-        //{
-        //    return JsonConvert.SerializeObject(Shared.Constants.lstdegreelist);
-        //}
+
         public ActionResult JobDetail(string id) {
             List<jpopening> lstjpopening = jpopeningManager.Getjpopening("OPENINGID = '"+id+"'");
             if (lstjpopening.Count > 0)
@@ -585,7 +608,7 @@ namespace ESWWebsite.Controllers
                 {
                     string id = fc["id"].ToString();
                     string expsal = fc["expsal"].ToString();
-                    if (ApplyJob(id, expsal).Equals(Shared.Constants.MSG_SUCCESS))
+                    if (ApplyJob(id, expsal).Equals(Shared.Constants.MSG_SUCCESS.Text))
                         return Shared.Constants.MSG_SUCCESS.Text;
                 }
             }
@@ -606,7 +629,7 @@ namespace ESWWebsite.Controllers
             obj.APPLIEDDATE = DateTime.Now;
 
             string ret = jpopeningapplicationManager.Savejpopeningapplication(obj);
-            if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+            if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
                 return Shared.Constants.MSG_SUCCESS.Text;
 
             return Shared.Constants.MSG_ERROR.Text;
@@ -654,7 +677,7 @@ namespace ESWWebsite.Controllers
                         {
                             obj.ACTIVE = Shared.Constants.STR_YES;
                             string ret = jpuserManager.Savejpuser(obj);
-                            if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE))
+                            if (ret.Equals(Shared.Constants.MSG_OK_DBSAVE.Text))
                             {
                                 obj.objjpprofile = GetCompleteUserProfile(obj.USERID);
                                 SetSessionUser(obj);
@@ -674,7 +697,7 @@ namespace ESWWebsite.Controllers
             {
                 jpuser obj = GetSessionUser();
                 string ret = sendEmail(obj.EMAIL, (string)getVerificationURL(obj));
-                if (ret.Equals(Shared.Constants.MSG_SUCCESS))
+                if (ret.Equals(Shared.Constants.MSG_SUCCESS.Text))
                 {
                     obj.isVerifyLinkSent = true;
                     SetSessionUser(obj);
@@ -781,25 +804,25 @@ namespace ESWWebsite.Controllers
                 return lstjpProfile.First();
             }
 
-            return new jpprofile();
+            return null;
         }
 
         public int GetTempID(List<jpqualification> lst)
         {
-            int id = lst.Count() + 1;
+            int id = -1;
             while(lst.Exists(a=> a.QUALIFICATIONID == id))
             {
-                id++;
+                id--;
             }
             return id;
         }
 
         public int GetTempID(List<jpexperience> lst)
         {
-            int id = lst.Count() + 1;
+            int id = -1;
             while (lst.Exists(a => a.EXPID == id))
             {
-                id++;
+                id--;
             }
             return id;
         }

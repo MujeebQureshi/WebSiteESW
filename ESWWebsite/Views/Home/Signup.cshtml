@@ -119,10 +119,10 @@
                     if (data == "@(Shared.Constants.MSG_SUCCESS.Text)") {
                         //swal.close();
                         //location.href = "/Home/Index";
-                        swal('Verify your account ','@(Shared.Constants.MSG_SUCCESS.Value)').then((result) => {
+                        swal('SignUp successful', 'Please visit your email and verify your account').then((result) => {
                             if (result.value) {
-                                swal("Verify your account");
-                                swal.showLoading();
+                                //swal("Verify your account");
+                                //swal.showLoading();
                                 location.href = "/Home/Index";
                             }
                         })

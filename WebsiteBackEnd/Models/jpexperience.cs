@@ -24,7 +24,7 @@ namespace WebsiteBackEnd.Models
         
         //other vars
         [JsonIgnore]
-        public bool isNewRecord { get; set; }
+        public string isNewRecord { get; set; }
         public string startDate {
             get{  return (STARTINGYEAR!=null)? STARTINGYEAR.Value.ToString(Constants.DATE_MONTH_YEAR_FORMAT):""; } set { }
         }
