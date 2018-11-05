@@ -755,6 +755,12 @@ namespace ESWWebsite.Controllers
             return View();
 
         }
+        public ActionResult OurServices()
+        {
+            ViewBag.navActive = Shared.Constants.SP_OUTSOURCE;
+            return View();
+
+        }
 
         public ActionResult Training()
         {
@@ -766,6 +772,13 @@ namespace ESWWebsite.Controllers
         public ActionResult SoftwareServices()
         {
             ViewBag.navActive = Shared.Constants.SP_SOFTWARE_SRVS;
+            return View();
+
+        }
+
+        public ActionResult OurExpertise()
+        {
+            ViewBag.navActive = Shared.Constants.SP_EXPERTISE;
             return View();
 
         }

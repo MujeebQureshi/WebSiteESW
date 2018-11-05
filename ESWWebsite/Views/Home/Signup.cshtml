@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Sign_Up";
     Layout = "~/Views/Shared/MyCustomLayout.cshtml";
-
+    string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
     List<Shared.DDList> lstGender = Shared.Constants.getNewGender();
 }
 
@@ -12,7 +12,7 @@
     <div class="container">
         <div class="sign-form">
             <div class="header">
-                <h1 class="title">Sign Up with ESW</h1>
+                <h1 class="title">Sign Up with @OrgInitials</h1>
             </div>
             <form id="frmSignUp" method="" action="#" class="job-sign-from">
                 <div class="form-group"><input id="Username" name="Username" type="text" placeholder="Username" class="form-control" required /></div>

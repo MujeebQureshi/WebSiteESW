@@ -93,12 +93,13 @@ namespace Shared
 
         public const string SP_CAREER_COUNCIL = "CareerCouncil";
         public const string SP_OUTSOURCE = "Outsourcing";
+        public const string SP_OURSERVICES = "OurServices";
         public const string SP_TRAIN_DEV = "TrainingDev";
         public const string SP_CLIENT = "Client";
         public const string SP_SOFTWARE_SRVS = "SoftwareServices";
         public const string SP_LIST_JOBS = "ListJobs";
         public const string SP_ABOUT_US = "AboutUs";
-
+        public const string SP_EXPERTISE = "Expertise";
         public const string CountryNameField = "country_name";
         public const string CityNameField = "city_name";
 

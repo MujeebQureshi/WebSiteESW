@@ -1,5 +1,7 @@
 ﻿
 @{
+    /**/
+
     Layout = "~/Views/Shared/MyCustomLayout.cshtml";
     string OrgName = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_NAME];
     string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
@@ -15,7 +17,7 @@ else
 }
 <div class="saercion section-page-title container container-palette">
     <div class="container">
-        <h2 class="title">Training and Development</h2>
+        <h2 class="title">Our Services</h2>
     </div>
 </div>
 <main class="container container-palette pt-75 m30">
@@ -32,7 +34,21 @@ else
             </div>
             <div class="body">
 
-                <h5></h5>
+                <h5>Outsourcing</h5>
+
+                <p>@OrgInitials offers human resource outsourcing services in an efficient and low-cost manner providing the following services to our clients.</p>
+
+                <ul>
+                    <li>Analysis of Payroll records, Payroll taxes </li>
+                    <li>Medical claim processing</li>
+                    <li>Employee Insurance & Provident fund processing</li>
+                    <li>Quality Audit procedures & planning</li>
+                    <li>Salary Deposit in bank account</li>
+                    <li>Monthly Tax compliance and Filing</li>
+                    <li>Payroll Updates, Deductions and Advances</li>
+                </ul>
+
+                <h5>Training and Development</h5>
 
                 <p>@OrgInitials Conduct focused upper & lower Management Development Programs. We believe in a learning organization, where learning is a continuous process. </p>
                 <p>Some of the activities that make Training & Development a continuous process:</p>
@@ -57,6 +73,7 @@ else
                 </ul>
 
 
+
             </div>
         </div>
         <!-- ./ widget post description -->
@@ -66,5 +83,3 @@ else
 
     </div>
 </main>
-<script src='assets/cache/js_18_blog_open.min.js'>
-</script>
