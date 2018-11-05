@@ -72,6 +72,7 @@ namespace WebsiteBackEnd.Models
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return lstjpopening;
@@ -228,6 +229,7 @@ Where OPENINGID=@OPENINGID";
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return returnMessage;
@@ -267,6 +269,7 @@ Where OPENINGID=@OPENINGID";
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return returnMessage;
@@ -311,6 +314,7 @@ Where OPENINGID=@OPENINGID";
             }
             catch (Exception ex)
             {
+                Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
             }
 
             return lstjpopening;

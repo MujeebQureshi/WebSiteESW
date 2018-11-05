@@ -21,7 +21,7 @@ namespace Shared
             }
             catch (Exception ex)
             {
-                //Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
+                Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
                 //Log  error
             }
         }

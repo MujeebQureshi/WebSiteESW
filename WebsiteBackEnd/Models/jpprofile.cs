@@ -94,6 +94,7 @@ namespace WebsiteBackEnd.Models
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return lstjpprofile;
@@ -232,6 +233,7 @@ Where PROFILEID=@PROFILEID";
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return returnMessage;
@@ -271,6 +273,7 @@ Where PROFILEID=@PROFILEID";
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return returnMessage;

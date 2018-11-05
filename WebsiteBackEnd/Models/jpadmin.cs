@@ -55,6 +55,7 @@ namespace WebsiteBackEnd.Models
             }
             catch (Exception ex)
             {
+                Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
             }
 
             return lstjpadmin;
@@ -146,6 +147,7 @@ Where USERID=@USERID";
             }
             catch (Exception ex)
             {
+                Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
             }
 
             return returnMessage;
@@ -185,6 +187,7 @@ Where USERID=@USERID";
             }
             catch (Exception ex)
             {
+                Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
             }
 
             return returnMessage;

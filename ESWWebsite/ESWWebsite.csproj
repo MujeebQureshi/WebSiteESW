@@ -49,6 +49,10 @@
       <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -1640,6 +1644,8 @@
     <Content Include="Content\assets\img\template_bg\bg_reviews.jpg" />
     <Content Include="Content\assets\img\tile.png" />
     <Content Include="Content\assets\libraries\pg-calendar\pg-calendar-master\dist\js\pignose.calendar.full.min.js" />
+    <Content Include="Content\assets\Selectivity\selectivity-jquery.min.css" />
+    <Content Include="Content\assets\Selectivity\selectivity-jquery.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DashBoard\assets\css\bootstrap.css" />

@@ -73,6 +73,7 @@ namespace WebsiteBackEnd.Models
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return lstjpexperience;
@@ -171,6 +172,7 @@ Where EXPID=@EXPID";
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return returnMessage;
@@ -210,6 +212,7 @@ Where EXPID=@EXPID";
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return returnMessage;

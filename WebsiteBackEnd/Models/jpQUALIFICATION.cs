@@ -72,6 +72,7 @@ namespace WebsiteBackEnd.Models
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return lstjpqualification;
@@ -174,6 +175,7 @@ Where QUALIFICATIONID=@QUALIFICATIONID";
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return returnMessage;
@@ -213,6 +215,7 @@ Where QUALIFICATIONID=@QUALIFICATIONID";
         }
         catch (Exception ex)
         {
+            Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
         }
 
         return returnMessage;

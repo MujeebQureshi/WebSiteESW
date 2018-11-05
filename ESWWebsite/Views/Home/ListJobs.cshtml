@@ -161,6 +161,11 @@
         swal('Please wait');
         swal.showLoading();
         $.get("/Home/validateApplyJob?id=" + encodeURI(id), function (data) {
+            if (data == "@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Text)") {
+                //swal('Please complete your profile!  Go to My Profile or click the messege ribbon above!');
+                @*swal('@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Value)');*@
+                data = "@Shared.Constants.MSG_SUCCESS.Text";
+            }
             if (data == "@Shared.Constants.MSG_SUCCESS.Text") {
                 swal({
                     title: 'Input Expected Salary in ' + currency,
@@ -244,7 +249,7 @@
                                 showCancelButton: true,
                                 confirmButtonText: 'Yes',
                                 cancelButtonText: 'No'
-                               
+
                             }).then((result) => {
                                 if (result.value) {
                                     swal({
@@ -330,10 +335,10 @@
                 //swal('Please verify yourself by clicking the link sent to your email!');
                 swal('@(Shared.Constants.MSG_SESSION_USER_UNV.Value)');
             }
-            else if (data == "@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Text)") {
+            @*else if (data == "@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Text)") {
                 //swal('Please complete your profile!  Go to My Profile or click the messege ribbon above!');
                 swal('@(Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Value)');
-            }
+            }*@
             else if (data == "@(Shared.Constants.MSG_ALREADY_APPLIED.Text)") {
                 //swal('You have already applied for this job opening!');
                 swal('@(Shared.Constants.MSG_ALREADY_APPLIED.Value)');

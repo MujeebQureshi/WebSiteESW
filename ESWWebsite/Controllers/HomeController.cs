@@ -1,6 +1,7 @@
 ﻿using ESWWebsite.Models;
 using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -122,6 +123,7 @@ namespace ESWWebsite.Controllers
             profileobj.CONTACT = model.Contact;
             profileobj.DOB = DateTime.ParseExact(model.DOB, Shared.Constants.DATE_RFC_FORMAT, CultureInfo.InvariantCulture);
             profileobj.GENDER = model.Gender;
+            profileobj.CURRENTSALARY = "0";
 
             MySqlConnection conn = Shared.BaseManager.PrimaryConnection();
             conn.Open();
@@ -563,10 +565,7 @@ namespace ESWWebsite.Controllers
                 {
                     return Shared.Constants.MSG_SESSION_USER_UNV.Text;
                 }
-                if (!SessionUser.isProfileComplete)
-                {
-                    return Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Text;
-                }
+                
                 List<jpopening> lstopening = jpopeningManager.Getjpopening("OPENINGID = '" + id + "'");
                 if (lstopening.Count > 0)
                 {
@@ -582,6 +581,10 @@ namespace ESWWebsite.Controllers
                 }
                 else
                 {
+                    if (!SessionUser.isProfileComplete)
+                    {
+                        return Shared.Constants.MSG_SESSION_USER_INC_PROFILE.Text;
+                    }
                     return Shared.Constants.MSG_SUCCESS.Text;
                 }
             }
@@ -652,6 +655,7 @@ namespace ESWWebsite.Controllers
             }
             catch(Exception ex)
             {
+                Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
                 return Shared.Constants.MSG_ERROR.Text;
             }
             

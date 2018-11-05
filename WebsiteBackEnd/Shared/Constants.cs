@@ -1660,6 +1660,7 @@ namespace Shared
                 { new DDList("--Select Gender--", "") },
                 { new DDList("Male", "M") },
                 { new DDList("All", "A") },
+                //{ new DDList("Both Male and Female", "MF") },
                 { new DDList("Female", "F") },
                 { new DDList("Other", "O") }
            };

@@ -70,8 +70,15 @@ namespace ESWWebsite.Controllers
             return View();
         }
 
-        public string GetCityCountryList() {
-            return JsonConvert.SerializeObject(Shared.Constants.lstCountryCity);
+        public string GetCountryList(string id) {
+            var lst = Shared.Constants.lstCountryCity.FindAll(a => a.Country.ToLower().Contains(id.ToLower())).Select(c => c.Country).Distinct().OrderBy(a=> a).ToList();
+            return JsonConvert.SerializeObject(lst);
+        }
+
+        public string GetCityList(string id)
+        {
+            var lst = Shared.Constants.lstCountryCity.FindAll(a => a.Country.ToLower().Contains(id.ToLower())).Select(c => c.City).Distinct().OrderBy(a => a).ToList();
+            return JsonConvert.SerializeObject(lst);
         }
 
         public ActionResult Dashboard()
@@ -182,8 +189,9 @@ namespace ESWWebsite.Controllers
                         #endregion
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
                         return Shared.Constants.MSG_ERROR.Text;
                     }
                 }
@@ -217,7 +225,8 @@ namespace ESWWebsite.Controllers
                 {
                     System.IO.File.WriteAllText(nodeSrvpath + ConfigurationManager.AppSettings[Shared.Constants.ASK_RESJSON_FNAME], json);
                 }
-                catch (Exception) {
+                catch (Exception ex) {
+                    Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
                     return Shared.Constants.MSG_ERROR.Text;
                 }
             }
@@ -293,15 +302,16 @@ namespace ESWWebsite.Controllers
                 }
                 catch (Exception ex)
                 {
-
+                    Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
                 }
 
                 #endregion
 
                 //return Shared.Constants.MSG_ERROR.Text;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
                 //return Shared.Constants.MSG_ERROR.Text;
             }
             return Shared.Constants.MSG_ERROR.Text;
