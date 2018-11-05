@@ -5,56 +5,63 @@
     string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
 }
 
-    <link rel="stylesheet"  href='~/Content/assets/cache/css_staticpages.min.css' />
-    <div class="saercion section-page-title container container-palette">
-        <div class="container">
-            <h2 class="title">Our Client</h2>
-        </div>
+@if (OrgInitials.Equals("MMI"))
+{
+    <link rel="stylesheet" href='~/Content/assets/cache/css_staticpages.min.css' />
+}
+else
+{
+    <link rel="stylesheet" href='~/Content/assets/cache/ESW_staticpages.css' />
+}
+<div class="saercion section-page-title container container-palette">
+    <div class="container">
+        <h2 class="title">Our Client</h2>
     </div>
-    <main class="container container-palette pt-75 m30">
-        <div class="container">
-            <div class="wraper-row">
-                <div class="column-content">
-                    <div class="box-post-open m15">
+</div>
+<main class="container container-palette pt-75 m30">
+    <div class="container">
+        <div class="wraper-row">
+            <div class="column-content">
+                <div class="box-post-open m15">
 
-                        <div class="header">
-                            <h1 class="title"></h1>
-                        </div>
-
+                    <div class="header">
+                        <h1 class="title"></h1>
                     </div>
-                </div>
-                <div class="body">
-
-                    <h5>Our Client: </h5>
-
-                    <p>@OrgInitials has achieved an enviable reputation through its focus on presenting chairmen, chief executives, CFO, upper and middle management candidates to industry, non-profit and government institutions.</p>
-
-                    <ul>
-                        <li> We work with companies that are facing the need to restructure, be it downsizing, mergers & acquisitions, outsourcing or off shoring.</li>
-                        <li>We work with companies to effectively manage their human capital and meet their talent development needs. We work with individuals along their career life cycle; we support these individuals in career transitions, we assess them and establish development plans.</li>
-                        <li>We work with employment agencies and with unemployed in several countries to reduce unemployment. </li>
-                    </ul>
-                    <p>@OrgInitials is already engaged with clients in the following industry sectors: </p>
-                    <ol>
-                        <li>Higher Education/Non Profit</li>
-                        <li>Hospitals and Universities </li>
-                        <li>
-                            Financial Services / Insurance
-                            FMCG
-                        </li>
-                        <li>Communication, Technology and Entertainment </li>
-                        <li>Industrial, Construction and Natural Resources</li>
-                        <li>Life Sciences, Health Care and Biotech</li>
-
-                    </ol>
-
 
                 </div>
             </div>
-            <!-- ./ widget post description -->
+            <div class="body">
+
+                <h5>Our Client: </h5>
+
+                <p>@OrgInitials has achieved an enviable reputation through its focus on presenting chairmen, chief executives, CFO, upper and middle management candidates to industry, non-profit and government institutions.</p>
+
+                <ul>
+                    <li> We work with companies that are facing the need to restructure, be it downsizing, mergers & acquisitions, outsourcing or off shoring.</li>
+                    <li>We work with companies to effectively manage their human capital and meet their talent development needs. We work with individuals along their career life cycle; we support these individuals in career transitions, we assess them and establish development plans.</li>
+                    <li>We work with employment agencies and with unemployed in several countries to reduce unemployment. </li>
+                </ul>
+                <p>@OrgInitials is already engaged with clients in the following industry sectors: </p>
+                <ol>
+                    <li>Higher Education/Non Profit</li>
+                    <li>Hospitals and Universities </li>
+                    <li>
+                        Financial Services / Insurance
+                        FMCG
+                    </li>
+                    <li>Communication, Technology and Entertainment </li>
+                    <li>Industrial, Construction and Natural Resources</li>
+                    <li>Life Sciences, Health Care and Biotech</li>
+
+                </ol>
 
 
-
-
+            </div>
         </div>
-    </main>
+        <!-- ./ widget post description -->
+
+
+
+
+    </div>
+</main>

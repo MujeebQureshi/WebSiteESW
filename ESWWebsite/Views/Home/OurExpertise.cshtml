@@ -1,0 +1,154 @@
+﻿
+@{
+    /**/
+
+    Layout = "~/Views/Shared/MyCustomLayout.cshtml";
+    string OrgName = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_NAME];
+    string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
+}
+
+@if (OrgInitials.Equals("MMI"))
+{
+    <link rel="stylesheet" href='~/Content/assets/cache/css_staticpages.min.css' />
+}
+else
+{
+    <link rel="stylesheet" href='~/Content/assets/cache/ESW_staticpages.css' />
+}
+<div class="saercion section-page-title container container-palette">
+    <div class="container">
+        <h2 class="title">Our Expertise</h2>
+    </div>
+</div>
+<main class="container container-palette pt-75 m30">
+    <div class="container">
+        <div class="wraper-row">
+            <div class="column-content">
+                <div class="box-post-open m15">
+
+                    <div class="header">
+                        <h1 class="title"></h1>
+                    </div>
+
+                </div>
+            </div>
+            <div class="body">
+
+                <h5></h5>
+
+                <p>
+                    Through our broad spectrum of Services and array of multidisciplinary solutions, we help the organization to achieve its long term strategic goals and objectives. We work with our client in determination of their HR needs in light of their strategic vision and goals.
+
+                    We work with companies that are facing the need to restructure, be it downsizing, mergers & acquisitions, outsourcing or off shoring.
+
+                    We work with companies to effectively manage their human capital and meet their talent development needs. We work with individuals along their career life cycle; we support these individuals in career transitions, we assess them and establish development plans.
+
+                    Our aim is simple: to build long-term client relationships through our ability to find the right candidate, with the right skills, at the right time.
+                </p>
+                <h5>Recruitment Process </h5>
+                <h6>
+                    Search Procedure and Quality Assurance
+                    DETAILED SEARCH PROCESS:
+                </h6>
+                <p>With an extensive database, attachments with different professional forums of the industry, strong relationship with working professionals and well developed procedures we assure the hiring of right individuals for the right role for the clients. We have devised an extensive procedure which gives insight of our organization and quality assurance.</p>
+                <h6>THE GOLDEN TWENTY FIVE STEPS:</h6>
+                <p>With a team of experienced professionals and recruitment consultants and comprehensive research we have devised a twenty five steps procedure from opportunity assessment to candidate short listing, from short listing to interviews, from interviews to offer negotiations and employment agreement and finally post search follow-ups.</p>
+                <ol>
+                    <li><h6>Opportunity Assessment:</h6><p> Before the search activity begins, we will conduct an extensive interview with the hiring managers. Our objective is to gather an extensive profile of the job specifications from the leadership. This true “needs analysis” gives us not only information beyond just the skills necessary, but also the vision, character, chemistry, and flavor of the type of achiever we need to attract. Details of the interview process and compensation/benefits for the position will also be agreed upon in detail. Companies and potential prospects will be agreed upon so that a sourcing strategy can be implemented.</p></li>
+                    <li><h6>Search Assignment Profile:</h6><p>The result of the Opportunity Assessment will be formulated into the Search Assignment Profile (SAP). This document covers company information, job overview, requirements, candidate profile, company history, key management bios, company positioning and behavioral based interview questions.</p></li>
+                    <li><h6>Search Assignment Profile Sign Off:</h6><p> The SAP must be signed off on before the candidate contact begins. It is critical that we are on the same page as our client to ensure an efficient search process with proper expectations.</p></li>
+                    <li><h6>Candidate Research:</h6><p> Our research team will begin creating the list of individuals that will be contacted as both prospects and referrals.</p></li>
+                    <li><h6>Initial Contact:</h6><p>Confidentially, we will contact prospects and referral sources to gauge interests and qualifications.</p></li>
+
+                    <li><h6>Prospect List:</h6><p> Once a contact is qualified with respect to interest and bio information is received, that individual will be moved to the Prospect List.</p></li>
+                    <li><h6>Criteria-based Interview:</h6><p>All prospects are put through a criteria-based interview which will match their skills and accomplishments with the skills and requirements outlined in the SAP. We will investigate each candidate’s willingness to make a job change, clarify technical expertise, professional experience and compensation expectations.</p></li>
+                    <li><h6>Employment Verification:</h6><p>Employment and education verification is completed.</p></li>
+                    <li><h6>Candidate List:</h6><p>Once a prospect is qualified through the criteria based interview, the prospect moves the Candidate List. This list usually contains 8-10 qualified candidates.</p></li>
+                    <li><h6>Behavioral-based Interview:</h6><p>Each of these candidates are given a behavioral based interview which digs deeper into their background to determine cultural fit, depth of experience and accomplishments, personal situation, expectations and motivations. Each candidate will be asked to answer, in written form, the behavioral based questions that have been formulated around the key aspects of the position.</p></li>
+                    <li><h6>Confidential Industry Reference Check:</h6><p> Once a candidate is qualified, we will check industry contacts for an initial referencing. These are done on a confidential basis and are not supplied by the candidate.</p></li>
+                    <li><h6>Candidate Short List:</h6><p> Those candidates who successfully complete the behavior based interview will be moved to a short list. Upon approval from the client, we will then visit each of the final candidates in person for final interviews.</p></li>
+                    <li><h6>Interview Determination:</h6><p> Once all interviews are completed, we will conference with the client on the final candidates and determine which candidates should be brought in for interviews.</p></li>
+                    <li>
+                        <h6>Candidate Profile:</h6><p>
+                            For all of those candidates who will be interviewed, a candidate profile is prepared. Candidate Profile includes:
+                            Summary of professional experience, overall evaluation, reason for openness to job change, detailed compensation history, personal information, any reference information and answers to behavior based interview questions.
+                        </p>
+                    </li>
+                    <li><h6>Candidate Interviews:</h6><p>@OrgName (@OrgInitials) will handle all schedule coordination with the client and the candidate.</p></li>
+                    <li><h6>Candidate Interview Debrief:</h6><p>The candidate will be debriefed and that information given back to the client. The debriefing will be done to gauge interest and viability.</p></li>
+                    <li><h6>Client Debrief:</h6><p> After the candidate has been debriefed, we will debrief with the client to gauge interest and the viability of the candidate. It is our goal to maximize interview momentum with high priority candidates.</p></li>
+                    <li><h6>Follow Up Interviews and Debrief:</h6><p> Our goal is to make sure that the process is moving forward and that all of the issues are addressed as we move through the interview process.</p></li>
+                    <li><h6>Formal Reference Checks:</h6><p>With all high priority candidates, we conduct formal reference checks before an offer is to be presented.</p></li>
+                    <li><h6>Counteroffer Consultation:</h6><p>We will consult with the candidate around counter offer and transition issues.</p></li>
+                    <li><h6>Offer Negotiation:</h6><p>We will provide to the client compensation information from the market and compensation expectations from the candidate. Our goal is help the client craft an offer that addresses the critical compensation issues of the candidate.</p></li>
+                    <li><h6>Offer Presentation:</h6><p> Typically, Executive Search Worldwide will present the offer to the candidate. We have found that there is a smoother transition when the client and candidate are not forced to discuss monetary issues.</p></li>
+                    <li><h6>Offer Letter/Employment Agreement:</h6><p>We make sure that all documents are signed and a start date is established.</p></li>
+                    <li><h6>Post Search Client Interview:</h6><p> This interview is to gain feedback from the client on our process and to request a written testimony. This interview is crucial as we look to improve our process. Our goal is to become long term partners with our clients in helping them garner the talent needed to realize the vision that is set forth.</p></li>
+                    <li><h6>Post Search Follow Up:</h6><p> We conduct follow up interviews with the each placed candidate 30, 90 and 180 days following the start date. We will communicate the essence of those meeting back to client as a means to insure a smooth transition.</p></li>
+                </ol>
+
+                <h5>Executive Search </h5>
+                <p>
+                    @OrgName (@OrgInitials) an 0unique solution to your staffing needs, however, is the mini-retainer search: a concept Executive Search pioneered more than 20 years ago. Here you can be assured of a concentrated effort on our part with minimal risk for your company; by submitting a small investment to get things started, your account executive will designate a sizable portion of his/her time to your assignment, and the remaining balance of our fee is payable only when the position is filled.
+                    Following the initial round of selecting candidates and conducting face-to-face interviews, you will be presented with an in-depth profile of each finalist to assist you in your own interviewing sessions.
+                    FSR has an executive search network of professional recruiters located in UK, Europe and Middle East. These people know where to look for quality candidates and how to match jobs with skilled employees.
+                    Our aim is simple: to build long-term client relationships through our ability to find the right candidate, with the right skills, at the right time.
+                </p>
+                <h5>Director Selection </h5>
+                <p>
+                    We help boards of public, private and non-profit enterprises define what characteristics like independence, financial sophistication, relevant experience and diversity of perspective truly mean to their competitive landscape and strategic objectives. We then go out and attract people who can bring those attributes to their boards.
+                    Our assignments range from single director searches to filling multiple board seats to the creation of entire boards. Structuring the board of a newly created entity such as a spin-off or special advisory board should not be an afterthought. Even the best constituted boards take time to gel and work effectively together; conversely, a board that functions poorly will take a long time to turn around. Getting it right from the start is critical.
+                    In combination with custom research on each assignment, our extensive network of Director Placements and contacts is an invaluable resource for gaining access to and evaluating Director Prospects.
+
+                </p>
+                <h5>RECRUITING AREAS</h5>
+                <h6>We provide capital Human Resource provision in these main business lines:  </h6>
+                <ul>
+                    <li><h6>Communications & Entertainment:</h6><p>@OrgName (@OrgInitials) recognizes the high demand for well-suited, superior caliber executives in the Communications & Entertainment industry. The challenges of this fast-paced, rapidly changing industry are met by personal partner attention for each client. Our unique, disciplined, and comprehensive management recruiting and searching  methodology ensures delivery of the best talent.</p></li>
+                    <li><h6>Consumer & Retail:</h6><p> @OrgName (@OrgInitials) recruitment procedure implies  services span to all industries, yet the firm has its roots in consumer products and retail. We have completed over 300 searches in this sector alone. In this practice we conduct search from the director level to the CEO and board level. Since most of our partners joined us after over twenty years of successful careers in their niche, you will enjoy the benefit of in-depth industry knowledge as well as our unique process and methodology. Our consumer & retail practice leaders often partner with other consultants within the firm specializing in functional areas such as finance & accounting, human resources, logistics, sales & marketing, technology, risk management, research & development, procurement, and diversity.</p></li>
+                    <li><h6>Energy & Natural Resources:</h6><p>If all roads led to Rome, than all pipelines lead to Houston. Houston is the energy capital of the world. We are proud to serve this sector as an executive search firm. Our energy practice supports the executive search needs of the oil & gas, oil field services and power communities. We serve companies large and small, both domestic and global. Whether your company is an energy giant, niche player, or industry supplier, we welcome the opportunity to assist you in your human capital endeavors. We support the management recruiting and executive search efforts of energy and natural resources companies who are investing in top-tier talent for their domestic operations as well as those who are opening new operations in countries around the world.</p></li>
+                    <li>
+                        <h6>Financial Services:</h6><p>
+                            @OrgName (@OrgInitials) recognizes that in today's Financial Services environment in human capital is deemed to be a crucial asset in meeting your company's goals. In this dynamic marketplace, with ever-changing products, sophisticated customers, and increasingly complex operations,
+                            @OrgName (@OrgInitials) knows that you require well-suited, superior caliber executives to achieve your company's mission. We provide unparalleled partner attention to each client, and ensure you acquire the best talent for your needs.
+                        </p>
+                    </li>
+                    <li><h6>Information Technology:</h6><p> With the ever changing need of quality professionals in the fast growing Information Technology Sector often find themselves in urgent need of highly skilled and trained individuals in specific fields like Networks Security, IT Auditing, Servers Management etc. To find the right candidate with the required skill set is our job; for this purpose we maintain an extensive database of individuals and maintain strong relations with them.</p></li>
+                    <li><h6>Life Sciences & Health Care:</h6><p> Life Sciences and Health Care are important practice areas for @OrgName (@OrgInitials). We know that top-tier talent is truly important to those in this profession. We bring a sense of urgency to all our search assignments and know that we can fulfill even the most senior of executive level searches. Our clients know that @OrgName (@OrgInitials) can also be counted on for world-class, well for lack of a better word, treatment.</p></li>
+                    <li><h6>Manufacturing & Industrial:</h6><p>@OrgName (@OrgInitials) recognizes well-suited, superior caliber executives are critical for success in a sector faced with increasing globalization, rapidly advancing technology, and evolving customer needs. Each client in the Manufacturing & Industrial sector faces these challenges from a unique position. @OrgName (@OrgInitials) personal partner attention ensures that the solution to each client's talent needs is as unique as their company's mission.</p></li>
+                    <li><h6>Real Estate, Construction & Engineering:</h6><p>Our construction and engineering management recruiter and executive search practice is respected throughout the industry and has earned a reputation for excellence. Our daily involvement with construction and engineering executives and other professionals keeps us abreast of industry trends as well as the current talent pool. Our methodology provides a unique industry perspective that has resulted in numerous successful searches. We have placed professionals at the mid-management level up to CFO and Vice Presidents.</p></li>
+                    <li><h6>Telecommunication:</h6><p> The opening of service sector in all the countries in accordance with WTO regime have accelerated the growth and emergence of companies specially Cellular Service Providers creating a need large demand of Telecommunication Engineers and consultants. We have specialized to provide this valuable resource to the emerging and growing telecom operators and vendors.</p></li>
+                    <li><h6>Transportation & Logistics:</h6><p>@OrgName (@OrgInitials) has successfully completed management recruitment and executive searches for clients that span an array of companies, public and private corporations, start-up to well-established, not-for-profit organizations, educational institutions and more. From mid-manager to board level, @OrgInitials has delivered top-tier talent to assist our clients in meeting their goals and objectives. @OrgName (@OrgInitials)also provides Compensation Benchmarking, Internal Candidate Review, and Expert Testimony. Combined with our expertise across all functional areas, @OrgName (@OrgInitials) stands ready to assist you to meet your human capital needs. Contact your industry's practice leader to discover how Executive Search Worldwide can improve your human capital by creating relationships with your industry's leading impact player talent.</p></li>
+                    <li><h6>Technology:</h6><p>@OrgName (@OrgInitials)  recognizes the high demand for well-suited, superior caliber executives in the Technology sector. The challenges of this fast-paced, rapidly changing industry are met by personal partner attention for each client. Our unique, disciplined, and comprehensive management recruiting process and executive search methodology ensures delivery of the best talent from the industry.</p></li>
+
+
+
+
+                </ul>
+
+
+                <h5>Our Placements</h5>
+                <p>
+                    MMI is providing comprehensive services in the all domain and Job Placements for leading companies in local and international markets.
+                    We practice the best of resource augmentation process & also provide best resource solutions to customized requirement.
+
+                    We provide services to our client's needs and candidate's backgrounds, our experienced recruiters work to match the right professional with the right job.
+                    We focus on placing professionals at the following levels:
+                </p>
+                <ul>
+                    <li>Middle-management </li>
+                    <li>Senior management </li>
+                    <li>C-Level, CFO, CEO</li>
+                    <li>Director, and president-level, by retainer</li>
+
+                </ul>
+
+            </div>
+        </div>
+        <!-- ./ widget post description -->
+
+
+
+
+    </div>
+</main>

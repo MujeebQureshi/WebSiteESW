@@ -266,6 +266,8 @@
     <Content Include="Content\assets\cache\css_19_pricing.min.css" />
     <Content Include="Content\assets\cache\css_20_contact.min.css" />
     <Content Include="Content\assets\cache\css_21_sign_up.min.css" />
+    <Content Include="Content\assets\cache\ESW_staticpages.css" />
+    <Content Include="Content\assets\cache\ESW.css" />
     <Content Include="Content\assets\cache\css_22_log_in.min.css" />
     <Content Include="Content\assets\cache\css_index.min.css" />
     <Content Include="Content\assets\cache\css_jobopen.css" />
@@ -1587,6 +1589,7 @@
     <Content Include="Content\assets\img\demo\15_Categories_Detailed.png" />
     <Content Include="Content\assets\img\Eo.png" />
     <Content Include="Content\assets\img\Esw.png" />
+    <Content Include="Content\assets\img\ESW_logo.png" />
     <Content Include="Content\assets\img\flags\ae.png" />
     <Content Include="Content\assets\img\flags\en.png" />
     <Content Include="Content\assets\img\flags\hr.png" />
@@ -1868,7 +1871,7 @@
     <Content Include="Views\Home\Signup.cshtml" />
     <Content Include="Views\Home\CareerCounselling.cshtml" />
     <Content Include="Views\Home\OurClients.cshtml" />
-    <Content Include="Views\Home\Outsourcing.cshtml" />
+    <Content Include="Views\Home\OurServices.cshtml" />
     <Content Include="Views\Home\SoftwareServices.cshtml" />
     <Content Include="Views\Home\Training.cshtml" />
     <Content Include="Views\Home\MyProfile.cshtml" />
@@ -1889,6 +1892,7 @@
     <Content Include="Views\Home\ViewApplicationmultiple.cshtml" />
     <Content Include="Views\Admin\.cshtml" />
     <Content Include="Views\Home\JobsApplied.cshtml" />
+    <Content Include="Views\Home\OurExpertise.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

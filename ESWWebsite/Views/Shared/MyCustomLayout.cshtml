@@ -20,10 +20,26 @@
     <meta charset="UTF-8" />
     <title>@OrgName</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="shortcut icon" href="~/Content/assets/img/logo.png" type="image/png" />
+    @*<link rel="shortcut icon" href="~/Content/assets/img/logo.png" type="image/png" />*@
+    
+    @if (OrgInitials.Equals("MMI")){
+            <link rel = "shortcut icon" href = "~/Content/assets/img/logo.png" type = "image/png" />
+    }
+    else
+    {
+        <link rel = "shortcut icon" href = "~/Content/assets/img/ESW_logo.png" type = "image/png" />
+    }
     <link rel="stylesheet" href='~/Content/assets/cache/css_01_home.min.css' />
     <link rel="stylesheet" href='~/Content/assets/cache/fontawesome/css/all.css' />
-    <link rel="stylesheet" href='~/Content/assets/cache/css_22_log_in.min.css' />
+
+    @if (OrgInitials.Equals("MMI"))
+    {
+        <link rel="stylesheet" href='~/Content/assets/cache/css_22_log_in.min.css' />
+    }
+    else
+    {
+        <link rel="stylesheet" href='~/Content/assets/cache/ESW.css' />
+    }
     <style>
         input[type="date"]:before {
             content: attr(placeholder) !important;
@@ -56,7 +72,14 @@
                     <div class="grid logo-container">
                         
                         <a class="navbar-brand" href="/Home/Index">
-                            <img src="~/Content/assets/img/logo.png" width="60" height="40" alt="" style="zoom:150%;">
+                            @if (OrgInitials.Equals("ESW"))
+                            {
+                                <img src="~/Content/assets/img/ESW_logo.png" width="60" height="40" alt="" style="zoom:150%;">
+                            }
+                            else
+                            {
+                                <img src="~/Content/assets/img/logo.png" width="60" height="40" alt="" style="zoom:150%;">
+                            }
                         </a>
                     </div>
                     <!-- ./ logo -->
@@ -79,40 +102,63 @@
 
 
                                     @if (navActive.Equals(Shared.Constants.SP_ABOUT_US))
-                                    {
+   {
                                         <a class="nav-link active" href="/Home/AboutUs" aria-haspopup="true" aria-expanded="false">  About Us  </a>
                                     }
                                     else
                                     {
                                         <a class="nav-link" href="/Home/AboutUs" aria-haspopup="true" aria-expanded="false">  About Us  </a>
                                     }
-
-
-                                    @if (navActive.Equals(Shared.Constants.SP_CAREER_COUNCIL))
-                                    {
-                                        <a class="nav-link active" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
-                                    }
-                                    else
-                                    {
-                                        <a class="nav-link" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
-                                    }
-
                                     @if (navActive.Equals(Shared.Constants.SP_SOFTWARE_SRVS))
-                                    {
+   {
                                         <a class="nav-link active" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
                                     }
                                     else
                                     {
                                         <a class="nav-link" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
                                     }
-                                    @if (navActive.Equals(Shared.Constants.SP_LIST_JOBS))
+                                   
+                                    @if (navActive.Equals(Shared.Constants.SP_CAREER_COUNCIL))
+   {
+                                    <a class="nav-link active" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+                                    }
+                                    else
                                     {
+                                    <a class="nav-link" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+                                    }
+
+                                    @if (OrgInitials.Equals("ESW"))
+                                    {
+
+                                        if (navActive.Equals(Shared.Constants.SP_EXPERTISE))
+                                        {
+                                            <a class="nav-link active" href="/Home/OurExpertise" aria-haspopup="true" aria-expanded="false">  Our Expertise  </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="nav-link" href="/Home/OurExpertise" aria-haspopup="true" aria-expanded="false">  Our Expertise  </a>
+                                        }
+                                        if (navActive.Equals(Shared.Constants.SP_OURSERVICES))
+                                        {
+                                            <a class="nav-link active" href="/Home/OurServices" aria-haspopup="true" aria-expanded="false">  OurServices  </a>
+                                        }
+                                        else
+                                        {
+                                            <a class="nav-link" href="/Home/OurServices" aria-haspopup="true" aria-expanded="false">  OurServices  </a>
+                                        }
+
+
+                                    }
+                                    @if (navActive.Equals(Shared.Constants.SP_LIST_JOBS))
+   {
                                         <a class="nav-link active" href="/Home/ListJobs" aria-haspopup="true" aria-expanded="false">  List Jobs  </a>
                                     }
                                     else
                                     {
                                         <a class="nav-link" href="/Home/ListJobs" aria-haspopup="true" aria-expanded="false">  List Jobs  </a>
                                     }
+
+
                                 </ul>
 
                             </div>
@@ -121,7 +167,7 @@
                     <!-- ./ main menu -->
                     <div class="grid quick-navigation">
                         @if (SessionUser == null)
-                        {
+   {
                         <a href="/Home/Signin" class="btn btn-clear" style="padding:0px 0px 0px 0px">
                             <i class="icon_profile"></i>Sign In
                         </a>
@@ -207,7 +253,7 @@
                         <div class="f_widget widget-about">
                             <h2 class="title">About @OrgInitials</h2>
                             <!-- ./ widget title -->
-                            <div class="body" >Management and Marketing International(MMI) is a Human Capital Solutions provider and a leader in a range of restructuring services and talent Solutions for organizations aiming to optimize their human capital and for individuals determined to develop their...</div><div><a href="/Home/AboutUs">Read More</a></div>
+                            <div class="body" >@OrgName (@OrgInitials) is a Human Capital Solutions provider and a leader in a range of restructuring services and talent Solutions for organizations aiming to optimize their human capital and for individuals determined to develop their...</div><div><a href="/Home/AboutUs">Read More</a></div>
                             <!-- ./ widget body -->
                         </div>
                         <!-- ./ widget about -->
