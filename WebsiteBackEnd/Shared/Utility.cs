@@ -1,6 +1,7 @@
 ﻿using JWT;
 using JWT.Algorithms;
 using JWT.Serializers;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -220,6 +221,33 @@ namespace Shared
                     return Constants.MSG_ERROR;
             }
             }
+
+        public static void SetMaxPackets()
+        {
+            try
+            {
+                MySqlConnection connection = BaseManager.PrimaryConnection();
+                BaseManager.tryOpenConnection(connection);
+                string sql = "SET GLOBAL max_allowed_packet=1073741824";
+                
+                using (MySqlCommand command = new MySqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = sql;
+                    int ret = command.ExecuteNonQuery();
+                    //using (MySqlDataReader reader = command.ExecuteReader())
+                    //{
+                    //}
+                }
+
+                connection.Dispose();
+                
+            }
+            catch (Exception ex)
+            {
+                Logger._log.Error(ex.Message + "\n" + ex.StackTrace);
+            }
         }
     }
+}
 

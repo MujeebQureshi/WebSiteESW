@@ -1,5 +1,6 @@
 ﻿@{
     Layout = null;
+    string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
 }
 
 <html lang="en">
@@ -8,7 +9,14 @@
     <meta charset="UTF-8">
     <title>Executive Search Worldwide</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="shortcut icon" href="~/Content/assets/img/tile.png" type="image/png" />
+    @if (OrgInitials.Equals("MMI"))
+    {
+        <link rel="shortcut icon" sizes="any" href="/Content/assets/img/logo.png" type="image/png" />
+    }
+    else
+    {
+        <link rel="shortcut icon" sizes="any" href="/Content/assets/img/ESW_logo.png" type="image/png" />
+    }
     <link rel="stylesheet" href='~/Content/assets/cache/fontawesome/css/all.css' />
     <style>
         @@import url(https://fonts.googleapis.com/css?family=opensans:500);
@@ -303,7 +311,7 @@
 
 
         body {
-            background: #18ad50;
+            background: #114b4b;
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             /*font-family: 'Open Sans', sans-serif;*/
@@ -367,7 +375,7 @@
             z-index: 5;
             font-size: 25px;
             margin: 0 auto;
-            color: #33cc99;
+            color: #114b4b;
             text-decoration: none;
             margin-right: 10px;
         }
@@ -396,7 +404,7 @@
                 top: -0.75em;
                 font-size: 2em;
                 padding: 0 0.2em;
-                background: #18ad50;
+                background: #114b4b;
             }
 
         .cloud {

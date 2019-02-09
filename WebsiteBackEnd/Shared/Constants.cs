@@ -24,7 +24,8 @@ namespace Shared
         public const string ASK_RESJSON_FNAME = "ResumeJsonFileName";
         public const string ASK_RESBAT_FNAME = "ResumeBATFileName";
         public const string ASK_ORG_CONTACT_ADD = "OrganizationContactAddress";
-        public const string ASK_ORG_CONTACT_PH = "OrganizationContactPhone";
+        public const string ASK_ORG_CONTACT_LL = "OrganizationContactLandLine";
+        public const string ASK_ORG_CONTACT_MBL = "OrganizationContactMobile";
         public const string ASK_ORG_CONTACT_EML = "OrganizationContactEmail";
         public const string ASK_NODE_SRVURL = "LocalNodeServer";
         public const string ASK_NODE_SRVURL_RETSUCCESS = "LocalNodeServerRetSuccess";

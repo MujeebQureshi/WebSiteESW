@@ -14,6 +14,7 @@
     <div class="card-group">
         @foreach (var item in Model)
         {
+            string description = item.SHORTDESC.Replace("@LB", "<br>");
             <div class="col-sm-4">
 
                 <div class="card">
@@ -25,22 +26,23 @@
 
 
                     <div class="card-body">
-
-                        <a class="Job-title" href="#" style="font-size:18px;"> @item.JOBTITLE </a> <br>
+                        <div style="height: 200px;overflow: auto;">
+                            <a class="Job-title" href="#" style="font-size:18px;"> @item.JOBTITLE </a> <br>
                       
-                        <span class="c_name" style="font-size:16px;">@item.COMPANYNAME</span><br>
-                        <span class="c_industry">@item.DEPARTMENT</span><br>
+                            <span class="c_name" style="font-size:16px;">@item.COMPANYNAME</span><br>
+                            <span class="c_industry">@item.DEPARTMENT</span><br>
 
-                        <div class="c_city">
-                            <a href="#">@item.CITYNAME</a>,
-                        </div>
+                            <div class="c_city">
+                                <a href="#">@item.CITYNAME</a>,
+                            </div>
 
-                        @*<span class="comma">,</span>*@
-                        <div class="c_country ">
-                            <a href="#"> @item.COUNTRYNAME</a>
+                            @*<span class="comma">,</span>*@
+                            <div class="c_country ">
+                                <a href="#"> @item.COUNTRYNAME</a>
+                            </div>
+                            <hr />
+                            <p class="Job_desc">@Html.Raw(description)</p>
                         </div>
-                        <hr />
-                        <p class="Job_desc">@item.SHORTDESC</p>
                         <hr />
                         <p class="card-text"><small class="text-muted">Last updated: @item.JOBPOSTDATE</small></p>
 

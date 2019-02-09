@@ -1,10 +1,14 @@
 ﻿@model List<WebsiteBackEnd.Models.jpopening>
 
 @{ 
+    List<WebsiteBackEnd.Models.jpopening> ModelOrdered = new List<WebsiteBackEnd.Models.jpopening>();
     bool noRecord = false;
-    if(!(Model.Count>0))
+    if (!(Model.Count > 0))
     {
         noRecord = true;
+    }
+    else {
+        ModelOrdered = Model.OrderByDescending(a => a.JOBPOSTDATE).ToList();
     }
 }
 <style>
@@ -35,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in ModelOrdered/*Model*/)
                             {
                                 string loaderVwId = "loaderVw" + item.OPENINGID;
                                 string loaderEdId = "loaderEd" + item.OPENINGID;

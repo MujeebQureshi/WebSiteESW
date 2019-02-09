@@ -1,5 +1,7 @@
 ﻿@model WebsiteBackEnd.Models.jpopening
 @{ 
+    string description = Model.SHORTDESC.Replace("@LB", "<br>");
+
     WebsiteBackEnd.Models.jpuser SessionUser = null;
     string isCvAdded = Shared.Constants.STR_NO;
     if (Session[Shared.Constants.SESSION_USER] != null)
@@ -9,6 +11,7 @@
     }
 
     List<Shared.DDList> lstJobGender = Shared.Constants.getNewJobGender();
+    lstJobGender.Add(new Shared.DDList("Both Male and Female", "MF"));
     List<Shared.DDList> lstJobStatus = Shared.Constants.getNewJobStatus();
     List<Shared.DDList> lstJobType = Shared.Constants.getNewJobType();
 
@@ -93,8 +96,8 @@
         </div>
 
         <div class="rsm-box">
-            <h4 class="rsm-title" style=" font-size 15px; font-weight 700; color #18ad50; margin 0; margin-bottom 22px; ">Job Description</h4>
-            <div class="decription"> @Html.DisplayFor(model => model.SHORTDESC)</div>
+            <h4 class="rsm-title" style="font-size 15px; font-weight 700; color #18ad50; margin 0; margin-bottom 22px; ">Job Description</h4>
+            <div class="decription"> @Html.Raw(description)</div>@*@Html.DisplayFor(model => model.SHORTDESC)*@
 
             <div class="rsm-sub-box">
                 <h4 class="title"> Job Type: </h4>

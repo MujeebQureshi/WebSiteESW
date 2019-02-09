@@ -27,8 +27,14 @@
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
-    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/assets/img/tile.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="~/Content/assets/img/logo.png">
+    @if (OrgInitials.Equals("MMI"))
+    {
+        <link rel="shortcut icon" sizes="any" href="/Content/assets/img/logo.png" type="image/png" />
+    }
+    else
+    {
+        <link rel="shortcut icon" sizes="any" href="/Content/assets/img/ESW_logo.png" type="image/png" />
+    }
 </head>
 
 <body>
@@ -127,7 +133,8 @@
     <script src="~/Content/DashBoard/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
     <script src="~/Content/DashBoard/assets/vendor/chartist/js/chartist.min.js"></script>
     <script src="~/Content/DashBoard/assets/scripts/klorofil-common.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>*@
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>

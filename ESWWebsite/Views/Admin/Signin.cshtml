@@ -24,8 +24,14 @@
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <!-- ICONS -->
-    <link rel="apple-touch-icon" sizes="76x76" href="~/Content/assets/img/tile.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="~/Content/assets/img/tile.png">
+    @if (OrgInitials.Equals("MMI"))
+    {
+        <link rel="shortcut icon" sizes="any" href="/Content/assets/img/logo.png" type="image/png" />
+    }
+    else
+    {
+        <link rel="shortcut icon" sizes="any" href="/Content/assets/img/ESW_logo.png" type="image/png" />
+    }
 </head>
 
 <body>
@@ -82,7 +88,8 @@
     </div>
     <!-- END WRAPPER -->
     @Scripts.Render("~/bundles/jquery")
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
     <script type="text/javascript">
         $("input").keypress(function (e) {
             $("#ErrMsg").text('');

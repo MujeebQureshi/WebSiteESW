@@ -8,7 +8,8 @@
     }
 
     List<WebsiteBackEnd.Models.jpopening> lstJobs = new List<WebsiteBackEnd.Models.jpopening>();
-    if (ViewBag.RecentOpenings != null) {
+    if (ViewBag.RecentOpenings != null)
+    {
         lstJobs = ViewBag.RecentOpenings as List<WebsiteBackEnd.Models.jpopening>;
     }
     List<Shared.DDList> lstJobType = Shared.Constants.getNewJobType();
@@ -26,8 +27,10 @@
             <!-- ./ top search title -->
             <div class="job-form">
                 <form id="frmgotoListJobs" action="#" method="get" class="flex-row">
-                    <div class="form-group"> <label style="color:cornsilk;" for="tops_keywords" class="control-label text-color-secondary">Search for your desired job</label> 
-                    <input name="search" id="search" type="text" class="form-control" placeholder="Keywords" /> </div>
+                    <div class="form-group">
+                        <label style="color:cornsilk;" for="tops_keywords" class="control-label text-color-secondary">Search for your desired job</label>
+                        <input name="search" id="search" type="text" class="form-control" placeholder="Keywords" />
+                    </div>
 
                     <a href="#" id="gotoListJobs" class="btn btn-flat-search">Search</a>
                 </form>
@@ -75,36 +78,38 @@
     </div>
 </div>
 <!-- ./ advice -->
-@if (lstJobs.Count>0){
-<div class="section section-listings container container-palette section-job-area">
-    <div class="container">
-        <h2 class="section-title">Latest Jobs</h2>
-        <!-- ./ section title -->
-        <div class="wraper-row">
-            <div class="column-content">
-                <div class="results-list">
-                    @foreach(var item in lstJobs){
-                    <div class="item">
-                        <div class="flex-row">
-                            <div class="grid-content">
-                                <h3 class="title text-color-secondary"><a href="/Home/ListJobs">@item.JOBTITLE</a></h3>
-                                <div class="options">
-                                    <span class="opt">@item.COMPANYNAME</span>
-                                    <span class="opt-light"><i class="icon_pin_alt"></i>@item.CITYNAME , @item.COUNTRYNAME</span>
+@if (lstJobs.Count > 0)
+{
+    <div class="section section-listings container container-palette section-job-area">
+        <div class="container">
+            <h2 class="section-title">Latest Jobs</h2>
+            <!-- ./ section title -->
+            <div class="wraper-row">
+                <div class="column-content">
+                    <div class="results-list">
+                        @foreach (var item in lstJobs)
+                        {
+                            <div class="item">
+                                <div class="flex-row">
+                                    <div class="grid-content">
+                                        <h3 class="title text-color-secondary"><a href="/Home/ListJobs">@item.JOBTITLE</a></h3>
+                                        <div class="options">
+                                            <span class="opt">@item.COMPANYNAME</span>
+                                            <span class="opt-light"><i class="icon_pin_alt"></i>@item.CITYNAME , @item.COUNTRYNAME</span>
+                                        </div>
+                                    </div>
+                                    <div class="grid-side"><span class="item-label text-red"><i class="icon_ribbon_alt"></i>@lstJobType.Find(x => x.Value.Equals(item.JOBTYPE)).Text </span></div>
                                 </div>
                             </div>
-                            <div class="grid-side"><span class="item-label text-red"><i class="icon_ribbon_alt"></i>@lstJobType.Find(x => x.Value.Equals(item.JOBTYPE)).Text </span></div>
-                        </div>
+                        }
+                        <!-- ./ job purpose -->
+
                     </div>
-                    }
-                    <!-- ./ job purpose -->
-                    
+                    <!-- ./ jobs list -->
                 </div>
-                <!-- ./ jobs list -->
             </div>
         </div>
     </div>
-</div>
 }
 <!-- ./ jobs sections -->
 <div class="section banner bg-color-primary container container-palette">
@@ -114,12 +119,13 @@
             <!-- ./ banner body -->
         </div>
         <div class="banner-navigation">
-            @if(SessionUser == null)
+            @if (SessionUser == null)
             {
-            <a href="/Home/Signin" class="btn btn-default">Add Your Resume</a>
+                <a href="/Home/Signin" class="btn btn-default">Add Your Resume</a>
             }
-            else{
-            <a href="/Home/MyProfile" class="btn btn-default">Add Your Resume</a>
+            else
+            {
+                <a href="/Home/MyProfile" class="btn btn-default">Add Your Resume</a>
             }
         </div>
         <!-- ./ banner link -->
@@ -135,7 +141,7 @@
                         <img src="~/Content/assets/img/pic/home_1/javed.jpg" alt="" class="rounded-circle" />
                     </a>
                 </div>
-                <div class="body">
+                <div class="body" style="text-align:justify;">
                     Welcome, and thank you for taking the time out to get to know the @OrgName (@OrgInitials). Being the Chief Executive, I feel privileged to welcome you on our platform and to our philosophy. We ensure to provide the best quality of services in the area of Executive Search and HR consultancy.
                     The @OrgName (@OrgInitials) is a Human Capital Solutions provider and a leader in a range of restructuring services and talent Solutions for organizations aiming to optimize their human capital and for individuals determined to develop their career potential and employability. We have decades of history of providing expert consulting services and engagement in re-sourcing and providing executives in local and international markets. We have successfully handled domains such as the recruitment areas, HR Consulting Services, Payroll Management Services and Primary Source Verification (PSV) of the employees requiring by the organization.
                     Thank you for your interest in @OrgName (@OrgInitials).
@@ -149,29 +155,24 @@
                 </div>
                 <!-- ./ review -->
             </div>
-            @if (OrgInitials.Equals("ESW")) {
-            <div class="item">
-                <div class="header">
-                    <a href="#" class="review-thumbnail">
-                        <img src="~/Content/assets/img/pic/home_1/asas.png" alt="" class="rounded-circle" />
-                    </a>
-                </div>
-                <div class="body">
-                    Asas Arif, holds over 7 years of professional experience in the oil and gas/petrochemical industries. By
-                    profession, he is a Chemical Technologist as well as a safety specialist and has worked with Engro
-                    Corporation and Qatar Petroleum. With hands-on experience of working in both local and international
-                    plant & safety operations and truly understanding safety standard, Asas holds a keen interest in
-                    ineffective communication and lack of protocols in the work place. In his spare time, he utilizes real
-                    world examples to raise awareness about safety in the work place and how effective communication is
-                    key to a safe work place. A concept he feels, is much ignored in Pakistan.
+            @if (OrgInitials.Equals("ESW"))
+            {
+                <div class="item">
+                    <div class="header">
+                        <a href="#" class="review-thumbnail">
+                            <img src="~/Content/assets/img/pic/home_1/asas.png" alt="" class="rounded-circle" />
+                        </a>
+                    </div>
+                    <div class="body" style="text-align:justify;">
+                        As a Chemical and Safety Engineering Professional, he has  strong academic knowledge and field exposure of Chemical Engineering operation, Process Safety, Technical operation and safety, business development and start up of plant.  He possess strong analytical, research, operational, safety management and other  management skills. He has fine knowledge required for an organization and industry to support  technical needs. Asas holds a keen interest in ineffective communication and dislikes  protocols in the work place. In his spare time, he utilizes real world examples to raise awareness about safety in the work place and knows how  effective communication, is key to a safe work place. A concept he feels, is much ignored in Pakistan.
 
+                    </div>
+                    <div class="footer">
+                        <p>
+                            Asas Arif
+                        </p>Business Development Manager
+                    </div>
                 </div>
-                <div class="footer">
-                    <a href="#">
-                        Asas Arif
-                    </a>, Manager
-                </div>
-            </div>
             }
 
         </div>
@@ -184,5 +185,5 @@
             $("#frmgotoListJobs").attr("action", "/Home/ListJobs?search=" + $("#search").val());
             $("#gotoListJobs").attr("href", "/Home/ListJobs?search=" + $("#search").val());
         })
-    </script>    
+    </script>
 }

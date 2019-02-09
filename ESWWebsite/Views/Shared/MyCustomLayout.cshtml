@@ -4,13 +4,14 @@
     WebsiteBackEnd.Models.jpuser SessionUser = null;
     if (Session[Shared.Constants.SESSION_USER] != null)
     {
-        SessionUser =  Session[Shared.Constants.SESSION_USER] as WebsiteBackEnd.Models.jpuser;
+        SessionUser = Session[Shared.Constants.SESSION_USER] as WebsiteBackEnd.Models.jpuser;
     }
     string navActive = (ViewBag.navActive != null) ? (string)ViewBag.navActive : "";
     string OrgName = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_NAME];
     string OrgInitials = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_INITIALS];
     string OrgContactAddress = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_CONTACT_ADD];
-    string OrgContactPhone = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_CONTACT_PH];
+    string OrgContactPhoneLL = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_CONTACT_LL];
+    string OrgContactPhoneMBL = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_CONTACT_MBL];
     string OrgContactEmail = System.Configuration.ConfigurationManager.AppSettings[Shared.Constants.ASK_ORG_CONTACT_EML];
 }
 
@@ -21,13 +22,14 @@
     <title>@OrgName</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     @*<link rel="shortcut icon" href="~/Content/assets/img/logo.png" type="image/png" />*@
-    
-    @if (OrgInitials.Equals("MMI")){
-            <link rel = "shortcut icon" href = "~/Content/assets/img/logo.png" type = "image/png" />
+
+    @if (OrgInitials.Equals("MMI"))
+    {
+        <link rel="shortcut icon" sizes="any" href="/Content/assets/img/logo.png" type="image/png" />
     }
     else
     {
-        <link rel = "shortcut icon" href = "~/Content/assets/img/ESW_logo.png" type = "image/png" />
+        <link rel="shortcut icon" sizes="any" href="/Content/assets/img/ESW_logo.png" type="image/png" />
     }
     <link rel="stylesheet" href='~/Content/assets/cache/css_01_home.min.css' />
     <link rel="stylesheet" href='~/Content/assets/cache/fontawesome/css/all.css' />
@@ -70,11 +72,11 @@
             <div class="wide-container">
                 <div class="flex-row">
                     <div class="grid logo-container">
-                        
+
                         <a class="navbar-brand" href="/Home/Index">
                             @if (OrgInitials.Equals("ESW"))
                             {
-                                <img src="~/Content/assets/img/ESW_logo.png" width="60" height="40" alt="" style="zoom:150%;">
+                                <img src="~/Content/assets/img/ESW_logo.png" width="60" height="60" alt="" style="zoom:150%;">
                             }
                             else
                             {
@@ -102,7 +104,7 @@
 
 
                                     @if (navActive.Equals(Shared.Constants.SP_ABOUT_US))
-   {
+                                    {
                                         <a class="nav-link active" href="/Home/AboutUs" aria-haspopup="true" aria-expanded="false">  About Us  </a>
                                     }
                                     else
@@ -110,21 +112,21 @@
                                         <a class="nav-link" href="/Home/AboutUs" aria-haspopup="true" aria-expanded="false">  About Us  </a>
                                     }
                                     @if (navActive.Equals(Shared.Constants.SP_SOFTWARE_SRVS))
-   {
+                                    {
                                         <a class="nav-link active" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
                                     }
                                     else
                                     {
                                         <a class="nav-link" href="/Home/SoftwareServices" aria-haspopup="true" aria-expanded="false">  Software Services  </a>
                                     }
-                                   
+
                                     @if (navActive.Equals(Shared.Constants.SP_CAREER_COUNCIL))
-   {
-                                    <a class="nav-link active" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+                                    {
+                                        <a class="nav-link active" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
                                     }
                                     else
                                     {
-                                    <a class="nav-link" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
+                                        <a class="nav-link" href="/Home/CareerCounselling" aria-haspopup="true" aria-expanded="false">  Career Counselling  </a>
                                     }
 
                                     @if (OrgInitials.Equals("ESW"))
@@ -144,13 +146,13 @@
                                         }
                                         else
                                         {
-                                            <a class="nav-link" href="/Home/OurServices" aria-haspopup="true" aria-expanded="false">  OurServices  </a>
+                                            <a class="nav-link" href="/Home/OurServices" aria-haspopup="true" aria-expanded="false">  Our Services  </a>
                                         }
 
 
                                     }
                                     @if (navActive.Equals(Shared.Constants.SP_LIST_JOBS))
-   {
+                                    {
                                         <a class="nav-link active" href="/Home/ListJobs" aria-haspopup="true" aria-expanded="false">  List Jobs  </a>
                                     }
                                     else
@@ -167,18 +169,18 @@
                     <!-- ./ main menu -->
                     <div class="grid quick-navigation">
                         @if (SessionUser == null)
-   {
-                        <a href="/Home/Signin" class="btn btn-clear" style="padding:0px 0px 0px 0px">
-                            <i class="icon_profile"></i>Sign In
-                        </a>
-                        <span>/</span>
-                        <a href="/Home/Signup" class="btn btn-clear" style="padding:0px 0px 0px 0px">
-                            @*<i class="icon_profile"></i>*@Sign Up
-                        </a>
+                        {
+                            <a href="/Home/Signin" class="btn btn-clear" style="padding:0px 0px 0px 0px">
+                                <i class="icon_profile"></i>Sign In
+                            </a>
+                            <span>/</span>
+                            <a href="/Home/Signup" class="btn btn-clear" style="padding:0px 0px 0px 0px">
+                                @*<i class="icon_profile"></i>*@Sign Up
+                            </a>
                         }
                         else
                         {
-                            <a  class="btn btn-clear dropdown-toggle" data-toggle="dropdown">
+                            <a class="btn btn-clear dropdown-toggle" data-toggle="dropdown">
                                 <i class="icon_profile"></i>@SessionUser.USERNAME
                             </a>
                             <ul class="dropdown-menu">
@@ -213,7 +215,7 @@
                                     </div>
                                 </li>
                             </ul>
-               
+
                         }
                     </div>
                     <!-- ./ actions panel -->
@@ -223,23 +225,26 @@
         <!-- ./ navigation bar -->
     </header>
     <div>
-        @if(SessionUser!= null){
-            if (SessionUser.ACTIVE.Equals(Shared.Constants.STR_NO)) {
-            <div class="alert alert-warning">
-                <strong>Warning!</strong> You are not yet verified! Please click the verification link sent to your email.
-                @if (SessionUser.isVerifyLinkSent == false)
-                {
-                    <button id="btnResend" style="float:right; margin-top:-5px;" class="btn btn-sm"><span id="btnSpnResend" onclick="ReSendVerfLink();">Resend verification link</span></button>
-                }
-            </div>
+        @if (SessionUser != null)
+        {
+            if (SessionUser.ACTIVE.Equals(Shared.Constants.STR_NO))
+            {
+                <div class="alert alert-warning">
+                    <strong>Warning!</strong> You are not yet verified! Please click the verification link sent to your email.
+                    @if (SessionUser.isVerifyLinkSent == false)
+                    {
+                        <button id="btnResend" style="float:right; margin-top:-5px;" class="btn btn-sm"><span id="btnSpnResend" onclick="ReSendVerfLink();">Resend verification link</span></button>
+                    }
+                </div>
             }
             else
             {
-                if (!SessionUser.isProfileComplete) {
-                <div class="alert alert-warning">
-                    <strong>Warning!</strong> Your profile seems to be incomplete. Click the button to complete your profile and start applying on your desired jobs!.
-                    <a href="/Home/MyProfile" style="float:right; margin-top:-5px;" class="btn btn-sm"><span>Complete my profile!</span></a>
-                </div>
+                if (!SessionUser.isProfileComplete)
+                {
+                    <div class="alert alert-warning">
+                        <strong>Warning!</strong> Your profile seems to be incomplete. Click the button to complete your profile and start applying on your desired jobs!.
+                        <a href="/Home/MyProfile" style="float:right; margin-top:-5px;" class="btn btn-sm"><span>Complete my profile!</span></a>
+                    </div>
                 }
             }
         }
@@ -253,7 +258,7 @@
                         <div class="f_widget widget-about">
                             <h2 class="title">About @OrgInitials</h2>
                             <!-- ./ widget title -->
-                            <div class="body" >@OrgName (@OrgInitials) is a Human Capital Solutions provider and a leader in a range of restructuring services and talent Solutions for organizations aiming to optimize their human capital and for individuals determined to develop their...</div><div><a href="/Home/AboutUs">Read More</a></div>
+                            <div class="body">@OrgName (@OrgInitials) is a Human Capital Solutions provider and a leader in a range of restructuring services and talent Solutions for organizations aiming to optimize their human capital and for individuals determined to develop their...</div><div><a href="/Home/AboutUs">Read More</a></div>
                             <!-- ./ widget body -->
                         </div>
                         <!-- ./ widget about -->
@@ -273,9 +278,9 @@
                                     {
                                         <li><a href="/Home/MyProfile"><i class="arrow_carrot-right_alt2"></i>Submit Resume</a></li>
                                     }
-                                    
+
                                     @*<li><a href="#"><i class="arrow_carrot-right_alt2"></i>Saved Jobs</a></li>
-                                    <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Help</a></li>*@
+                                        <li><a href="#"><i class="arrow_carrot-right_alt2"></i>Help</a></li>*@
                                 </ul>
                             </div>
                             <!-- ./ widget body -->
@@ -286,28 +291,34 @@
                         <div class="f_widget widget-contact">
                             <h2 class="title">Contact Us</h2>
                             <!-- ./ widget title -->
-                            <div class="body">Address:  @OrgContactAddress <br /> 
-                             @*@OrgContactPhone*@ Landline : 001 832 321 4990<br />
-                                Mobile: 001 346 216 1478, 001 832 661 1175  <br />
-                                Email : @OrgContactEmail 
+                            <div class="body">
+                                @if (!string.IsNullOrEmpty(OrgContactAddress))
+                                {
+                                    <p style="margin-bottom:0;">
+                                        Address:  @OrgContactAddress <br />
+                                    </p>
+                                }
+                                Landline : @OrgContactPhoneLL<br />
+                                Mobile: @OrgContactPhoneMBL  <br />
+                                Email : @OrgContactEmail
                             </div>
                             <!-- ./ widget body -->
                         </div>
                         <!-- ./ widget contact -->
                     </div>
                     @*<div class="col-md-3">
-                        <div class="f_widget widget-subscribe">
-                            <h2 class="title">Newsletter</h2>
-                            <!-- ./ widget title -->
-                            <div class="body">
-                                <form action="#">
-                                    <div class="form-group-subscribe">  <button type="submit" class="btn btn-subscribe btn-custom btn-custom-secondary"><i class="icon_mail_alt"></i></button>  <input name="mail" type="email" class="form-control" placeholder="Enter Your Email" />  </div>
-                                </form>
+                            <div class="f_widget widget-subscribe">
+                                <h2 class="title">Newsletter</h2>
+                                <!-- ./ widget title -->
+                                <div class="body">
+                                    <form action="#">
+                                        <div class="form-group-subscribe">  <button type="submit" class="btn btn-subscribe btn-custom btn-custom-secondary"><i class="icon_mail_alt"></i></button>  <input name="mail" type="email" class="form-control" placeholder="Enter Your Email" />  </div>
+                                    </form>
+                                </div>
+                                <!-- ./ widget body -->
                             </div>
-                            <!-- ./ widget body -->
-                        </div>
-                        <!-- ./ widget subscribe -->
-                    </div>*@
+                            <!-- ./ widget subscribe -->
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -317,7 +328,7 @@
                     <div class="right"><span class="copyright">Copyright © @DateTime.Now.Year - @OrgInitials - @OrgName</span></div>
                     <!-- ./ copyright -->
                     <div class="left">
-    
+
                     </div>
                 </div>
             </div>
@@ -326,13 +337,14 @@
     </footer>
     <!-- ./ footer -->
     <div class="se-pre-con"></div>
-    
+
     @Scripts.Render("~/bundles/jquery")
     @*@Scripts.Render("~/bundles/bootstrap")*@
     <script src="~/Content/assets/cache/js_01_home.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
     <script>
-        
+
 
         function ReSendVerfLink() {
             $("#btnResend").hide();
@@ -353,7 +365,7 @@
         }
 
     </script>
-    
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
